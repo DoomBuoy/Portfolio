@@ -1,30 +1,79 @@
-Dimension by HTML5 UP
-html5up.net | @ajlkn
-Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+# Data Science Portfolio - Agam Singh Saini
 
+A modern, responsive portfolio website showcasing my journey as a Data Scientist, featuring projects, certifications, and professional experience.
 
-This is Dimension, a fun little one-pager with modal-ized (is that a word?) "pages"
-and a cool depth effect (click on a menu item to see what I mean). Simple, fully
-responsive, and kitted out with all the usual pre-styled elements you'd expect.
-Hope you dig it :)
+## 👤 Author
+**Agam Singh Saini**  
+DataCamp Certified Data Scientist  
+Master's Student in Data Science and Innovation at University of Technology Sydney
 
-Demo images* courtesy of Unsplash, a radtastic collection of CC0 (public domain) images
-you can use for pretty much whatever.
+## 🌟 About
 
-(* = not included)
+This portfolio demonstrates my expertise in:
+- Data Analysis & Visualization
+- Machine Learning & Predictive Modeling
+- Statistical Analysis
+- Python, R, SQL, and Tableau
+- Transforming complex data into actionable insights
 
-AJ
-aj@lkn.io | @ajlkn
+## 🚀 Features
 
+- **Responsive Design**: Fully optimized for desktop, tablet, and mobile devices
+- **Interactive UI**: Modal-based navigation with smooth transitions
+- **Sections Include**:
+  - 🎓 Education (UTS & Thapar Institute)
+  - 💼 Professional Experience
+  - 📊 Data Science Projects
+  - 🏆 Certifications
+  - 🌱 Community Initiatives
+- **Resume Download**: Direct access to latest resume
+- **Project Showcases**: Detailed case studies with visualizations
 
-Credits:
+## 🛠️ Technologies Used
 
-	Demo Images:
-		Unsplash (unsplash.com)
+- **HTML5 & CSS3**: Semantic markup and modern styling
+- **JavaScript**: Interactive functionality
+- **SASS**: Advanced CSS preprocessing
+- **jQuery**: DOM manipulation and animations
+- **Font Awesome**: Professional iconography
+- **Responsive Tools**: Mobile-first design approach
 
-	Icons:
-		Font Awesome (fontawesome.io)
+## 📁 Project Structure
 
-	Other:
-		jQuery (jquery.com)
-		Responsive Tools (github.com/ajlkn/responsive-tools)
+```
+Portfolio/
+├── index.html              # Main portfolio page
+├── assets/
+│   ├── css/               # Compiled stylesheets
+│   ├── js/                # JavaScript files
+│   ├── sass/              # SASS source files
+│   └── webfonts/          # Font Awesome fonts
+├── images/                # Portfolio images and logos
+├── LICENSE.txt
+└── README.txt
+```
+
+## 🎨 Template Credits
+
+This portfolio is built upon the "Dimension" template by HTML5 UP:
+- **Original Template**: Dimension by HTML5 UP (html5up.net)
+- **License**: CCA 3.0 (Free for personal and commercial use)
+- **Original Author**: @ajlkn
+
+### Additional Credits:
+- **Icons**: Font Awesome (fontawesome.io)
+- **JavaScript Library**: jQuery (jquery.com)
+- **Responsive Framework**: Responsive Tools by @ajlkn
+
+## 📄 License
+
+This project uses the CCA 3.0 license from the original HTML5 UP template.
+Portfolio content © 2025 Agam Singh Saini
+
+## 🔗 Connect
+
+Feel free to explore my projects and reach out for collaborations or opportunities!
+
+---
+
+*Last Updated: November 2025*

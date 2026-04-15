@@ -1,435 +1,1024 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<title>Data Science Portfolio</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agam Singh Saini | Data Scientist & ML Engineer</title>
+    
+    <!-- Premium Fonts: Plus Jakarta (Display), Inter (Body), JetBrains Mono (Metrics/Data) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            bg: '#f8fafc',       // Slate 50 (Pearl background)
+                            surface: '#ffffff',  // Pure White (Cards)
+                            border: '#e2e8f0',   // Slate 200 (Crisp borders)
+                            text: '#0f172a',     // Slate 900 (Deep charcoal for headings - High Contrast)
+                            muted: '#475569',    // Slate 600 (Secondary text - High Contrast)
+                            accent: '#4f46e5',   // Indigo 600 (Primary ML highlight)
+                            secondary: '#06b6d4',// Cyan 500 (Secondary ML highlight)
+                        }
+                    },
+                    boxShadow: {
+                        'neural': '0 4px 20px -2px rgba(79, 70, 229, 0.05), 0 0 3px rgba(79, 70, 229, 0.02)',
+                        'neural-hover': '0 20px 30px -10px rgba(79, 70, 229, 0.1), 0 0 10px rgba(6, 182, 212, 0.05)',
+                    }
+                }
+            }
+        }
+    </script>
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+    <!-- Lenis & GSAP for butter-smooth interactions -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-				<!-- Header -->
-					<header id="header">
-						<div class="logo">
-							<img src="images/Logo.jpeg" alt="My Logo" />
-						</div>
-						<div class="content">
-							<div class="inner">
-								<h1>Hi! I'm </h1>
-								<h1>Agam Singh Saini</h1>
-								<p>Master’s candidate in Data Science | Mechatronics Engineer</p>
-								<p>Passionate about building data-driven applications that solve real-world problems. Experienced in high-speed data pipelines, geospatial analytics, and predictive ML models. Creator of Sydly, a transit app with 10k+ active vehicles tracked live.</p>
-								<a href="Data_Science.pdf" download class="button primary" style="margin-top: 1rem;">
-									<i class="fa fa-download"></i> Download Resume
-								</a>
-							</div>
-						</div>
-						<nav>
-							<ul>
-								<li><a href="#Education">Education</a></li>
-								<li><a href="#Experience">Experience</a></li>
-								<li><a href="#Skills">Skills</a></li>
-								<li><a href="#Projects">Projects</a></li>
-								<li><a href="#Certificates">Certificates</a></li>
-								<li><a href="#Extra">Initiatives</a></li>
-							</ul>
-						</nav>
-					</header>
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #0f172a;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            /* Very faint connecting nodes pattern */
+            background-image: radial-gradient(rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
 
-				<!-- Main -->
-					<div id="main">
+        /* Deep Learning Ambient Glows (Latent Space representation) */
+        .ambient-glow-indigo {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(79, 70, 229, 0.04) 0%, rgba(248,250,252,0) 70%);
+            pointer-events: none;
+            z-index: -1;
+            filter: blur(40px);
+        }
+        .ambient-glow-cyan {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.04) 0%, rgba(248,250,252,0) 70%);
+            pointer-events: none;
+            z-index: -1;
+            filter: blur(40px);
+        }
 
-						<!-- Skills -->
-							<article id="Skills">
-								<h2 class="major">🛠 Technical Skills</h2>
-								<div class="skills-container" style="display: flex; flex-wrap: wrap; gap: 2rem;">
-									<div class="skill-category" style="flex: 1; min-width: 250px; background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
-										<h3 style="color: #4FC3F7; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; margin-bottom: 1rem;">Languages</h3>
-										<p>Python, SQL, C++, C, Dart (Flutter)</p>
-									</div>
-									<div class="skill-category" style="flex: 1; min-width: 250px; background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
-										<h3 style="color: #4FC3F7; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; margin-bottom: 1rem;">Machine Learning & AI</h3>
-										<p>Deep Learning, Neural Networks, Natural Language Processing (NLP), Computer Vision, TensorFlow, Scikit-Learn, XGBoost, CatBoost, LightGBM</p>
-									</div>
-									<div class="skill-category" style="flex: 1; min-width: 250px; background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
-										<h3 style="color: #4FC3F7; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; margin-bottom: 1rem;">Libraries & Data</h3>
-										<p>Pandas, NumPy, PySpark, FastAPI, Streamlit, ROS2, Protocol Buffers, OpenStreetMap</p>
-									</div>
-									<div class="skill-category" style="flex: 1; min-width: 250px; background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
-										<h3 style="color: #4FC3F7; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem; margin-bottom: 1rem;">Tools & DevOps</h3>
-										<p>Git, GitHub, CI/CD, Docker, Databricks, Azure, Power BI (DAX)</p>
-									</div>
-								</div>
-							</article>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f8fafc; border-left: 1px solid #e2e8f0; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
-						<!-- Education -->
-							<article id="Education">
-								<h2 class="major">🎓 Education</h2>
-								<div class="education-tile">
-									<img src="images/UTS.jpg" alt="University of Technology Sydney" class="edu-img" />
-									<div class="edu-details">
-										<h3><a href="https://www.uts.edu.au/courses/master-of-data-science-and-innovation">Masters in Data Science and Innovation</a></h3>
-										<p><strong>Institution:</strong> <a href="https://www.uts.edu.au/">University Of Technology Sydney</a></p>
-										<p><strong>Location:</strong> Sydney, NSW, Australia</p>
-										<p><strong>Duration:</strong> Feb 2025 – Present</p>
-										<p><strong>GPA:</strong> 3.5/4</p>
-									</div>
-								</div>
-								<div class="education-tile">
-									<img src="images/TIET.jpg" alt="Thapar Institute of Engineering and Technology" class="edu-img" />
-									<div class="edu-details">
-										<h3><a href="https://www.thapar.edu/programmes/pages/btech-in-mechatronics">B.E. in Mechatronics Engineering</a></h3>
-										<p><strong>Institution:</strong> <a href="https://www.thapar.edu/">Thapar Institute of Engineering and Technology</a></p>
-										<p><strong>Location:</strong> Patiala, Punjab, India</p>
-										<p><strong>Duration:</strong> Mar 2020 – Jun 2024</p>
-										<p><strong>CGPA:</strong> 8.77/10</p>
-									</div>
-								</div>
-							</article>
+        /* Premium Neural Card Hover Effects */
+        .luxury-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 20px -2px rgba(79, 70, 229, 0.02);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .luxury-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, #4f46e5, #06b6d4);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .luxury-card:hover {
+            border-color: rgba(79, 70, 229, 0.2);
+            box-shadow: 0 20px 30px -10px rgba(79, 70, 229, 0.08);
+            transform: translateY(-4px);
+        }
+        .luxury-card:hover::after {
+            opacity: 1;
+        }
 
-						<!-- Experience -->
-							<article id="Experience">
-								<h2 class="major">💼 Work Experience</h2>
-								<div class="experience-tile">
-									<img src="images/drdo.jpg" alt="CVRDE DRDO" class="exp-img" />
-									<div class="edu-details">
-										<h3>Robotics Engineering R&D Intern</h3>
-										<p><strong>Company:</strong> Combat Vehicle Research and Development Establishment</p>
-										<p><strong>Location:</strong> Chennai, Tamil Nadu, India</p>
-										<p><strong>Duration:</strong> Jan 2023 – Jun 2023</p>
-										<ul>
-											<li>Designed and built autonomous computer vision pipelines using ROS2, implementing real-time person detection and obstacle avoidance that improved navigation safety by 40%.</li>
-											<li>Worked closely with senior scientists to test autonomous behaviors across 50+ hours of Gazebo simulations, translating technical findings into tangible prototype improvements.</li>
-										</ul>
-									</div>
-								</div>
-								<div class="experience-tile">
-									<img src="images/spectrum.png" alt="Spectrum Technology" class="exp-img" />
-									<div class="edu-details">
-										<h3>Mechatronics Engineering Intern</h3>
-										<p><strong>Company:</strong> <a href="https://www.indiamart.com/spectrumtechnology-ambala/">Spectrum Technology</a></p>
-										<p><strong>Location:</strong> Ambala, Haryana, India</p>
-										<p><strong>Duration:</strong> Jun 2023 – Aug 2023</p>
-										<ul>
-											<li>Developed IoT data acquisition systems from the ground up using LabVIEW, enabling the team to monitor 50+ industrial sensors in under a second.</li>
-											<li>Built reliable, continuous alert mechanisms (99.9% uptime) and wrote clear, comprehensive documentation to help future teams onboard easily.</li>
-										</ul>
-									</div>
-								</div>
-								<div class="experience-tile">
-									<img src="images/iwcs.jpeg" alt="Informed Care Services" class="exp-img" />
-									<div class="edu-details">
-										<h3>Support Worker (Part-Time)</h3>
-										<h4>Informed Care Services | Sydney, NSW</h4>
-										<p><strong>April 2025 – Present</strong></p>
-										<ul>
-											<li>Manage daily care plans for 5+ clients, balancing empathy with strict 100% documentation accuracy under NDIS standards, all while studying full-time.</li>
-											<li>Act as a proactive communicator between families and healthcare providers, smoothly resolving scheduling conflicts to ensure clients receive uninterrupted care.</li>
-										</ul>
-									</div>
-								</div>
-							</article>
+        /* Interactive Timeline Line */
+        .data-line::before {
+            content: '';
+            position: absolute;
+            left: 1.5rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, rgba(79, 70, 229, 0.2), rgba(6, 182, 212, 0.2), transparent);
+        }
 
-						<!-- Projects -->
-							<article id="Projects">
-								<h2 class="major">🚀 Projects</h2>
-								<div class="project-tile">
-									<img src="images/safarnama.png" alt="Sydly" class="project-logo" />
-									<div class="project-details">
-										<h3>Sydly (NSW Transit & Driving App)</h3>
-										<p>
-											<a href="https://doombuoy.github.io/Transport_app_website/" target="_blank" style="color:#4FC3F7;">Live Site</a> |
-											<a href="https://play.google.com/store/apps/details?id=io.github.Doombuoy.safarnama" target="_blank" style="color:#4FC3F7;">Google Play</a> |
-											<a href="https://apps.apple.com/au/app/sydly-travel-sydney-seamlessly/id6761148694" target="_blank" style="color:#4FC3F7;">App Store</a>
-										</p>
-										<p>Successfully launched a comprehensive transit application on the Google Play Store and App Store, helping NSW commuters navigate daily travel with live tracking and smart trip planning. Engineered a high-speed backend to consume live TfNSW GTFS-R feeds, smoothly rendering 10,000+ active vehicles on a map with precise 5-second GPS updates.</p>
-										<p><strong>Tech:</strong> Flutter, Dart, TfNSW Open Data API (GTFS-R), Protocol Buffers, flutter_map, REST APIs</p>
-										<p><strong>Date:</strong> February 2026</p>
-									</div>
-								</div>
-								<div class="project-tile">
-									<img src="images/bitcoin.jpg" alt="Bitcoin Price Prediction" class="project-logo" />
-									<div class="project-details">
-										<h3>Bitcoin Price Prediction System</h3>
-										<p>
-											<a href="https://digitalappuctbitcoinpriceprediction-8f9newvrhuqkth7wb25e7l.streamlit.app/" target="_blank" style="color:#4FC3F7;">Live Demo</a> | 
-											<a href="https://github.com/DoomBuoy/Digital_Product_Bitcoin_Price_Prediction" target="_blank" style="color:#4FC3F7;">View Project</a>
-										</p>
-										<p>Built and deployed a live cryptocurrency forecasting web app using FastAPI and Streamlit. Trained machine learning models (XGBoost, LightGBM, CatBoost) on a decade of historical data, achieving a solid 79.6% R² score for next-day price predictions.</p>
-										<p><strong>Tech:</strong> Python, XGBoost, LightGBM, CatBoost, FastAPI, Streamlit, Docker</p>
-										<p><strong>Date:</strong> November 2025</p>
-									</div>
-								</div>
-								<div class="project-tile">
-									<img src="images/weather.jpg" alt="Weather Prediction" class="project-logo" />
-									<div class="project-details">
-										<h3>Weather Prediction Digital Product</h3>
-										<p>
-											<a href="https://digitalappuctweatherprediction-tfdvs8zextpi3xvktbpogy.streamlit.app/" target="_blank" style="color:#4FC3F7;">Live Demo</a> | 
-											<a href="https://github.com/DoomBuoy/Digital_Product_Weather_Prediction" target="_blank" style="color:#4FC3F7;">View Project</a>
-										</p>
-										<p>Developed a weather prediction system providing accurate forecasts for rain occurrence and precipitation amounts using ensemble ML models. Integrated real-time data from Open-Meteo API.</p>
-										<p><strong>Tech:</strong> Python, CatBoost, XGBoost, LightGBM, FastAPI, Streamlit, Docker</p>
-										<p><strong>Date:</strong> November 2025</p>
-									</div>
-								</div>
-								<div class="project-tile">
-									<img src="images/package.jpg" alt="DoomBuoy Package" class="project-logo" />
-									<div class="project-details">
-										<h3>DoomBuoy Python Package</h3>
-										<p>
-											<a href="https://test.pypi.org/project/doombuoy/" target="_blank" style="color:#4FC3F7;">PyPI Package</a> | 
-											<a href="https://github.com/DoomBuoy/doombuoy" target="_blank" style="color:#4FC3F7;">View Project</a>
-										</p>
-										<p>Created and published an open-source Python package on PyPI designed to speed up everyday data preprocessing and ML workflows.</p>
-										<p><strong>Tech:</strong> Python, Scikit-Learn, PyPI, Package Development</p>
-										<p><strong>Date:</strong> November 2025</p>
-									</div>
-								</div>
-								<div class="project-tile">
-									<img src="images/taxi.jpg" alt="NYC Taxi Analysis" class="project-logo" />
-									<div class="project-details">
-										<h3>NYC Taxi Big Data Analytics</h3>
-										<p>
-											<a href="https://github.com/DoomBuoy/New_York_Taxi_Databricks" target="_blank" style="color:#4FC3F7;">View Project</a>
-										</p>
-										<p>Engineered a scalable Databricks pipeline to process and analyze 1 Billion taxi records, successfully cleaning over 80 million rows of messy data. Developed fare prediction models with 87% accuracy.</p>
-										<p><strong>Tech:</strong> PySpark, Databricks, Python, SQL</p>
-										<p><strong>Date:</strong> November 2024</p>
-									</div>
-								</div>
-								<!-- More projects can be listed here -->
-							</article>
+        @media (max-width: 768px) {
+            .data-line::before { left: 1rem; }
+        }
 
-						<!-- Certificates -->
-							<article id="Certificates">
-								<h2 class="major">📜 Certificates</h2>
-								<div id="cert-groups-view" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
-									<div class="cert-group-card" onclick="showCertGroup('group-specialization')" style="cursor: pointer; background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); text-align: center; transition: transform 0.2s;">
-										<div style="font-size: 3rem; margin-bottom: 1rem;">📜</div>
-										<h3>Specialization Certificates</h3>
-										<p>IBM, DataCamp, and UTS BUILD programs</p>
-									</div>
-									<div class="cert-group-card" onclick="showCertGroup('group-nptel')" style="cursor: pointer; background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); text-align: center; transition: transform 0.2s;">
-										<div style="font-size: 3rem; margin-bottom: 1rem;">🎓</div>
-										<h3>NPTEL Certifications</h3>
-										<p>Machine Learning and Data Analytics (IITs)</p>
-									</div>
-									<div class="cert-group-card" onclick="showCertGroup('group-online')" style="cursor: pointer; background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); text-align: center; transition: transform 0.2s;">
-										<div style="font-size: 3rem; margin-bottom: 1rem;">🌐</div>
-										<h3>Online Course Certificates</h3>
-										<p>University of Michigan and IBM specialized courses</p>
-									</div>
-								</div>
+        /* Certificate Transitions */
+        .cert-group-detail { display: none; animation: fadeInData 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes fadeInData {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-								<div id="group-specialization" class="cert-group-detail" style="display: none;">
-									<button class="button small" onclick="showCertGroups()" style="margin-bottom: 2rem;">← Back to Categories</button>
-									<h3>Specialization Certificates</h3>
-									<div class="cert-tile">
-										<img src="images/Build_certi.jpg" alt="UTS BUILD Logo" class="cert-logo" />
-										<div class="cert-details">
-											<h3>UTS BUILD Graduate & Media Ambassador</h3>
-											<p><strong>Issuer:</strong> UTS | <strong>Issued:</strong> Nov 2025</p>
-										</div>
-									</div>
-									<div class="cert-tile">
-										<img src="images/datacamp.png" alt="DataCamp Logo" class="cert-logo" />
-										<div class="cert-details">
-											<h3>Data Scientist Professional</h3>
-											<p><strong>Issuer:</strong> DataCamp | <strong>Issued:</strong> Jun 2025</p>
-										</div>
-									</div>
-									<div class="cert-tile">
-										<img src="images/ibm.jpg" alt="IBM Logo" class="cert-logo" />
-										<div class="cert-details">
-											<h3>IBM Data Science Specialization</h3>
-											<p><strong>Issuer:</strong> IBM | <strong>Issued:</strong> May 2023</p>
-										</div>
-									</div>
-								</div>
+        /* AI/ML Text Gradients */
+        .text-ai-gradient {
+            background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .bg-ai-gradient {
+            background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+        }
+        
+        /* Subtle image treatments */
+        .img-blend {
+            mix-blend-mode: multiply;
+        }
 
-								<div id="group-nptel" class="cert-group-detail" style="display: none;">
-									<button class="button small" onclick="showCertGroups()" style="margin-bottom: 2rem;">← Back to Categories</button>
-									<h3>NPTEL Certifications</h3>
-									<div class="cert-tile">
-										<img src="images/nptl.jpg" alt="NPTEL Logo" class="cert-logo" />
-										<div class="cert-details">
-											<h3>Data Analytics with Python</h3>
-											<p><strong>Issuer:</strong> NPTEL (IIT Roorkee) | <strong>Issued:</strong> Jul 2023</p>
-										</div>
-									</div>
-									<div class="cert-tile">
-										<img src="images/nptl.jpg" alt="NPTEL Logo" class="cert-logo" />
-										<div class="cert-details">
-											<h3>Introduction to Machine Learning</h3>
-											<p><strong>Issuer:</strong> NPTEL (IIT Madras) | <strong>Issued:</strong> Jul 2023</p>
-										</div>
-									</div>
-								</div>
+        /* Neural Network Canvas */
+        #neural-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="font-body selection:bg-brand-accent/10 selection:text-brand-accent">
 
-								<div id="group-online" class="cert-group-detail" style="display: none;">
-									<button class="button small" onclick="showCertGroups()" style="margin-bottom: 2rem;">← Back to Categories</button>
-									<h3>Online Course Certificates</h3>
-									<div class="cert-tile">
-										<img src="images/michigan.png" alt="University of Michigan Logo" class="cert-logo" />
-										<div class="cert-details">
-											<h3>Applied Plotting in Python</h3>
-											<p><strong>Issuer:</strong> University of Michigan | <strong>Issued:</strong> Jul 2023</p>
-										</div>
-									</div>
-									<div class="cert-tile">
-										<img src="images/ibm.jpg" alt="IBM Logo" class="cert-logo" />
-										<div class="cert-details">
-											<h3>SQL for Data Science</h3>
-											<p><strong>Issuer:</strong> IBM | <strong>Issued:</strong> May 2023</p>
-										</div>
-									</div>
-								</div>
-							</article>
+    <!-- Neural Network Background Canvas -->
+    <canvas id="neural-bg"></canvas>
 
-						<!-- Initiatives -->
-							<article id="Extra">
-								<h2 class="major">🌟 Initiatives</h2>
-								<div class="activity-tile">
-									<img src="images/peernetwork.jpg" alt="UTS Peer Network Logo" class="activity-logo" />
-									<div class="activity-details">
-										<h3>UTS Peer Networker</h3>
-										<p><strong>Institution:</strong> UTS | <strong>Duration:</strong> Nov 2025 - Present</p>
-										<p>Welcomed and guided over 1,000 new students during university orientation.</p>
-									</div>
-								</div>
-								<div class="activity-tile">
-									<img src="images/build.jpg" alt="UTS BUILD Logo" class="activity-logo" />
-									<div class="activity-details">
-										<h3>Media Ambassador, UTS BUILD</h3>
-										<p><strong>Institution:</strong> UTS | <strong>Duration:</strong> Nov 2025</p>
-										<p>Translated complex program missions into engaging stories for the student body.</p>
-									</div>
-								</div>
-								<div class="activity-tile">
-									<img src="images/robotics.png" alt="Robotics Society Logo" class="activity-logo" />
-									<div class="activity-details">
-										<h3>Technical Lead – Mechatronics & Robotics Society</h3>
-										<p><strong>Institution:</strong> Thapar | <strong>Duration:</strong> Jan 2020 – Jun 2024</p>
-										<p>Led AI/CV workshops for over 200 students, offering hands-on mentorship.</p>
-									</div>
-								</div>
-							</article>
+    <!-- Ambient Latent Space Backgrounds -->
+    <div class="ambient-glow-indigo w-[600px] h-[600px] top-0 left-0 -translate-x-1/4 -translate-y-1/4"></div>
+    <div class="ambient-glow-cyan w-[800px] h-[800px] top-1/3 right-0 translate-x-1/3"></div>
+    <div class="ambient-glow-indigo w-[700px] h-[700px] bottom-0 left-1/2 -translate-x-1/2 translate-y-1/3"></div>
 
-						<!-- Elements -->
-							<article id="elements">
-								<h2 class="major">Elements</h2>
-								<section>
-									<h3 class="major">Text</h3>
-									<p>This is <b>bold</b> and this is <strong>strong</strong>. This is <i>italic</i> and this is <em>emphasized</em>. Finally, <a href="#">this is a link</a>.</p>
-									<hr />
-									<h2>Heading Level 2</h2>
-									<h3>Heading Level 3</h3>
-									<hr />
-									<h4>Blockquote</h4>
-									<blockquote>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget tempus euismod.</blockquote>
-								</section>
-							</article>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-xl border-b border-brand-border z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="font-display font-bold text-xl tracking-tight text-brand-text flex items-center gap-3 group">
+                <div class="w-8 h-8 rounded bg-white border border-brand-border overflow-hidden group-hover:border-indigo-300 transition-colors hidden sm:block shadow-sm p-0.5">
+                    <img src="images/Logo.jpeg" alt="Logo" class="w-full h-full object-cover rounded-sm">
+                </div>
+                A.S. Saini
+            </a>
+            <div class="hidden md:flex gap-8 text-sm font-medium text-brand-muted">
+                <a href="#about" class="hover:text-brand-accent transition-colors">Overview</a>
+                <a href="#skills" class="hover:text-brand-accent transition-colors">Architecture</a>
+                <a href="#experience" class="hover:text-brand-accent transition-colors">Timeline</a>
+                <a href="#projects" class="hover:text-brand-accent transition-colors">Deployments</a>
+                <a href="#certificates" class="hover:text-brand-accent transition-colors">Credentials</a>
+            </div>
+            <a href="Data_Science.pdf" download class="hidden md:inline-flex items-center gap-2 bg-white border border-brand-border text-brand-text px-5 py-2.5 rounded-lg text-sm font-semibold hover:border-brand-accent hover:text-brand-accent transition-all shadow-sm">
+                <i class="fa fa-file-pdf text-brand-accent"></i> Resume
+            </a>
+        </div>
+    </nav>
 
-					</div>
+    <main id="smooth-wrapper" class="pt-24 relative" style="z-index:2;">
+        <div id="smooth-content">
 
-				<!-- Footer -->
-					<footer id="footer">
-						<p class="copyright">
-							&copy; Get in Touch !<br>
-							<a href="tel:+610425249904" class="icon solid fa-phone" title="Phone" style="margin-right: 50px;"><span class="label">Phone</span></a>
-							<a href="mailto:Agamsingh.saini@student.uts.edu.au" class="icon solid fa-envelope" title="Email" style="margin-right: 50px;"><span class="label">Email</span></a>
-							<a href="https://www.linkedin.com/in/agam-singh-saini-199185220/" class="icon brands fa-linkedin" title="LinkedIn" target="_blank" style="margin-right: 50px;"><span class="label">LinkedIn</span></a>
-							<a href="https://github.com/Doombuoy" class="icon brands fa-github" title="GitHub" target="_blank"><span class="label">GitHub</span></a>
-						</p>
-					</footer>
+            <!-- Hero Section -->
+            <section id="about" class="relative min-h-[85vh] flex items-center px-6 py-20">
+                <div class="max-w-7xl mx-auto w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-9 reveal-up">
+                        <div class="font-mono text-brand-muted text-xs mb-6 flex items-center gap-3 bg-white border border-brand-border inline-flex px-3 py-1.5 rounded-md shadow-sm">
+                            <span class="w-2 h-2 rounded-full bg-ai-gradient animate-pulse"></span>
+                            <span class="tracking-wider font-semibold uppercase text-slate-600">Model Status: Optimized</span>
+                        </div>
+                        <h1 class="font-display font-extrabold text-5xl md:text-6xl lg:text-[5rem] leading-[1.05] tracking-tight text-brand-text mb-4">
+                            Agam Singh Saini
+                        </h1>
+                        <h2 class="font-display text-2xl md:text-3xl text-ai-gradient font-bold mb-8">
+                            Data Scientist & ML Engineer
+                        </h2>
+                        <p class="text-brand-muted text-lg leading-relaxed max-w-3xl mb-10 font-normal">
+                            Master’s candidate in Data Science bridging the gap between Mechatronics Engineering and advanced Machine Learning. Architect of high-speed data pipelines, predictive models, and <span class="text-brand-text font-semibold">Sydly</span>—a live transit ecosystem tracking 10,000+ vehicles with 5-second precision.
+                        </p>
+                        
+                        <div class="flex flex-wrap gap-4 font-display text-sm">
+                            <a href="#projects" class="bg-brand-text text-white px-7 py-3.5 rounded-lg font-semibold hover:bg-brand-accent transition-all shadow-md flex items-center gap-2">
+                                Explore Models <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                            <a href="https://github.com/Doombuoy" target="_blank" class="bg-white text-brand-text border border-brand-border px-7 py-3.5 rounded-lg font-semibold hover:border-slate-300 hover:shadow-sm transition-all flex items-center gap-2">
+                                <i class="fa-brands fa-github text-lg"></i> View Repository
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-			</div>
+            <!-- Skills Section -->
+            <section id="skills" class="py-24 px-6 relative">
+                <!-- Faint horizontal separator -->
+                <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-border to-transparent"></div>
+                
+                <div class="max-w-7xl mx-auto relative z-10">
+                    <div class="flex items-center gap-4 mb-16 reveal-up">
+                        <i class="fa-solid fa-network-wired text-brand-accent text-xl"></i>
+                        <h2 class="font-display text-3xl font-bold text-brand-text">Technical Architecture</h2>
+                        <div class="h-px bg-brand-border flex-1 ml-4"></div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Skill Card 1 -->
+                        <div class="luxury-card p-8 rounded-xl reveal-up">
+                            <div class="w-12 h-12 bg-slate-50 border border-brand-border text-brand-accent rounded-lg flex items-center justify-center mb-6 text-xl shadow-sm">
+                                <i class="fa-solid fa-code"></i>
+                            </div>
+                            <h3 class="font-display font-bold text-lg mb-4 text-brand-text">Core Languages</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-slate-700 text-xs font-mono bg-slate-50 px-2.5 py-1 rounded border border-brand-border">Python</span>
+                                <span class="text-slate-700 text-xs font-mono bg-slate-50 px-2.5 py-1 rounded border border-brand-border">SQL</span>
+                                <span class="text-slate-700 text-xs font-mono bg-slate-50 px-2.5 py-1 rounded border border-brand-border">C++ / C</span>
+                                <span class="text-slate-700 text-xs font-mono bg-slate-50 px-2.5 py-1 rounded border border-brand-border">Dart</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Skill Card 2 -->
+                        <div class="luxury-card p-8 rounded-xl reveal-up" style="transition-delay: 100ms;">
+                            <div class="w-12 h-12 bg-slate-50 border border-brand-border text-brand-secondary rounded-lg flex items-center justify-center mb-6 text-xl shadow-sm">
+                                <i class="fa-solid fa-brain"></i>
+                            </div>
+                            <h3 class="font-display font-bold text-lg mb-4 text-brand-text">Machine Learning</h3>
+                            <p class="text-brand-muted text-sm leading-relaxed">Deep Learning, Neural Networks, NLP, Computer Vision, TensorFlow, Scikit-Learn, XGBoost, CatBoost, LightGBM</p>
+                        </div>
 
-		<!-- BG -->
-			<div id="bg"></div>
+                        <!-- Skill Card 3 -->
+                        <div class="luxury-card p-8 rounded-xl reveal-up" style="transition-delay: 200ms;">
+                            <div class="w-12 h-12 bg-slate-50 border border-brand-border text-brand-accent rounded-lg flex items-center justify-center mb-6 text-xl shadow-sm">
+                                <i class="fa-solid fa-database"></i>
+                            </div>
+                            <h3 class="font-display font-bold text-lg mb-4 text-brand-text">Data & Ecosystem</h3>
+                            <p class="text-brand-muted text-sm leading-relaxed">Pandas, NumPy, PySpark, FastAPI, Streamlit, ROS2, Protocol Buffers, OpenStreetMap</p>
+                        </div>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+                        <!-- Skill Card 4 -->
+                        <div class="luxury-card p-8 rounded-xl reveal-up" style="transition-delay: 300ms;">
+                            <div class="w-12 h-12 bg-slate-50 border border-brand-border text-brand-secondary rounded-lg flex items-center justify-center mb-6 text-xl shadow-sm">
+                                <i class="fa-solid fa-server"></i>
+                            </div>
+                            <h3 class="font-display font-bold text-lg mb-4 text-brand-text">Cloud & DevOps</h3>
+                            <p class="text-brand-muted text-sm leading-relaxed">Git, CI/CD, Docker, Databricks, Azure, Power BI (DAX)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-			<style>
-				.cert-group-card:hover {
-					transform: translateY(-5px);
-					background: rgba(255,255,255,0.1) !important;
-					border-color: #4FC3F7 !important;
-				}
-				.cert-group-detail {
-					animation: fadeIn 0.5s ease;
-				}
-				@keyframes fadeIn {
-					from { opacity: 0; }
-					to { opacity: 1; }
-				}
-				.cert-tile {
-					display: flex;
-					align-items: center;
-					gap: 1.5rem;
-					background: rgba(255,255,255,0.05);
-					padding: 1.5rem;
-					border-radius: 8px;
-					margin-bottom: 1rem;
-					border: 1px solid rgba(255,255,255,0.1);
-				}
-				.cert-logo {
-					width: 60px;
-					height: auto;
-					border-radius: 4px;
-				}
-				.education-tile, .experience-tile, .activity-tile {
-					display: flex;
-					gap: 1.5rem;
-					margin-bottom: 2rem;
-					background: rgba(255,255,255,0.02);
-					padding: 1.5rem;
-					border-radius: 8px;
-				}
-				.edu-img, .exp-img, .activity-logo {
-					width: 80px;
-					height: 80px;
-					object-fit: contain;
-					background: white;
-					padding: 5px;
-					border-radius: 8px;
-				}
-				.project-tile {
-					margin-bottom: 3rem;
-					border-bottom: 1px solid rgba(255,255,255,0.1);
-					padding-bottom: 2rem;
-				}
-				.project-logo {
-					width: 100%;
-					max-width: 400px;
-					height: auto;
-					border-radius: 12px;
-					margin-bottom: 1.5rem;
-				}
-			</style>
+            <!-- Experience & Education Split Section -->
+            <section id="experience" class="py-24 px-6 relative">
+                <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-border to-transparent"></div>
+                
+                <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 relative z-10">
+                    
+                    <!-- Work Experience Column -->
+                    <div class="relative">
+                        <div class="flex items-center gap-4 mb-12 reveal-up">
+                            <i class="fa-solid fa-chart-line text-brand-accent text-xl"></i>
+                            <h2 class="font-display text-3xl font-bold text-brand-text">Experience Timeline</h2>
+                        </div>
+                        
+                        <div class="space-y-8 data-line relative">
+                            
+                            <!-- Job 1 -->
+                            <div class="relative flex items-start gap-6 group reveal-up luxury-card p-6 rounded-xl z-10 ml-12 md:ml-10">
+                                <div class="absolute -left-[3.25rem] md:-left-[2.75rem] top-6 w-10 h-10 rounded-full bg-white border-2 border-brand-accent flex items-center justify-center shadow-sm">
+                                    <img src="images/iwcs.jpeg" alt="Informed Care Services" class="w-6 h-6 object-contain rounded-sm img-blend">
+                                </div>
+                                <div class="w-full">
+                                    <div class="flex flex-col xl:flex-row xl:justify-between xl:items-start mb-2">
+                                        <div>
+                                            <h3 class="font-display font-bold text-lg text-brand-text group-hover:text-brand-accent transition-colors">Support Worker (Data Context)</h3>
+                                            <h4 class="text-slate-600 font-medium text-sm mt-1">Informed Care Services | Sydney</h4>
+                                        </div>
+                                        <span class="font-mono text-xs font-semibold text-brand-accent bg-indigo-50 border border-indigo-100 px-2.5 py-1 rounded-md mt-2 xl:mt-0 whitespace-nowrap">Apr 2025 – Present</span>
+                                    </div>
+                                    <ul class="list-none space-y-2 text-brand-muted text-sm leading-relaxed mt-4 font-normal">
+                                        <li class="relative pl-4 before:content-['▹'] before:absolute before:left-0 before:text-brand-accent before:font-bold">Managed detailed care plans for 5+ clients, ensuring 100% documentation accuracy.</li>
+                                        <li class="relative pl-4 before:content-['▹'] before:absolute before:left-0 before:text-brand-accent before:font-bold">Acted as a proactive communicator resolving complex scheduling logistics alongside full-time studies.</li>
+                                    </ul>
+                                </div>
+                            </div>
 
-			<script>
-				function showCertGroup(groupId) {
-					document.getElementById('cert-groups-view').style.display = 'none';
-					document.querySelectorAll('.cert-group-detail').forEach(div => div.style.display = 'none');
-					document.getElementById(groupId).style.display = 'block';
-				}
+                            <!-- Job 2 -->
+                            <div class="relative flex items-start gap-6 group reveal-up luxury-card p-6 rounded-xl z-10 ml-12 md:ml-10">
+                                <div class="absolute -left-[3.25rem] md:-left-[2.75rem] top-6 w-10 h-10 rounded-full bg-white border-2 border-slate-300 group-hover:border-brand-secondary transition-colors flex items-center justify-center shadow-sm">
+                                    <img src="images/drdo.jpg" alt="CVRDE DRDO" class="w-6 h-6 object-contain rounded-sm img-blend">
+                                </div>
+                                <div class="w-full">
+                                    <div class="flex flex-col xl:flex-row xl:justify-between xl:items-start mb-2">
+                                        <div>
+                                            <h3 class="font-display font-bold text-lg text-brand-text group-hover:text-brand-secondary transition-colors">Robotics R&D Intern</h3>
+                                            <h4 class="text-slate-600 font-medium text-sm mt-1">Combat Vehicle R&D Establishment</h4>
+                                        </div>
+                                        <span class="font-mono text-xs font-semibold text-slate-500 bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-md mt-2 xl:mt-0 whitespace-nowrap">Jan '23 – Jun '23</span>
+                                    </div>
+                                    <ul class="list-none space-y-2 text-brand-muted text-sm leading-relaxed mt-4 font-normal">
+                                        <li class="relative pl-4 before:content-['▹'] before:absolute before:left-0 before:text-brand-secondary before:font-bold">Designed autonomous computer vision pipelines using ROS2, implementing real-time detection improving safety by 40%.</li>
+                                        <li class="relative pl-4 before:content-['▹'] before:absolute before:left-0 before:text-brand-secondary before:font-bold">Simulated 50+ hours of behavior in Gazebo, deriving data-driven prototype improvements.</li>
+                                    </ul>
+                                </div>
+                            </div>
 
-				function showCertGroups() {
-					document.getElementById('cert-groups-view').style.display = 'grid';
-					document.querySelectorAll('.cert-group-detail').forEach(div => div.style.display = 'none');
-				}
-			</script>
+                            <!-- Job 3 -->
+                            <div class="relative flex items-start gap-6 group reveal-up luxury-card p-6 rounded-xl z-10 ml-12 md:ml-10">
+                                <div class="absolute -left-[3.25rem] md:-left-[2.75rem] top-6 w-10 h-10 rounded-full bg-white border-2 border-slate-300 group-hover:border-brand-secondary transition-colors flex items-center justify-center shadow-sm">
+                                    <img src="images/spectrum.png" alt="Spectrum Technology" class="w-6 h-6 object-contain rounded-sm img-blend">
+                                </div>
+                                <div class="w-full">
+                                    <div class="flex flex-col xl:flex-row xl:justify-between xl:items-start mb-2">
+                                        <div>
+                                            <h3 class="font-display font-bold text-lg text-brand-text group-hover:text-brand-secondary transition-colors">Mechatronics Intern</h3>
+                                            <h4 class="text-slate-600 font-medium text-sm mt-1">Spectrum Technology</h4>
+                                        </div>
+                                        <span class="font-mono text-xs font-semibold text-slate-500 bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-md mt-2 xl:mt-0 whitespace-nowrap">Jun '23 – Aug '23</span>
+                                    </div>
+                                    <ul class="list-none space-y-2 text-brand-muted text-sm leading-relaxed mt-4 font-normal">
+                                        <li class="relative pl-4 before:content-['▹'] before:absolute before:left-0 before:text-brand-secondary before:font-bold">Developed IoT data acquisition systems in LabVIEW to monitor 50+ industrial sensors in &lt;1s.</li>
+                                        <li class="relative pl-4 before:content-['▹'] before:absolute before:left-0 before:text-brand-secondary before:font-bold">Built continuous alert mechanisms achieving 99.9% verifiable uptime.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-	</body>
+                    <!-- Education Column -->
+                    <div>
+                        <div class="flex items-center gap-4 mb-12 reveal-up">
+                            <i class="fa-solid fa-microchip text-brand-accent text-xl"></i>
+                            <h2 class="font-display text-3xl font-bold text-brand-text">Academic Foundation</h2>
+                        </div>
+                        
+                        <div class="space-y-6">
+                            <!-- Edu 1 -->
+                            <div class="luxury-card p-6 rounded-xl flex items-start gap-5 group reveal-up">
+                                <div class="w-14 h-14 shrink-0 rounded bg-white border border-brand-border p-1.5 flex items-center justify-center shadow-sm">
+                                    <img src="images/UTS.jpg" alt="UTS" class="w-full h-full object-contain img-blend">
+                                </div>
+                                <div>
+                                    <h3 class="font-display font-bold text-lg text-brand-text">M.S. in Data Science & Innovation</h3>
+                                    <h4 class="text-slate-600 font-medium text-sm mt-1">University Of Technology Sydney</h4>
+                                    <div class="flex flex-wrap items-center gap-3 mt-4">
+                                        <span class="font-mono text-[10px] font-bold tracking-wider uppercase text-slate-500 bg-slate-100 border border-brand-border px-2.5 py-1 rounded">Feb 2025 – Present</span>
+                                        <span class="font-mono text-[10px] font-bold tracking-wider uppercase text-brand-accent bg-indigo-50 border border-indigo-100 shadow-sm px-2.5 py-1 rounded">GPA: 3.5/4</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Edu 2 -->
+                            <div class="luxury-card p-6 rounded-xl flex items-start gap-5 group reveal-up">
+                                <div class="w-14 h-14 shrink-0 rounded bg-white border border-brand-border p-1.5 flex items-center justify-center shadow-sm">
+                                    <img src="images/TIET.jpg" alt="TIET" class="w-full h-full object-contain img-blend">
+                                </div>
+                                <div>
+                                    <h3 class="font-display font-bold text-lg text-brand-text">B.E. in Mechatronics Engineering</h3>
+                                    <h4 class="text-slate-600 font-medium text-sm mt-1">Thapar Institute of Engineering and Tech.</h4>
+                                    <div class="flex flex-wrap items-center gap-3 mt-4">
+                                        <span class="font-mono text-[10px] font-bold tracking-wider uppercase text-slate-500 bg-slate-100 border border-brand-border px-2.5 py-1 rounded">Mar 2020 – Jun 2024</span>
+                                        <span class="font-mono text-[10px] font-bold tracking-wider uppercase text-slate-600 bg-white border border-brand-border shadow-sm px-2.5 py-1 rounded">CGPA: 8.77/10</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="projects" class="py-24 px-6 relative">
+                <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-border to-transparent"></div>
+                <div class="max-w-7xl mx-auto relative z-10">
+                    <div class="flex items-center gap-4 mb-16 reveal-up">
+                        <i class="fa-solid fa-layer-group text-brand-accent text-xl"></i>
+                        <h2 class="font-display text-3xl font-bold text-brand-text">Model Deployments</h2>
+                        <div class="h-px bg-brand-border flex-1 ml-4"></div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                        
+                        <!-- Project 1: Sydly -->
+                        <div class="luxury-card rounded-2xl overflow-hidden flex flex-col reveal-up group">
+                            <div class="h-60 overflow-hidden bg-slate-100 relative border-b border-brand-border">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/10 to-transparent z-10"></div>
+                                <img src="images/safarnama.png" alt="Sydly App" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 mix-blend-multiply opacity-90">
+                            </div>
+                            <div class="p-8 flex-1 flex flex-col relative bg-white">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="font-display font-bold text-2xl text-brand-text group-hover:text-brand-accent transition-colors">Sydly Transit Ecosystem</h3>
+                                    <span class="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-slate-50 border border-brand-border px-2 py-1 rounded">Live Build</span>
+                                </div>
+                                <h4 class="font-mono text-brand-accent text-xs mb-5 uppercase tracking-wide">Architecture: Geospatial Data & API</h4>
+                                <p class="text-brand-muted text-sm leading-relaxed mb-6 flex-1 font-normal">
+                                    Successfully launched a comprehensive transit application. Engineered a high-speed backend consuming live TfNSW GTFS-R feeds, processing and mapping 10,000+ active vehicles with a 5-second telemetry refresh rate.
+                                </p>
+                                <div class="flex flex-wrap gap-2 mb-8">
+                                    <span class="font-mono text-xs text-slate-600 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded">Flutter/Dart</span>
+                                    <span class="font-mono text-xs text-slate-600 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded">TfNSW API</span>
+                                    <span class="font-mono text-xs text-slate-600 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded">Protobuf</span>
+                                </div>
+                                <div class="flex flex-wrap gap-5 mt-auto pt-5 border-t border-slate-100">
+                                    <a href="https://doombuoy.github.io/Transport_app_website/" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-solid fa-link text-slate-400"></i> View Project</a>
+                                    <a href="https://play.google.com/store/apps/details?id=io.github.Doombuoy.safarnama" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-brands fa-google-play text-slate-400"></i> Play Store</a>
+                                    <a href="https://apps.apple.com/au/app/sydly-travel-sydney-seamlessly/id6761148694" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-brands fa-apple text-slate-400"></i> App Store</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 2: NYC Taxi -->
+                        <div class="luxury-card rounded-2xl overflow-hidden flex flex-col reveal-up group">
+                            <div class="h-60 overflow-hidden bg-slate-100 relative border-b border-brand-border">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/10 to-transparent z-10"></div>
+                                <img src="images/taxi.jpg" alt="NYC Taxi Analysis" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 mix-blend-multiply opacity-90">
+                            </div>
+                            <div class="p-8 flex-1 flex flex-col relative bg-white">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="font-display font-bold text-2xl text-brand-text group-hover:text-brand-accent transition-colors">NYC Taxi Analytics</h3>
+                                    <span class="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-slate-50 border border-brand-border px-2 py-1 rounded">Pipeline</span>
+                                </div>
+                                <h4 class="font-mono text-brand-accent text-xs mb-5 uppercase tracking-wide">Architecture: Big Data & ML</h4>
+                                <p class="text-brand-muted text-sm leading-relaxed mb-6 flex-1 font-normal">
+                                    Engineered a scalable Databricks pipeline to process and analyze 1 Billion taxi records, successfully cleaning over 80M rows of raw data. Developed fare prediction models achieving 87% accuracy.
+                                </p>
+                                <div class="flex flex-wrap gap-2 mb-8">
+                                    <span class="font-mono text-xs text-slate-600 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded">PySpark</span>
+                                    <span class="font-mono text-xs text-slate-600 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded">Databricks</span>
+                                    <span class="font-mono text-xs text-slate-600 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded">Python/SQL</span>
+                                </div>
+                                <div class="flex gap-5 mt-auto pt-5 border-t border-slate-100">
+                                    <a href="https://github.com/DoomBuoy/New_York_Taxi_Databricks" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-brands fa-github text-slate-400"></i> Repository</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 3: Bitcoin -->
+                        <div class="luxury-card rounded-2xl overflow-hidden flex flex-col reveal-up group">
+                            <div class="h-60 overflow-hidden bg-slate-100 relative border-b border-brand-border">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/10 to-transparent z-10"></div>
+                                <img src="images/bitcoin.jpg" alt="Bitcoin Prediction" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 mix-blend-multiply opacity-90">
+                            </div>
+                            <div class="p-8 flex-1 flex flex-col bg-white">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="font-display font-bold text-2xl text-brand-text group-hover:text-brand-accent transition-colors">Crypto Predictor</h3>
+                                    <span class="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-slate-50 border border-brand-border px-2 py-1 rounded">Model</span>
+                                </div>
+                                <h4 class="font-mono text-brand-accent text-xs mb-5 uppercase tracking-wide">Architecture: Time-Series Forecasting</h4>
+                                <p class="text-brand-muted text-sm leading-relaxed mb-6 flex-1 font-normal">
+                                    Deployed a live cryptocurrency forecasting web app. Trained ensemble ML models on a decade of historical data, achieving a 79.6% R² score for next-day price predictions.
+                                </p>
+                                <div class="flex flex-wrap gap-2 mb-8">
+                                    <span class="font-mono text-xs text-slate-600 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded">XGBoost</span>
+                                    <span class="font-mono text-xs text-slate-600 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded">FastAPI</span>
+                                    <span class="font-mono text-xs text-slate-600 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded">Streamlit</span>
+                                </div>
+                                <div class="flex gap-5 mt-auto pt-5 border-t border-slate-100">
+                                    <a href="https://digitalappuctbitcoinpriceprediction-8f9newvrhuqkth7wb25e7l.streamlit.app/" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-solid fa-chart-line text-slate-400"></i> View Dashboard</a>
+                                    <a href="https://github.com/DoomBuoy/Digital_Product_Bitcoin_Price_Prediction" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-brands fa-github text-slate-400"></i> Repository</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Side by side smaller projects -->
+                        <div class="flex flex-col gap-10">
+                            <!-- Weather -->
+                            <div class="luxury-card rounded-2xl p-8 flex flex-col reveal-up h-full bg-white group">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="font-display font-bold text-xl text-brand-text group-hover:text-brand-accent transition-colors">Weather Insight App</h3>
+                                    <i class="fa-solid fa-cloud-rain text-slate-300 text-xl group-hover:text-brand-accent transition-colors"></i>
+                                </div>
+                                <h4 class="font-mono text-brand-accent text-[10px] uppercase tracking-wider mb-4">Architecture: Ensemble Learning</h4>
+                                <p class="text-brand-muted text-sm leading-relaxed mb-6 flex-1 font-normal">
+                                    Developed a predictive system providing reliable forecasts for rain occurrences using ensemble ML models and the live Open-Meteo API.
+                                </p>
+                                <div class="flex gap-5 mt-auto pt-5 border-t border-slate-100">
+                                    <a href="https://digitalappuctweatherprediction-tfdvs8zextpi3xvktbpogy.streamlit.app/" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-solid fa-chart-line text-slate-400"></i> View Dashboard</a>
+                                    <a href="https://github.com/DoomBuoy/Digital_Product_Weather_Prediction" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-brands fa-github text-slate-400"></i> Repository</a>
+                                </div>
+                            </div>
+
+                            <!-- Package -->
+                            <div class="luxury-card rounded-2xl p-8 flex flex-col reveal-up h-full bg-white group">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="font-display font-bold text-xl text-brand-text group-hover:text-brand-accent transition-colors">DoomBuoy Lib</h3>
+                                    <i class="fa-brands fa-python text-slate-300 text-xl group-hover:text-brand-accent transition-colors"></i>
+                                </div>
+                                <h4 class="font-mono text-brand-accent text-[10px] uppercase tracking-wider mb-4">Architecture: PyPI Open Source</h4>
+                                <p class="text-brand-muted text-sm leading-relaxed mb-6 flex-1 font-normal">
+                                    Created and published a Python package designed to significantly accelerate everyday data preprocessing and ML workflows.
+                                </p>
+                                <div class="flex gap-5 mt-auto pt-5 border-t border-slate-100">
+                                    <a href="https://test.pypi.org/project/doombuoy/" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-solid fa-box text-slate-400"></i> PyPI Package</a>
+                                    <a href="https://github.com/DoomBuoy/doombuoy" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-brands fa-github text-slate-400"></i> Repository</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Certificates Section -->
+            <section id="certificates" class="py-24 px-6 relative">
+                <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-border to-transparent"></div>
+                <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 relative z-10">
+                    
+                    <!-- Certificates -->
+                    <div>
+                        <div class="flex items-center gap-4 mb-12 reveal-up">
+                            <i class="fa-solid fa-certificate text-brand-accent text-xl"></i>
+                            <h2 class="font-display text-3xl font-bold text-brand-text">Credentials</h2>
+                        </div>
+                        
+                        <div id="cert-groups-view" class="grid grid-cols-1 sm:grid-cols-2 gap-4 reveal-up">
+                            <div class="luxury-card bg-white p-6 rounded-xl text-center cursor-pointer group" onclick="showCertGroup('group-specialization')">
+                                <div class="text-2xl mb-3 text-slate-300 group-hover:text-brand-accent transition-colors"><i class="fa-solid fa-shield-halved"></i></div>
+                                <h3 class="font-display font-bold text-sm mb-1 text-brand-text">Specializations</h3>
+                                <p class="font-mono text-slate-500 text-[10px] uppercase tracking-wider">IBM, DataCamp, UTS</p>
+                            </div>
+                            <div class="luxury-card bg-white p-6 rounded-xl text-center cursor-pointer group" onclick="showCertGroup('group-nptel')">
+                                <div class="text-2xl mb-3 text-slate-300 group-hover:text-brand-accent transition-colors"><i class="fa-solid fa-microchip"></i></div>
+                                <h3 class="font-display font-bold text-sm mb-1 text-brand-text">NPTEL</h3>
+                                <p class="font-mono text-slate-500 text-[10px] uppercase tracking-wider">ML & Analytics</p>
+                            </div>
+                            <div class="luxury-card bg-white p-6 rounded-xl text-center cursor-pointer group sm:col-span-2" onclick="showCertGroup('group-online')">
+                                <div class="text-2xl mb-3 text-slate-300 group-hover:text-brand-accent transition-colors"><i class="fa-solid fa-laptop-code"></i></div>
+                                <h3 class="font-display font-bold text-sm mb-1 text-brand-text">Online Courses</h3>
+                                <p class="font-mono text-slate-500 text-[10px] uppercase tracking-wider">U-Michigan & IBM</p>
+                            </div>
+                        </div>
+
+                        <!-- Certificate Details -->
+                        <div id="cert-details-container" class="mt-6">
+                            <!-- Group 1 -->
+                            <div id="group-specialization" class="cert-group-detail luxury-card bg-white p-6 rounded-xl">
+                                <div class="flex justify-between items-center mb-6 border-b border-brand-border pb-4">
+                                    <h3 class="font-display text-lg font-bold text-brand-text">Specializations</h3>
+                                    <button onclick="showCertGroups()" class="text-slate-400 text-sm hover:text-brand-accent transition-colors">
+                                        <i class="fa-solid fa-times"></i>
+                                    </button>
+                                </div>
+                                <div class="space-y-5">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-10 h-10 rounded bg-white border border-brand-border p-1 shrink-0"><img src="images/Build_certi.jpg" alt="UTS" class="w-full h-full object-cover img-blend"></div>
+                                        <div><h4 class="font-display font-bold text-brand-text text-sm">UTS BUILD Graduate</h4><p class="font-mono text-[10px] text-brand-muted mt-1 uppercase">Nov 2025</p></div>
+                                    </div>
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-10 h-10 rounded bg-white border border-brand-border p-1 shrink-0"><img src="images/datacamp.png" alt="DataCamp" class="w-full h-full object-cover img-blend"></div>
+                                        <div><h4 class="font-display font-bold text-brand-text text-sm">Data Scientist Pro</h4><p class="font-mono text-[10px] text-brand-muted mt-1 uppercase">Jun 2025</p></div>
+                                    </div>
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-10 h-10 rounded bg-white border border-brand-border p-1 shrink-0"><img src="images/ibm.jpg" alt="IBM" class="w-full h-full object-cover img-blend"></div>
+                                        <div><h4 class="font-display font-bold text-brand-text text-sm">IBM Data Science</h4><p class="font-mono text-[10px] text-brand-muted mt-1 uppercase">May 2023</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Group 2 -->
+                            <div id="group-nptel" class="cert-group-detail luxury-card bg-white p-6 rounded-xl">
+                                <div class="flex justify-between items-center mb-6 border-b border-brand-border pb-4">
+                                    <h3 class="font-display text-lg font-bold text-brand-text">NPTEL Courses</h3>
+                                    <button onclick="showCertGroups()" class="text-slate-400 text-sm hover:text-brand-accent transition-colors">
+                                        <i class="fa-solid fa-times"></i>
+                                    </button>
+                                </div>
+                                <div class="space-y-5">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-10 h-10 rounded bg-white border border-brand-border p-1 shrink-0"><img src="images/nptl.jpg" alt="NPTEL" class="w-full h-full object-cover img-blend"></div>
+                                        <div><h4 class="font-display font-bold text-brand-text text-sm">Data Analytics (Python)</h4><p class="font-mono text-[10px] text-brand-muted mt-1 uppercase">Jul 2023</p></div>
+                                    </div>
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-10 h-10 rounded bg-white border border-brand-border p-1 shrink-0"><img src="images/nptl.jpg" alt="NPTEL" class="w-full h-full object-cover img-blend"></div>
+                                        <div><h4 class="font-display font-bold text-brand-text text-sm">Intro to ML</h4><p class="font-mono text-[10px] text-brand-muted mt-1 uppercase">Jul 2023</p></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Group 3 -->
+                            <div id="group-online" class="cert-group-detail luxury-card bg-white p-6 rounded-xl">
+                                <div class="flex justify-between items-center mb-6 border-b border-brand-border pb-4">
+                                    <h3 class="font-display text-lg font-bold text-brand-text">Online Courses</h3>
+                                    <button onclick="showCertGroups()" class="text-slate-400 text-sm hover:text-brand-accent transition-colors">
+                                        <i class="fa-solid fa-times"></i>
+                                    </button>
+                                </div>
+                                <div class="space-y-5">
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-10 h-10 rounded bg-white border border-brand-border p-1 shrink-0"><img src="images/michigan.png" alt="Michigan" class="w-full h-full object-contain img-blend"></div>
+                                        <div><h4 class="font-display font-bold text-brand-text text-sm">Applied Plotting</h4><p class="font-mono text-[10px] text-brand-muted mt-1 uppercase">Jul 2023</p></div>
+                                    </div>
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-10 h-10 rounded bg-white border border-brand-border p-1 shrink-0"><img src="images/ibm.jpg" alt="IBM" class="w-full h-full object-cover img-blend"></div>
+                                        <div><h4 class="font-display font-bold text-brand-text text-sm">SQL for Data Science</h4><p class="font-mono text-[10px] text-brand-muted mt-1 uppercase">May 2023</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Initiatives -->
+                    <div>
+                        <div class="flex items-center gap-4 mb-12 reveal-up">
+                            <i class="fa-solid fa-users-rays text-brand-accent text-xl"></i>
+                            <h2 class="font-display text-3xl font-bold text-brand-text">Initiatives</h2>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="luxury-card bg-white p-6 rounded-xl flex items-center gap-5 reveal-up">
+                                <div class="w-12 h-12 rounded bg-white border border-brand-border p-1.5 shrink-0 shadow-sm"><img src="images/peernetwork.jpg" alt="UTS" class="w-full h-full object-cover img-blend"></div>
+                                <div>
+                                    <h3 class="font-display font-bold text-base text-brand-text">UTS Peer Networker</h3>
+                                    <p class="text-brand-muted text-sm font-normal mt-1">Guided 1,000+ new students during orientation.</p>
+                                </div>
+                            </div>
+                            <div class="luxury-card bg-white p-6 rounded-xl flex items-center gap-5 reveal-up">
+                                <div class="w-12 h-12 rounded bg-white border border-brand-border p-1.5 shrink-0 shadow-sm"><img src="images/build.jpg" alt="UTS" class="w-full h-full object-cover img-blend"></div>
+                                <div>
+                                    <h3 class="font-display font-bold text-base text-brand-text">Media Ambassador, UTS BUILD</h3>
+                                    <p class="text-brand-muted text-sm font-normal mt-1">Translated complex program missions into engaging stories.</p>
+                                </div>
+                            </div>
+                            <div class="luxury-card bg-white p-6 rounded-xl flex items-center gap-5 reveal-up">
+                                <div class="w-12 h-12 rounded bg-white border border-brand-border p-1.5 shrink-0 shadow-sm"><img src="images/robotics.png" alt="Robotics" class="w-full h-full object-contain img-blend"></div>
+                                <div>
+                                    <h3 class="font-display font-bold text-base text-brand-text">Technical Lead, Robotics Society</h3>
+                                    <p class="text-brand-muted text-sm font-normal mt-1">Led AI/CV workshops for over 200 students.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="pt-24 pb-12 px-6 border-t border-brand-border bg-white text-center relative overflow-hidden">
+                <div class="ambient-glow-indigo w-[600px] h-[600px] bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 opacity-30"></div>
+                <div class="max-w-3xl mx-auto relative z-10">
+                    <h2 class="font-display text-4xl md:text-5xl font-bold text-brand-text mb-6">Establish Connection</h2>
+                    <p class="text-sm mb-12 text-slate-500 font-mono tracking-wide uppercase">Available for Data Science & Engineering Roles.</p>
+                    
+                    <div class="flex flex-wrap justify-center gap-6 text-xl mb-16">
+                        <a href="tel:+610425249904" class="w-14 h-14 rounded-full border border-brand-border bg-slate-50 text-brand-text flex items-center justify-center hover:border-brand-accent hover:text-brand-accent hover:bg-blue-50 transition-all shadow-sm" title="Phone">
+                            <i class="fa-solid fa-phone text-lg"></i>
+                        </a>
+                        <a href="mailto:Agamsingh.saini@student.uts.edu.au" class="w-14 h-14 rounded-full border border-brand-border bg-slate-50 text-brand-text flex items-center justify-center hover:border-brand-accent hover:text-brand-accent hover:bg-blue-50 transition-all shadow-sm" title="Email">
+                            <i class="fa-solid fa-envelope text-lg"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/agam-singh-saini-199185220/" target="_blank" class="w-14 h-14 rounded-full border border-brand-border bg-slate-50 text-brand-text flex items-center justify-center hover:border-brand-accent hover:text-brand-accent hover:bg-blue-50 transition-all shadow-sm" title="LinkedIn">
+                            <i class="fa-brands fa-linkedin text-lg"></i>
+                        </a>
+                        <a href="https://github.com/Doombuoy" target="_blank" class="w-14 h-14 rounded-full border border-brand-border bg-slate-50 text-brand-text flex items-center justify-center hover:border-brand-accent hover:text-brand-accent hover:bg-blue-50 transition-all shadow-sm" title="GitHub">
+                            <i class="fa-brands fa-github text-lg"></i>
+                        </a>
+                    </div>
+                    <div class="flex items-center justify-center gap-4 text-xs font-mono text-slate-400">
+                        <span>EPOCH_COMPLETE</span>
+                        <span>//</span>
+                        <span>© 2026 AGAM SINGH SAINI</span>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+    </main>
+
+    <script>
+        // Certificate Toggling
+        function showCertGroup(groupId) {
+            document.getElementById('cert-groups-view').style.display = 'none';
+            document.querySelectorAll('.cert-group-detail').forEach(div => div.style.display = 'none');
+            document.getElementById(groupId).style.display = 'block';
+        }
+        function showCertGroups() {
+            document.getElementById('cert-groups-view').style.display = 'grid';
+            document.querySelectorAll('.cert-group-detail').forEach(div => div.style.display = 'none');
+        }
+
+        // Animation & Scroll Initialization
+        document.addEventListener("DOMContentLoaded", () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                smooth: true,
+            });
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time)=>{ lenis.raf(time * 1000) });
+            gsap.ticker.lagSmoothing(0);
+
+            // Subtle Fade Up
+            const revealElements = document.querySelectorAll('.reveal-up');
+            revealElements.forEach(el => {
+                gsap.fromTo(el, 
+                    { opacity: 0, y: 15 },
+                    { 
+                        opacity: 1, y: 0, duration: 0.7, ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: el,
+                            start: "top 90%",
+                            toggleActions: "play none none reverse"
+                        }
+                    }
+                );
+            });
+        });
+    </script>
+
+    <script>
+        // Neural Network Background — Directed Signal Propagation
+        (function () {
+            const canvas = document.getElementById('neural-bg');
+            const ctx    = canvas.getContext('2d');
+
+            let W, H;
+            const mouse = { x: 0, y: 0, on: false };
+
+            // ── 5 signal chain colors ──────────────────────────────
+            const PALETTE = [
+                [239, 68,  68 ],  // red
+                [249, 115, 22 ],  // orange
+                [34,  197, 94 ],  // green
+                [59,  130, 246],  // blue
+                [168, 85,  247],  // purple
+            ];
+
+            const CHAIN_N    = 5;       // always 5 chains alive
+            const SIG_SPEED  = 0.0018;  // slow, relaxed travel
+            const NET_R      = 165;     // radius of mouse network
+            const NET_N      = 10;      // nodes in mouse network
+            const NET_CONN   = 110;     // edge connection threshold
+
+            // ── Mouse-network orbiting nodes ───────────────────────
+            let netNodes = [];
+
+            function initNet() {
+                netNodes = [];
+                for (let i = 0; i < NET_N; i++) {
+                    const a = (i / NET_N) * Math.PI * 2 + Math.random() * 0.7;
+                    const r = NET_R * (0.35 + Math.random() * 0.60);
+                    netNodes.push({
+                        ox: Math.cos(a) * r,
+                        oy: Math.sin(a) * r,
+                        vx: (Math.random() - 0.5) * 0.10,
+                        vy: (Math.random() - 0.5) * 0.10,
+                        ph: Math.random() * Math.PI * 2,
+                    });
+                }
+            }
+
+            function tickNet() {
+                for (const n of netNodes) {
+                    n.ox += n.vx;  n.oy += n.vy;
+                    const d = Math.hypot(n.ox, n.oy) || 0.001;
+                    if (d > NET_R * 0.92) { n.vx -= (n.ox / d) * 0.022; n.vy -= (n.oy / d) * 0.022; }
+                    if (d < NET_R * 0.22) { n.vx += (n.ox / d) * 0.018; n.vy += (n.oy / d) * 0.018; }
+                    n.vx *= 0.987;  n.vy *= 0.987;
+                    n.ph += 0.016;
+                }
+            }
+
+            function npos(i) { return { x: mouse.x + netNodes[i].ox, y: mouse.y + netNodes[i].oy }; }
+
+            // ── Chain helpers ──────────────────────────────────────
+            function outsidePt() {
+                const a = Math.random() * Math.PI * 2;
+                const d = NET_R * 2.0 + Math.random() * Math.min(W, H) * 0.38;
+                return {
+                    x: Math.max(12, Math.min(W - 12, mouse.x + Math.cos(a) * d)),
+                    y: Math.max(12, Math.min(H - 12, mouse.y + Math.sin(a) * d)),
+                };
+            }
+
+            function netTarget() {
+                const p = npos(Math.floor(Math.random() * NET_N));
+                return { x: p.x + (Math.random() - 0.5) * 22, y: p.y + (Math.random() - 0.5) * 22 };
+            }
+
+            function makeChain(ci) {
+                const sp  = 150 + Math.floor(Math.random() * 200); // wait frames before firing
+                const src = outsidePt();
+                return {
+                    ci,                          // color index
+                    state   : 'waiting',
+                    srcX : src.x, srcY : src.y,  // source node position
+                    stimer  : Math.floor(Math.random() * sp),  // staggered start
+                    spause  : sp,
+                    sx:0, sy:0, tx:0, ty:0,      // signal path endpoints
+                    t       : 0,                 // 0→1 travel progress
+                    arrX:0, arrY:0,
+                    atimer  : 0,
+                    apause  : 38 + Math.floor(Math.random() * 28),
+                    relays  : 0,
+                    maxRel  : 2 + Math.floor(Math.random() * 3),
+                };
+            }
+
+            let chains = [];
+            function initChains() {
+                chains = [];
+                for (let i = 0; i < CHAIN_N; i++) chains.push(makeChain(i));
+            }
+
+            // ── Tick a single chain ────────────────────────────────
+            function tickChain(ch) {
+                if (!mouse.on) return;  // pause when cursor off page
+
+                if (ch.state === 'waiting') {
+                    ch.stimer++;
+                    if (ch.stimer >= ch.spause) {
+                        const tgt  = netTarget();
+                        ch.sx = ch.srcX;  ch.sy = ch.srcY;
+                        ch.tx = tgt.x;    ch.ty = tgt.y;
+                        ch.t  = 0;
+                        ch.state = 'traveling';
+                        // source node vanishes — no draw in traveling state
+                    }
+                } else if (ch.state === 'traveling') {
+                    ch.t += SIG_SPEED;
+                    if (ch.t >= 1) {
+                        ch.arrX = ch.tx;  ch.arrY = ch.ty;
+                        ch.atimer = 0;
+                        ch.relays++;
+                        ch.state = 'arriving';
+                    }
+                } else if (ch.state === 'arriving') {
+                    ch.atimer++;
+                    if (ch.atimer >= ch.apause) {
+                        if (ch.relays < ch.maxRel) {
+                            // Relay: arrival node fires immediately toward another net target
+                            const tgt = netTarget();
+                            ch.sx = ch.arrX;  ch.sy = ch.arrY;
+                            ch.tx = tgt.x;    ch.ty = tgt.y;
+                            ch.t  = 0;
+                            ch.state = 'traveling';
+                        } else {
+                            // Chain exhausted — restart from a new outside point
+                            const fresh = makeChain(ch.ci);
+                            fresh.stimer = 0;
+                            Object.assign(ch, fresh);
+                        }
+                    }
+                }
+            }
+
+            // ── Draw a single chain ────────────────────────────────
+            function drawChain(ch, now) {
+                const [cr, cg, cb] = PALETTE[ch.ci];
+
+                /* waiting source node — softly pulsing colored orb */
+                if (ch.state === 'waiting') {
+                    const p = Math.sin(now * 1.6 + ch.ci * 1.3) * 0.5 + 0.5;
+                    const g = ctx.createRadialGradient(ch.srcX, ch.srcY, 0, ch.srcX, ch.srcY, 16 + p * 5);
+                    g.addColorStop(0, `rgba(${cr},${cg},${cb},0.20)`);
+                    g.addColorStop(1, `rgba(${cr},${cg},${cb},0)`);
+                    ctx.beginPath(); ctx.arc(ch.srcX, ch.srcY, 16 + p * 5, 0, Math.PI * 2);
+                    ctx.fillStyle = g; ctx.fill();
+                    // ring
+                    ctx.beginPath(); ctx.arc(ch.srcX, ch.srcY, 4 + p * 1.8, 0, Math.PI * 2);
+                    ctx.strokeStyle = `rgba(${cr},${cg},${cb},${0.40 + p * 0.28})`; ctx.lineWidth = 1.1; ctx.stroke();
+                    // core
+                    ctx.beginPath(); ctx.arc(ch.srcX, ch.srcY, 2.2, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${cr},${cg},${cb},0.72)`; ctx.fill();
+                    ctx.beginPath(); ctx.arc(ch.srcX, ch.srcY, 0.9, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(255,255,255,0.82)'; ctx.fill();
+                }
+
+                /* traveling signal — long gradient trail + bright head */
+                if (ch.state === 'traveling') {
+                    const px = ch.sx + (ch.tx - ch.sx) * ch.t;
+                    const py = ch.sy + (ch.ty - ch.sy) * ch.t;
+
+                    // Full-length trail from source to head (fades at tail)
+                    const lg = ctx.createLinearGradient(ch.sx, ch.sy, px, py);
+                    lg.addColorStop(0,    `rgba(${cr},${cg},${cb},0)`);
+                    lg.addColorStop(0.45, `rgba(${cr},${cg},${cb},0.10)`);
+                    lg.addColorStop(1,    `rgba(${cr},${cg},${cb},0.80)`);
+                    ctx.beginPath(); ctx.moveTo(ch.sx, ch.sy); ctx.lineTo(px, py);
+                    ctx.strokeStyle = lg; ctx.lineWidth = 1.6; ctx.stroke();
+
+                    // Head glow
+                    const hg = ctx.createRadialGradient(px, py, 0, px, py, 18);
+                    hg.addColorStop(0, `rgba(${cr},${cg},${cb},0.50)`);
+                    hg.addColorStop(1, `rgba(${cr},${cg},${cb},0)`);
+                    ctx.beginPath(); ctx.arc(px, py, 18, 0, Math.PI * 2);
+                    ctx.fillStyle = hg; ctx.fill();
+
+                    // Head dot + white spark
+                    ctx.beginPath(); ctx.arc(px, py, 3.2, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${cr},${cg},${cb},1)`; ctx.fill();
+                    ctx.beginPath(); ctx.arc(px, py, 1.3, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(255,255,255,0.95)'; ctx.fill();
+                }
+
+                /* arriving node — expanding colored flash that fades out */
+                if (ch.state === 'arriving') {
+                    const prog = ch.atimer / ch.apause;   // 0 → 1
+                    const fade = 1 - prog;
+                    const ag = ctx.createRadialGradient(ch.arrX, ch.arrY, 0, ch.arrX, ch.arrY, 26 * (1 + prog));
+                    ag.addColorStop(0, `rgba(${cr},${cg},${cb},${0.42 * fade})`);
+                    ag.addColorStop(1, `rgba(${cr},${cg},${cb},0)`);
+                    ctx.beginPath(); ctx.arc(ch.arrX, ch.arrY, 26 * (1 + prog), 0, Math.PI * 2);
+                    ctx.fillStyle = ag; ctx.fill();
+                    // expanding ring
+                    ctx.beginPath(); ctx.arc(ch.arrX, ch.arrY, 7 + prog * 6, 0, Math.PI * 2);
+                    ctx.strokeStyle = `rgba(${cr},${cg},${cb},${0.65 * fade})`; ctx.lineWidth = 1.4; ctx.stroke();
+                    // core dot
+                    ctx.beginPath(); ctx.arc(ch.arrX, ch.arrY, 3, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${cr},${cg},${cb},${0.88 * fade})`; ctx.fill();
+                    ctx.beginPath(); ctx.arc(ch.arrX, ch.arrY, 1.2, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255,255,255,${0.88 * fade})`; ctx.fill();
+                }
+            }
+
+            // ── Draw the mouse-generated neural network ────────────
+            function drawNetwork(now) {
+                // Edges between net nodes
+                for (let i = 0; i < NET_N; i++) {
+                    const pi = npos(i);
+                    for (let j = i + 1; j < NET_N; j++) {
+                        const pj = npos(j);
+                        const d  = Math.hypot(pi.x - pj.x, pi.y - pj.y);
+                        if (d < NET_CONN) {
+                            ctx.beginPath(); ctx.moveTo(pi.x, pi.y); ctx.lineTo(pj.x, pj.y);
+                            ctx.strokeStyle = `rgba(37,99,235,${(1 - d / NET_CONN) * 0.20})`;
+                            ctx.lineWidth = 0.7; ctx.stroke();
+                        }
+                    }
+                    // Spoke to mouse hub
+                    const dm = Math.hypot(pi.x - mouse.x, pi.y - mouse.y);
+                    ctx.beginPath(); ctx.moveTo(pi.x, pi.y); ctx.lineTo(mouse.x, mouse.y);
+                    ctx.strokeStyle = `rgba(37,99,235,${(1 - dm / NET_R) * 0.12})`;
+                    ctx.lineWidth = 0.55; ctx.stroke();
+                }
+
+                // Net node dots with pulsing rings
+                for (let i = 0; i < NET_N; i++) {
+                    const p = npos(i);
+                    const pulse = Math.sin(now * 1.3 + netNodes[i].ph) * 0.5 + 0.5;
+                    ctx.beginPath(); ctx.arc(p.x, p.y, 5 + pulse * 2.5, 0, Math.PI * 2);
+                    ctx.strokeStyle = `rgba(37,99,235,${0.13 + pulse * 0.09})`; ctx.lineWidth = 0.8; ctx.stroke();
+                    ctx.beginPath(); ctx.arc(p.x, p.y, 2.2, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(37,99,235,0.42)'; ctx.fill();
+                    ctx.beginPath(); ctx.arc(p.x, p.y, 0.9, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(255,255,255,0.68)'; ctx.fill();
+                }
+
+                // Mouse hub — pulsing core + outer glow ring
+                const mt  = Math.sin(now * 2.0) * 0.5 + 0.5;
+                const mhg = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 44 + mt * 14);
+                mhg.addColorStop(0, 'rgba(37,99,235,0.11)'); mhg.addColorStop(1, 'rgba(37,99,235,0)');
+                ctx.beginPath(); ctx.arc(mouse.x, mouse.y, 44 + mt * 14, 0, Math.PI * 2);
+                ctx.fillStyle = mhg; ctx.fill();
+                ctx.beginPath(); ctx.arc(mouse.x, mouse.y, 12 + mt * 4, 0, Math.PI * 2);
+                ctx.strokeStyle = `rgba(37,99,235,${0.18 + mt * 0.10})`; ctx.lineWidth = 1; ctx.stroke();
+                ctx.beginPath(); ctx.arc(mouse.x, mouse.y, 4.5, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(37,99,235,0.72)'; ctx.fill();
+                ctx.beginPath(); ctx.arc(mouse.x, mouse.y, 1.8, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255,255,255,0.88)'; ctx.fill();
+            }
+
+            // ── Main loop ──────────────────────────────────────────
+            function animate() {
+                ctx.clearRect(0, 0, W, H);
+                const now = performance.now() * 0.001;
+
+                tickNet();
+                for (const ch of chains) tickChain(ch);
+
+                if (mouse.on) drawNetwork(now);
+                for (const ch of chains) drawChain(ch, now);
+
+                requestAnimationFrame(animate);
+            }
+
+            // ── Init & events ──────────────────────────────────────
+            function resize() {
+                W = canvas.width  = window.innerWidth;
+                H = canvas.height = window.innerHeight;
+                mouse.x = W / 2;  mouse.y = H / 2;
+            }
+
+            window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; mouse.on = true; });
+            window.addEventListener('mouseleave', ()  => { mouse.on = false; });
+            window.addEventListener('resize',     ()  => { resize(); initNet(); initChains(); });
+
+            resize();
+            initNet();
+            initChains();
+            animate();
+        })();
+    </script>
+</body>
 </html>

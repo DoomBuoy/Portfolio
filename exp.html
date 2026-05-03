@@ -2,7 +2,7 @@
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Agam Singh Saini | Data Scientist & ML Engineer</title>
     
     <!-- Premium Fonts: Plus Jakarta (Display), Inter (Body), JetBrains Mono (Metrics/Data) -->
@@ -24,13 +24,13 @@
                     },
                     colors: {
                         brand: {
-                            bg: '#f8fafc',       // Slate 50 (Pearl background)
-                            surface: '#ffffff',  // Pure White (Cards)
-                            border: '#e2e8f0',   // Slate 200 (Crisp borders)
-                            text: '#0f172a',     // Slate 900 (Deep charcoal for headings - High Contrast)
-                            muted: '#475569',    // Slate 600 (Secondary text - High Contrast)
-                            accent: '#4f46e5',   // Indigo 600 (Primary ML highlight)
-                            secondary: '#06b6d4',// Cyan 500 (Secondary ML highlight)
+                            bg: '#0f172a',       // Slate 900
+                            surface: '#1e293b',  // Slate 800
+                            border: '#334155',   // Slate 700 (Darkened for theme)
+                            text: '#f8fafc',     // Slate 50 (Whitened for theme)
+                            muted: '#94a3b8',    // Slate 400 (Lightened for theme)
+                            accent: '#4f46e5',   // Indigo 600
+                            secondary: '#06b6d4',// Cyan 500
                         }
                     },
                     boxShadow: {
@@ -48,45 +48,43 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
     <style>
-        body {
-            /* Modified to transparent to allow the background image and blur to show */
+        html, body {
             background-color: transparent;
-            color: #0f172a;
+            color: #f8fafc;
             overflow-x: hidden;
+            width: 100%;
             -webkit-font-smoothing: antialiased;
-            /* Very faint connecting nodes pattern */
-            background-image: radial-gradient(rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+            background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 28px 28px;
         }
 
-        /* Deep Learning Ambient Glows (Latent Space representation) */
-        /* OPTIMIZATION: Removed expensive filter: blur(40px) - the radial gradient natively handles the soft edge */
+        /* Deep Learning Ambient Glows */
         .ambient-glow-indigo {
-            position: absolute;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(79, 70, 229, 0.04) 0%, rgba(248,250,252,0) 70%);
+            background: radial-gradient(circle, rgba(79, 70, 229, 0.15) 0%, rgba(15,23,42,0) 70%);
             pointer-events: none;
             z-index: -1;
         }
         .ambient-glow-cyan {
-            position: absolute;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(6, 182, 212, 0.04) 0%, rgba(248,250,252,0) 70%);
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, rgba(15,23,42,0) 70%);
             pointer-events: none;
             z-index: -1;
         }
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f8fafc; border-left: 1px solid #e2e8f0; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        ::-webkit-scrollbar-track { background: #0f172a; border-left: 1px solid #334155; }
+        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 
-        /* Premium Neural Card Hover Effects */
+        /* Premium Neural Card Hover Effects (UPDATED TO DARK GLASSMORPHISM) */
         .luxury-card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 4px 20px -2px rgba(79, 70, 229, 0.02);
+            background: rgba(30, 41, 59, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(71, 85, 105, 0.3);
+            box-shadow: 0 4px 30px -5px rgba(0, 0, 0, 0.3);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             overflow: hidden;
@@ -100,8 +98,9 @@
             transition: opacity 0.4s ease;
         }
         .luxury-card:hover {
-            border-color: rgba(79, 70, 229, 0.2);
-            box-shadow: 0 20px 30px -10px rgba(79, 70, 229, 0.08);
+            border-color: rgba(79, 70, 229, 0.4);
+            background: rgba(30, 41, 59, 0.65);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
             transform: translateY(-4px);
         }
         .luxury-card:hover::after {
@@ -116,15 +115,14 @@
             top: 0;
             bottom: 0;
             width: 2px;
-            background: linear-gradient(to bottom, transparent, rgba(79, 70, 229, 0.2), rgba(6, 182, 212, 0.2), transparent);
+            background: linear-gradient(to bottom, transparent, rgba(79, 70, 229, 0.5), rgba(6, 182, 212, 0.5), transparent);
         }
 
         @media (max-width: 768px) {
             .data-line::before { left: 1rem; }
         }
 
-        /* Reveal animation — driven by IntersectionObserver, not ScrollTrigger */
-        /* OPTIMIZATION: Added will-change for hardware acceleration */
+        /* Reveal animation */
         .reveal-up {
             opacity: 0;
             transform: translateY(15px);
@@ -145,7 +143,7 @@
 
         /* AI/ML Text Gradients */
         .text-ai-gradient {
-            background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+            background: linear-gradient(135deg, #818cf8 0%, #22d3ee 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -168,23 +166,25 @@
         }
     </style>
 </head>
-<body class="font-body selection:bg-brand-accent/10 selection:text-brand-accent">
+<body class="font-body selection:bg-brand-accent/20 selection:text-white">
 
-    <!-- OPTIMIZATION: Removed heavy backdrop-blur overlay. Applied static blur directly to background image scaling it to hide soft edges -->
-    <div class="fixed inset-0 w-full h-screen bg-cover bg-center bg-no-repeat blur-[8px] scale-[1.03]" style="background-image: url('images/pic03.jpg'); z-index: -10;"></div>
-    <!-- Simple darkening tint without the expensive dynamic blur calculation -->
-    <div class="fixed inset-0 w-full h-screen bg-slate-900/60" style="z-index: -9;"></div>
+    <!-- FIXED MOBILE BACKGROUND -->
+    <div class="fixed inset-0 bg-cover bg-center bg-no-repeat blur-[8px] scale-[1.05]" style="background-image: url('images/pic03.jpg'); z-index: -10;"></div>
+    <div class="fixed inset-0 bg-slate-900/80" style="z-index: -9;"></div>
 
     <!-- Neural Network Background Canvas -->
     <canvas id="neural-bg"></canvas>
 
-    <!-- Ambient Latent Space Backgrounds -->
-    <div class="ambient-glow-indigo w-[600px] h-[600px] top-0 left-0 -translate-x-1/4 -translate-y-1/4"></div>
-    <div class="ambient-glow-cyan w-[800px] h-[800px] top-1/3 right-0 translate-x-1/3"></div>
-    <div class="ambient-glow-indigo w-[700px] h-[700px] bottom-0 left-1/2 -translate-x-1/2 translate-y-1/3"></div>
+    <!-- FIXED MOBILE OVERFLOW: Ambient glows are now responsive -->
+    <div class="ambient-glow-indigo fixed w-[300px] h-[300px] md:w-[600px] md:h-[600px] top-0 left-0 -translate-x-1/4 -translate-y-1/4"></div>
+    <div class="ambient-glow-cyan fixed w-[400px] h-[400px] md:w-[800px] md:h-[800px] top-1/3 right-0 translate-x-1/3"></div>
+    <div class="ambient-glow-indigo fixed w-[350px] h-[350px] md:w-[700px] md:h-[700px] bottom-0 left-1/2 -translate-x-1/2 translate-y-1/3"></div>
 
-    <!-- Fixed Sidebar Navigation (Desktop) with Collapse Transitions -->
-    <aside id="desktop-sidebar" class="hidden lg:flex flex-col justify-between fixed top-0 left-0 w-72 h-screen bg-slate-900 text-slate-300 z-[60] border-r border-slate-800 py-10 px-6 transition-transform duration-500 ease-in-out translate-x-0">
+    <!-- Mobile Overlay for Sidebar -->
+    <div id="mobile-overlay" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[65] lg:hidden opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+    <!-- Unified Sidebar Navigation (Mobile & Desktop) -->
+    <aside id="main-sidebar" class="flex flex-col justify-between fixed top-0 left-0 w-72 h-[100dvh] bg-slate-900 text-slate-300 z-[70] border-r border-slate-800 py-10 px-6 transition-transform duration-500 ease-in-out -translate-x-full lg:translate-x-0">
         
         <!-- Close Sidebar Button -->
         <button id="close-sidebar" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-slate-500 hover:text-brand-accent hover:bg-slate-800 rounded-md transition-colors" title="Collapse Sidebar">
@@ -195,7 +195,7 @@
             <!-- Profile Area -->
             <div class="flex flex-col items-end gap-3 mb-12 mt-4">
                 <div class="flex items-center gap-4 w-full justify-between">
-                    <div class="w-14 h-14 rounded-lg overflow-hidden border-2 border-brand-accent/50 shadow-neural">
+                    <div class="w-14 h-14 rounded-lg overflow-hidden border-2 border-brand-accent/50 shadow-neural shrink-0">
                         <img src="images/Logo.jpeg" alt="Logo" class="w-full h-full object-cover object-top">
                     </div>
                     <div class="text-right flex-1">
@@ -207,35 +207,35 @@
 
             <!-- Navigation Links -->
             <nav class="flex flex-col gap-2 w-full">
-                <a href="#about" class="flex items-center justify-between px-4 py-3 rounded-lg hover:bg-slate-800 hover:text-white transition-all group">
-                    <i class="fa-solid fa-house text-slate-500 group-hover:text-brand-accent transition-colors"></i>
-                    <span class="font-display text-sm font-medium tracking-wide">Overview</span>
+                <a href="#about" class="sidebar-link flex items-center justify-between px-4 py-3 rounded-lg hover:bg-slate-800 hover:text-white transition-all group">
+                    <i class="fa-solid fa-house text-brand-muted group-hover:text-brand-accent transition-colors"></i>
+                    <span class="font-display text-sm font-medium tracking-wide text-brand-muted group-hover:text-brand-text">Overview</span>
                 </a>
-                <a href="#skills" class="flex items-center justify-between px-4 py-3 rounded-lg hover:bg-slate-800 hover:text-white transition-all group">
-                    <i class="fa-solid fa-network-wired text-slate-500 group-hover:text-brand-accent transition-colors"></i>
-                    <span class="font-display text-sm font-medium tracking-wide">Architecture</span>
+                <a href="#skills" class="sidebar-link flex items-center justify-between px-4 py-3 rounded-lg hover:bg-slate-800 hover:text-white transition-all group">
+                    <i class="fa-solid fa-network-wired text-brand-muted group-hover:text-brand-accent transition-colors"></i>
+                    <span class="font-display text-sm font-medium tracking-wide text-brand-muted group-hover:text-brand-text">Architecture</span>
                 </a>
-                <a href="#experience" class="flex items-center justify-between px-4 py-3 rounded-lg hover:bg-slate-800 hover:text-white transition-all group">
-                    <i class="fa-solid fa-chart-line text-slate-500 group-hover:text-brand-accent transition-colors"></i>
-                    <span class="font-display text-sm font-medium tracking-wide">Timeline</span>
+                <a href="#experience" class="sidebar-link flex items-center justify-between px-4 py-3 rounded-lg hover:bg-slate-800 hover:text-white transition-all group">
+                    <i class="fa-solid fa-chart-line text-brand-muted group-hover:text-brand-accent transition-colors"></i>
+                    <span class="font-display text-sm font-medium tracking-wide text-brand-muted group-hover:text-brand-text">Timeline</span>
                 </a>
-                <a href="#projects" class="flex items-center justify-between px-4 py-3 rounded-lg hover:bg-slate-800 hover:text-white transition-all group">
-                    <i class="fa-solid fa-layer-group text-slate-500 group-hover:text-brand-accent transition-colors"></i>
-                    <span class="font-display text-sm font-medium tracking-wide">Deployments</span>
+                <a href="#projects" class="sidebar-link flex items-center justify-between px-4 py-3 rounded-lg hover:bg-slate-800 hover:text-white transition-all group">
+                    <i class="fa-solid fa-layer-group text-brand-muted group-hover:text-brand-accent transition-colors"></i>
+                    <span class="font-display text-sm font-medium tracking-wide text-brand-muted group-hover:text-brand-text">Deployments</span>
                 </a>
-                <a href="#certificates" class="flex items-center justify-between px-4 py-3 rounded-lg hover:bg-slate-800 hover:text-white transition-all group">
-                    <i class="fa-solid fa-certificate text-slate-500 group-hover:text-brand-accent transition-colors"></i>
-                    <span class="font-display text-sm font-medium tracking-wide">Credentials</span>
+                <a href="#certificates" class="sidebar-link flex items-center justify-between px-4 py-3 rounded-lg hover:bg-slate-800 hover:text-white transition-all group">
+                    <i class="fa-solid fa-certificate text-brand-muted group-hover:text-brand-accent transition-colors"></i>
+                    <span class="font-display text-sm font-medium tracking-wide text-brand-muted group-hover:text-brand-text">Credentials</span>
                 </a>
             </nav>
         </div>
 
         <!-- Social Links & Resume -->
         <div class="flex flex-col gap-6">
-            <a href="Data_Science.pdf" download class="flex items-center justify-center gap-2 bg-slate-800/50 border border-slate-700 text-slate-200 px-5 py-3 rounded-lg text-sm font-semibold hover:bg-brand-accent hover:border-brand-accent hover:text-white transition-all shadow-sm">
+            <a href="Data_Science.pdf" download class="flex items-center justify-center gap-2 bg-slate-800/50 border border-brand-border text-brand-text px-5 py-3 rounded-lg text-sm font-semibold hover:bg-brand-accent hover:border-brand-accent hover:text-white transition-all shadow-sm">
                 <i class="fa fa-file-pdf"></i> Download Resume
             </a>
-            <div class="flex justify-center gap-5 text-slate-500">
+            <div class="flex justify-center gap-5 text-brand-muted">
                 <a href="https://github.com/Doombuoy" target="_blank" class="hover:text-brand-accent transition-colors"><i class="fa-brands fa-github text-lg"></i></a>
                 <a href="https://www.linkedin.com/in/agam-singh-saini-199185220/" target="_blank" class="hover:text-brand-accent transition-colors"><i class="fa-brands fa-linkedin text-lg"></i></a>
                 <a href="mailto:Agamsingh.saini@student.uts.edu.au" class="hover:text-brand-accent transition-colors"><i class="fa-solid fa-envelope text-lg"></i></a>
@@ -243,35 +243,28 @@
         </div>
     </aside>
 
-    <!-- Open Sidebar Button (Visible only when sidebar is collapsed on desktop) -->
-    <button id="open-sidebar" class="hidden lg:flex fixed top-6 left-6 z-[55] w-12 h-12 bg-white border border-brand-border text-slate-600 rounded-xl shadow-md items-center justify-center hover:text-brand-accent hover:border-brand-accent transition-all duration-500 opacity-0 pointer-events-none" title="Open Sidebar">
+    <!-- Open Sidebar Button (Desktop Only - visible when sidebar is collapsed) -->
+    <button id="desktop-open-btn" class="hidden lg:flex fixed top-6 left-6 z-[55] w-12 h-12 bg-slate-800/80 backdrop-blur-md border border-brand-border text-brand-text rounded-xl shadow-md items-center justify-center hover:text-brand-accent hover:border-brand-accent transition-all duration-500 opacity-0 pointer-events-none" title="Open Sidebar">
         <i class="fa-solid fa-bars text-xl"></i>
     </button>
 
-    <!-- Navigation (Modified to hide on large screens where sidebar is active) -->
-    <nav class="fixed top-0 w-full lg:hidden bg-slate-900/90 backdrop-blur-md border-b border-slate-800 z-50 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="font-display font-bold text-xl tracking-tight text-white flex items-center gap-3 group">
-                <div class="w-8 h-8 rounded border border-slate-700 overflow-hidden group-hover:border-brand-accent transition-colors hidden sm:block shadow-sm p-0.5">
+    <!-- Mobile Top Navigation with Hamburger Button -->
+    <nav class="fixed top-0 w-full lg:hidden bg-slate-900/90 backdrop-blur-md border-b border-brand-border z-50 transition-all duration-300">
+        <div class="px-6 py-4 flex justify-between items-center">
+            <a href="#" class="font-display font-bold text-xl tracking-tight text-brand-text flex items-center gap-3">
+                <div class="w-8 h-8 rounded border border-brand-border overflow-hidden shadow-sm p-0.5">
                     <img src="images/Logo.jpeg" alt="Logo" class="w-full h-full object-cover rounded-sm">
                 </div>
                 A.S. Saini
             </a>
-            <div class="hidden md:flex gap-8 text-sm font-medium text-slate-300">
-                <a href="#about" class="hover:text-brand-accent transition-colors">Overview</a>
-                <a href="#skills" class="hover:text-brand-accent transition-colors">Architecture</a>
-                <a href="#experience" class="hover:text-brand-accent transition-colors">Timeline</a>
-                <a href="#projects" class="hover:text-brand-accent transition-colors">Deployments</a>
-                <a href="#certificates" class="hover:text-brand-accent transition-colors">Credentials</a>
-            </div>
-            <a href="Data_Science.pdf" download class="hidden md:inline-flex items-center gap-2 bg-slate-800 border border-slate-700 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:border-brand-accent hover:text-brand-accent transition-all shadow-sm">
-                <i class="fa fa-file-pdf text-brand-accent"></i> Resume
-            </a>
+            <button id="mobile-open-btn" class="text-brand-muted hover:text-brand-text text-2xl focus:outline-none transition-colors">
+                <i class="fa-solid fa-bars"></i>
+            </button>
         </div>
     </nav>
 
-    <!-- Modified main wrapper: Added smooth transition for margin changes -->
-    <main id="smooth-wrapper" class="pt-24 lg:ml-72 relative transition-all duration-500 ease-in-out" style="z-index:2;">
+    <!-- Main Content Wrapper -->
+    <main id="smooth-wrapper" class="pt-24 lg:ml-72 relative transition-all duration-500 ease-in-out min-h-screen" style="z-index:2;">
         <div id="smooth-content">
 
             <!-- Hero Section -->
@@ -281,37 +274,37 @@
                     <div class="lg:col-span-4 flex justify-center lg:justify-end order-first lg:order-last reveal-up">
                         <div class="relative">
                             <!-- Decorative ring -->
-                            <div class="absolute -inset-1 rounded-2xl bg-gradient-to-br from-brand-accent/20 via-brand-secondary/10 to-transparent"></div>
-                            <div class="relative w-64 h-72 md:w-72 md:h-80 lg:w-80 lg:h-96 rounded-2xl overflow-hidden border-2 border-brand-border shadow-neural-hover bg-white">
+                            <div class="absolute -inset-1 rounded-2xl bg-gradient-to-br from-brand-accent/40 via-brand-secondary/20 to-transparent"></div>
+                            <div class="relative w-64 h-72 md:w-72 md:h-80 lg:w-80 lg:h-96 rounded-2xl overflow-hidden border-2 border-brand-border shadow-neural-hover bg-slate-800">
                                 <img src="images/Logo.jpeg" alt="Agam Singh Saini" class="w-full h-full object-cover object-top">
                             </div>
                             <!-- Floating accent badge -->
-                            <div class="absolute -bottom-3 -left-3 bg-white border border-brand-border rounded-xl px-3 py-2 shadow-md flex items-center gap-2">
+                            <div class="absolute -bottom-3 -left-3 bg-slate-800 border border-brand-border rounded-xl px-3 py-2 shadow-md flex items-center gap-2">
                                 <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                                <span class="text-xs font-mono font-semibold text-slate-600">Open to Work</span>
+                                <span class="text-xs font-mono font-semibold text-brand-text">Open to Work</span>
                             </div>
                         </div>
                     </div>
                     <div class="lg:col-span-8 reveal-up">
-                        <div class="font-mono text-brand-muted text-xs mb-6 flex items-center gap-3 bg-white border border-brand-border inline-flex px-3 py-1.5 rounded-md shadow-sm">
+                        <div class="font-mono text-brand-text text-xs mb-6 flex items-center gap-3 bg-slate-800/80 backdrop-blur-sm border border-brand-border inline-flex px-3 py-1.5 rounded-md shadow-sm">
                             <span class="w-2 h-2 rounded-full bg-ai-gradient animate-pulse"></span>
-                            <span class="tracking-wider font-semibold uppercase text-slate-600">Model Status: Optimized</span>
+                            <span class="tracking-wider font-semibold uppercase">Model Status: Optimized</span>
                         </div>
-                        <h1 class="font-display font-extrabold text-5xl md:text-6xl lg:text-[5rem] leading-[1.05] tracking-tight text-white mb-4">
+                        <h1 class="font-display font-extrabold text-5xl md:text-6xl lg:text-[5rem] leading-[1.05] tracking-tight text-brand-text mb-4">
                             Agam Singh Saini
                         </h1>
                         <h2 class="font-display text-2xl md:text-3xl text-ai-gradient font-bold mb-8">
                             Data Scientist & ML Engineer
                         </h2>
-                        <p class="text-slate-200 text-lg leading-relaxed max-w-3xl mb-10 font-normal">
-                            Master’s candidate in Data Science bridging the gap between Mechatronics Engineering and advanced Machine Learning. Architect of high-speed data pipelines, predictive models, and <span class="text-white font-semibold">Sydly</span>—a live transit ecosystem tracking 10,000+ vehicles with 5-second precision.
+                        <p class="text-brand-muted text-lg leading-relaxed max-w-3xl mb-10 font-normal">
+                            Master’s candidate in Data Science bridging the gap between Mechatronics Engineering and advanced Machine Learning. Architect of high-speed data pipelines, predictive models, and <span class="text-brand-text font-semibold">Sydly</span>—a live transit ecosystem tracking 10,000+ vehicles with 5-second precision.
                         </p>
                         
                         <div class="flex flex-wrap gap-4 font-display text-sm">
-                            <a href="#projects" class="bg-brand-text text-white px-7 py-3.5 rounded-lg font-semibold hover:bg-brand-accent transition-all shadow-md flex items-center gap-2">
+                            <a href="#projects" class="bg-brand-accent text-white border border-brand-accent px-7 py-3.5 rounded-lg font-semibold hover:bg-indigo-500 transition-all shadow-md flex items-center gap-2">
                                 Explore Models <i class="fa-solid fa-arrow-right"></i>
                             </a>
-                            <a href="https://github.com/Doombuoy" target="_blank" class="bg-white text-brand-text border border-brand-border px-7 py-3.5 rounded-lg font-semibold hover:border-slate-300 hover:shadow-sm transition-all flex items-center gap-2">
+                            <a href="https://github.com/Doombuoy" target="_blank" class="bg-slate-800/80 backdrop-blur-sm text-brand-text border border-brand-border px-7 py-3.5 rounded-lg font-semibold hover:border-brand-muted hover:bg-slate-700/50 transition-all flex items-center gap-2">
                                 <i class="fa-brands fa-github text-lg"></i> View Repository
                             </a>
                         </div>
@@ -322,33 +315,33 @@
             <!-- Skills Section -->
             <section id="skills" class="py-24 px-6 relative">
                 <!-- Faint horizontal separator -->
-                <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-600 to-transparent"></div>
+                <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-border to-transparent"></div>
                 
                 <div class="max-w-7xl mx-auto relative z-10">
                     <div class="flex items-center gap-4 mb-16 reveal-up">
                         <i class="fa-solid fa-network-wired text-brand-accent text-xl"></i>
-                        <h2 class="font-display text-3xl font-bold text-white">Technical Architecture</h2>
-                        <div class="h-px bg-slate-600 flex-1 ml-4 opacity-50"></div>
+                        <h2 class="font-display text-3xl font-bold text-brand-text">Technical Architecture</h2>
+                        <div class="h-px bg-brand-border flex-1 ml-4"></div>
                     </div>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         <!-- Skill Card 1 -->
                         <div class="luxury-card p-8 rounded-xl reveal-up">
-                            <div class="w-12 h-12 bg-slate-50 border border-brand-border text-brand-accent rounded-lg flex items-center justify-center mb-6 text-xl shadow-sm">
+                            <div class="w-12 h-12 bg-slate-800/80 border border-brand-border text-brand-accent rounded-lg flex items-center justify-center mb-6 text-xl shadow-sm">
                                 <i class="fa-solid fa-code"></i>
                             </div>
                             <h3 class="font-display font-bold text-lg mb-4 text-brand-text">Core Languages</h3>
                             <div class="flex flex-wrap gap-2">
-                                <span class="text-slate-700 text-xs font-mono bg-slate-50 px-2.5 py-1 rounded border border-brand-border">Python</span>
-                                <span class="text-slate-700 text-xs font-mono bg-slate-50 px-2.5 py-1 rounded border border-brand-border">SQL</span>
-                                <span class="text-slate-700 text-xs font-mono bg-slate-50 px-2.5 py-1 rounded border border-brand-border">C++ / C</span>
-                                <span class="text-slate-700 text-xs font-mono bg-slate-50 px-2.5 py-1 rounded border border-brand-border">Dart</span>
+                                <span class="text-brand-text text-xs font-mono bg-slate-800/50 px-2.5 py-1 rounded border border-brand-border">Python</span>
+                                <span class="text-brand-text text-xs font-mono bg-slate-800/50 px-2.5 py-1 rounded border border-brand-border">SQL</span>
+                                <span class="text-brand-text text-xs font-mono bg-slate-800/50 px-2.5 py-1 rounded border border-brand-border">C++ / C</span>
+                                <span class="text-brand-text text-xs font-mono bg-slate-800/50 px-2.5 py-1 rounded border border-brand-border">Dart</span>
                             </div>
                         </div>
                         
                         <!-- Skill Card 2 -->
                         <div class="luxury-card p-8 rounded-xl reveal-up" style="transition-delay: 100ms;">
-                            <div class="w-12 h-12 bg-slate-50 border border-brand-border text-brand-secondary rounded-lg flex items-center justify-center mb-6 text-xl shadow-sm">
+                            <div class="w-12 h-12 bg-slate-800/80 border border-brand-border text-brand-secondary rounded-lg flex items-center justify-center mb-6 text-xl shadow-sm">
                                 <i class="fa-solid fa-brain"></i>
                             </div>
                             <h3 class="font-display font-bold text-lg mb-4 text-brand-text">Machine Learning</h3>
@@ -357,7 +350,7 @@
 
                         <!-- Skill Card 3 -->
                         <div class="luxury-card p-8 rounded-xl reveal-up" style="transition-delay: 200ms;">
-                            <div class="w-12 h-12 bg-slate-50 border border-brand-border text-brand-accent rounded-lg flex items-center justify-center mb-6 text-xl shadow-sm">
+                            <div class="w-12 h-12 bg-slate-800/80 border border-brand-border text-brand-accent rounded-lg flex items-center justify-center mb-6 text-xl shadow-sm">
                                 <i class="fa-solid fa-database"></i>
                             </div>
                             <h3 class="font-display font-bold text-lg mb-4 text-brand-text">Data & Ecosystem</h3>
@@ -366,7 +359,7 @@
 
                         <!-- Skill Card 4 -->
                         <div class="luxury-card p-8 rounded-xl reveal-up" style="transition-delay: 300ms;">
-                            <div class="w-12 h-12 bg-slate-50 border border-brand-border text-brand-secondary rounded-lg flex items-center justify-center mb-6 text-xl shadow-sm">
+                            <div class="w-12 h-12 bg-slate-800/80 border border-brand-border text-brand-secondary rounded-lg flex items-center justify-center mb-6 text-xl shadow-sm">
                                 <i class="fa-solid fa-server"></i>
                             </div>
                             <h3 class="font-display font-bold text-lg mb-4 text-brand-text">Cloud & DevOps</h3>
@@ -378,7 +371,7 @@
 
             <!-- Experience & Education Split Section -->
             <section id="experience" class="py-24 px-6 relative">
-                <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-600 to-transparent"></div>
+                <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-border to-transparent"></div>
                 
                 <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 relative z-10">
                     
@@ -386,23 +379,23 @@
                     <div class="relative">
                         <div class="flex items-center gap-4 mb-12 reveal-up">
                             <i class="fa-solid fa-chart-line text-brand-accent text-xl"></i>
-                            <h2 class="font-display text-3xl font-bold text-white">Experience Timeline</h2>
+                            <h2 class="font-display text-3xl font-bold text-brand-text">Experience Timeline</h2>
                         </div>
                         
                         <div class="space-y-8 data-line relative">
                             
                             <!-- Job 1 -->
                             <div class="relative flex items-start gap-6 group reveal-up luxury-card p-6 rounded-xl z-10 ml-12 md:ml-10">
-                                <div class="absolute -left-[3.25rem] md:-left-[2.75rem] top-6 w-10 h-10 rounded-full bg-white border-2 border-brand-accent flex items-center justify-center shadow-sm">
+                                <div class="absolute -left-[3.25rem] md:-left-[2.75rem] top-6 w-10 h-10 rounded-full bg-slate-200 border-2 border-brand-accent flex items-center justify-center shadow-sm">
                                     <img src="images/iwcs.jpeg" alt="Informed Care Services" class="w-6 h-6 object-contain rounded-sm img-blend">
                                 </div>
                                 <div class="w-full">
                                     <div class="flex flex-col xl:flex-row xl:justify-between xl:items-start mb-2">
                                         <div>
                                             <h3 class="font-display font-bold text-lg text-brand-text group-hover:text-brand-accent transition-colors">Support Worker (Data Context)</h3>
-                                            <h4 class="text-slate-600 font-medium text-sm mt-1">Informed Care Services | Sydney</h4>
+                                            <h4 class="text-brand-muted font-medium text-sm mt-1">Informed Care Services | Sydney</h4>
                                         </div>
-                                        <span class="font-mono text-xs font-semibold text-brand-accent bg-indigo-50 border border-indigo-100 px-2.5 py-1 rounded-md mt-2 xl:mt-0 whitespace-nowrap">Apr 2025 – Present</span>
+                                        <span class="font-mono text-xs font-semibold text-brand-accent bg-brand-accent/10 border border-brand-accent/20 px-2.5 py-1 rounded-md mt-2 xl:mt-0 whitespace-nowrap">Apr 2025 – Present</span>
                                     </div>
                                     <ul class="list-none space-y-2 text-brand-muted text-sm leading-relaxed mt-4 font-normal">
                                         <li class="relative pl-4 before:content-['▹'] before:absolute before:left-0 before:text-brand-accent before:font-bold">Managed detailed care plans for 5+ clients, ensuring 100% documentation accuracy.</li>
@@ -413,16 +406,16 @@
 
                             <!-- Job 2 -->
                             <div class="relative flex items-start gap-6 group reveal-up luxury-card p-6 rounded-xl z-10 ml-12 md:ml-10">
-                                <div class="absolute -left-[3.25rem] md:-left-[2.75rem] top-6 w-10 h-10 rounded-full bg-white border-2 border-slate-300 group-hover:border-brand-secondary transition-colors flex items-center justify-center shadow-sm">
+                                <div class="absolute -left-[3.25rem] md:-left-[2.75rem] top-6 w-10 h-10 rounded-full bg-slate-200 border-2 border-brand-border group-hover:border-brand-secondary transition-colors flex items-center justify-center shadow-sm">
                                     <img src="images/drdo.jpg" alt="CVRDE DRDO" class="w-6 h-6 object-contain rounded-sm img-blend">
                                 </div>
                                 <div class="w-full">
                                     <div class="flex flex-col xl:flex-row xl:justify-between xl:items-start mb-2">
                                         <div>
                                             <h3 class="font-display font-bold text-lg text-brand-text group-hover:text-brand-secondary transition-colors">Robotics R&D Intern</h3>
-                                            <h4 class="text-slate-600 font-medium text-sm mt-1">Combat Vehicle R&D Establishment</h4>
+                                            <h4 class="text-brand-muted font-medium text-sm mt-1">Combat Vehicle R&D Establishment</h4>
                                         </div>
-                                        <span class="font-mono text-xs font-semibold text-slate-500 bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-md mt-2 xl:mt-0 whitespace-nowrap">Jan '23 – Jun '23</span>
+                                        <span class="font-mono text-xs font-semibold text-brand-muted bg-slate-800/50 border border-brand-border px-2.5 py-1 rounded-md mt-2 xl:mt-0 whitespace-nowrap">Jan '23 – Jun '23</span>
                                     </div>
                                     <ul class="list-none space-y-2 text-brand-muted text-sm leading-relaxed mt-4 font-normal">
                                         <li class="relative pl-4 before:content-['▹'] before:absolute before:left-0 before:text-brand-secondary before:font-bold">Designed autonomous computer vision pipelines using ROS2, implementing real-time detection improving safety by 40%.</li>
@@ -433,16 +426,16 @@
 
                             <!-- Job 3 -->
                             <div class="relative flex items-start gap-6 group reveal-up luxury-card p-6 rounded-xl z-10 ml-12 md:ml-10">
-                                <div class="absolute -left-[3.25rem] md:-left-[2.75rem] top-6 w-10 h-10 rounded-full bg-white border-2 border-slate-300 group-hover:border-brand-secondary transition-colors flex items-center justify-center shadow-sm">
+                                <div class="absolute -left-[3.25rem] md:-left-[2.75rem] top-6 w-10 h-10 rounded-full bg-slate-200 border-2 border-brand-border group-hover:border-brand-secondary transition-colors flex items-center justify-center shadow-sm">
                                     <img src="images/spectrum.png" alt="Spectrum Technology" class="w-6 h-6 object-contain rounded-sm img-blend">
                                 </div>
                                 <div class="w-full">
                                     <div class="flex flex-col xl:flex-row xl:justify-between xl:items-start mb-2">
                                         <div>
                                             <h3 class="font-display font-bold text-lg text-brand-text group-hover:text-brand-secondary transition-colors">Mechatronics Intern</h3>
-                                            <h4 class="text-slate-600 font-medium text-sm mt-1">Spectrum Technology</h4>
+                                            <h4 class="text-brand-muted font-medium text-sm mt-1">Spectrum Technology</h4>
                                         </div>
-                                        <span class="font-mono text-xs font-semibold text-slate-500 bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-md mt-2 xl:mt-0 whitespace-nowrap">Jun '23 – Aug '23</span>
+                                        <span class="font-mono text-xs font-semibold text-brand-muted bg-slate-800/50 border border-brand-border px-2.5 py-1 rounded-md mt-2 xl:mt-0 whitespace-nowrap">Jun '23 – Aug '23</span>
                                     </div>
                                     <ul class="list-none space-y-2 text-brand-muted text-sm leading-relaxed mt-4 font-normal">
                                         <li class="relative pl-4 before:content-['▹'] before:absolute before:left-0 before:text-brand-secondary before:font-bold">Developed IoT data acquisition systems in LabVIEW to monitor 50+ industrial sensors in &lt;1s.</li>
@@ -457,36 +450,36 @@
                     <div>
                         <div class="flex items-center gap-4 mb-12 reveal-up">
                             <i class="fa-solid fa-microchip text-brand-accent text-xl"></i>
-                            <h2 class="font-display text-3xl font-bold text-white">Academic Foundation</h2>
+                            <h2 class="font-display text-3xl font-bold text-brand-text">Academic Foundation</h2>
                         </div>
                         
                         <div class="space-y-6">
                             <!-- Edu 1 -->
                             <div class="luxury-card p-6 rounded-xl flex items-start gap-5 group reveal-up">
-                                <div class="w-14 h-14 shrink-0 rounded bg-white border border-brand-border p-1.5 flex items-center justify-center shadow-sm">
+                                <div class="w-14 h-14 shrink-0 rounded bg-slate-200 border border-brand-border p-1.5 flex items-center justify-center shadow-sm">
                                     <img src="images/UTS.jpg" alt="UTS" class="w-full h-full object-contain img-blend">
                                 </div>
                                 <div>
                                     <h3 class="font-display font-bold text-lg text-brand-text">M.S. in Data Science & Innovation</h3>
-                                    <h4 class="text-slate-600 font-medium text-sm mt-1">University Of Technology Sydney</h4>
+                                    <h4 class="text-brand-muted font-medium text-sm mt-1">University Of Technology Sydney</h4>
                                     <div class="flex flex-wrap items-center gap-3 mt-4">
-                                        <span class="font-mono text-[10px] font-bold tracking-wider uppercase text-slate-500 bg-slate-100 border border-brand-border px-2.5 py-1 rounded">Feb 2025 – Present</span>
-                                        <span class="font-mono text-[10px] font-bold tracking-wider uppercase text-brand-accent bg-indigo-50 border border-indigo-100 shadow-sm px-2.5 py-1 rounded">GPA: 3.5/4</span>
+                                        <span class="font-mono text-[10px] font-bold tracking-wider uppercase text-brand-text bg-slate-800/50 border border-brand-border px-2.5 py-1 rounded">Feb 2025 – Present</span>
+                                        <span class="font-mono text-[10px] font-bold tracking-wider uppercase text-brand-accent bg-brand-accent/10 border border-brand-accent/20 shadow-sm px-2.5 py-1 rounded">GPA: 3.5/4</span>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Edu 2 -->
                             <div class="luxury-card p-6 rounded-xl flex items-start gap-5 group reveal-up">
-                                <div class="w-14 h-14 shrink-0 rounded bg-white border border-brand-border p-1.5 flex items-center justify-center shadow-sm">
+                                <div class="w-14 h-14 shrink-0 rounded bg-slate-200 border border-brand-border p-1.5 flex items-center justify-center shadow-sm">
                                     <img src="images/TIET.jpg" alt="TIET" class="w-full h-full object-contain img-blend">
                                 </div>
                                 <div>
                                     <h3 class="font-display font-bold text-lg text-brand-text">B.E. in Mechatronics Engineering</h3>
-                                    <h4 class="text-slate-600 font-medium text-sm mt-1">Thapar Institute of Engineering and Tech.</h4>
+                                    <h4 class="text-brand-muted font-medium text-sm mt-1">Thapar Institute of Engineering and Tech.</h4>
                                     <div class="flex flex-wrap items-center gap-3 mt-4">
-                                        <span class="font-mono text-[10px] font-bold tracking-wider uppercase text-slate-500 bg-slate-100 border border-brand-border px-2.5 py-1 rounded">Mar 2020 – Jun 2024</span>
-                                        <span class="font-mono text-[10px] font-bold tracking-wider uppercase text-slate-600 bg-white border border-brand-border shadow-sm px-2.5 py-1 rounded">CGPA: 8.77/10</span>
+                                        <span class="font-mono text-[10px] font-bold tracking-wider uppercase text-brand-text bg-slate-800/50 border border-brand-border px-2.5 py-1 rounded">Mar 2020 – Jun 2024</span>
+                                        <span class="font-mono text-[10px] font-bold tracking-wider uppercase text-brand-text bg-slate-800/50 border border-brand-border shadow-sm px-2.5 py-1 rounded">CGPA: 8.77/10</span>
                                     </div>
                                 </div>
                             </div>
@@ -498,93 +491,93 @@
 
             <!-- Projects Section -->
             <section id="projects" class="py-24 px-6 relative">
-                <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-600 to-transparent"></div>
+                <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-border to-transparent"></div>
                 <div class="max-w-7xl mx-auto relative z-10">
                     <div class="flex items-center gap-4 mb-16 reveal-up">
                         <i class="fa-solid fa-layer-group text-brand-accent text-xl"></i>
-                        <h2 class="font-display text-3xl font-bold text-white">Model Deployments</h2>
-                        <div class="h-px bg-slate-600 flex-1 ml-4 opacity-50"></div>
+                        <h2 class="font-display text-3xl font-bold text-brand-text">Model Deployments</h2>
+                        <div class="h-px bg-brand-border flex-1 ml-4"></div>
                     </div>
                     
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
                         
                         <!-- Project 1: Sydly -->
                         <div class="luxury-card rounded-2xl overflow-hidden flex flex-col reveal-up group">
-                            <div class="h-60 overflow-hidden bg-slate-100 relative border-b border-brand-border">
-                                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/10 to-transparent z-10"></div>
-                                <img src="images/safarnama.png" alt="Sydly App" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 mix-blend-multiply opacity-90">
+                            <div class="h-60 overflow-hidden bg-slate-800 relative border-b border-brand-border">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent z-10"></div>
+                                <img src="images/safarnama.png" alt="Sydly App" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                             </div>
-                            <div class="p-8 flex-1 flex flex-col relative bg-white">
+                            <div class="p-8 flex-1 flex flex-col relative bg-transparent">
                                 <div class="flex justify-between items-start mb-2">
                                     <h3 class="font-display font-bold text-2xl text-brand-text group-hover:text-brand-accent transition-colors">Sydly-Travel Sydney Seamlessly</h3>
-                                    <span class="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-slate-50 border border-brand-border px-2 py-1 rounded">Live Build</span>
+                                    <span class="font-mono text-[10px] font-bold uppercase tracking-wider text-brand-text bg-slate-800 border border-brand-border px-2 py-1 rounded">Live Build</span>
                                 </div>
                                 <h4 class="font-mono text-brand-accent text-xs mb-5 uppercase tracking-wide">Architecture: Geospatial Data & API</h4>
                                 <p class="text-brand-muted text-sm leading-relaxed mb-6 flex-1 font-normal">
                                     Successfully launched a comprehensive transit application. Engineered a high-speed backend consuming live TfNSW GTFS-R feeds, processing and mapping 10,000+ active vehicles with a 5-second telemetry refresh rate.
                                 </p>
                                 <div class="flex flex-wrap gap-2 mb-8">
-                                    <span class="font-mono text-xs text-slate-600 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded">Flutter/Dart</span>
-                                    <span class="font-mono text-xs text-slate-600 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded">TfNSW API</span>
-                                    <span class="font-mono text-xs text-slate-600 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded">Protobuf</span>
+                                    <span class="font-mono text-xs text-brand-text bg-slate-800/50 border border-brand-border px-2.5 py-1 rounded">Flutter/Dart</span>
+                                    <span class="font-mono text-xs text-brand-text bg-slate-800/50 border border-brand-border px-2.5 py-1 rounded">TfNSW API</span>
+                                    <span class="font-mono text-xs text-brand-text bg-slate-800/50 border border-brand-border px-2.5 py-1 rounded">Protobuf</span>
                                 </div>
-                                <div class="flex flex-wrap gap-5 mt-auto pt-5 border-t border-slate-100">
-                                    <a href="https://doombuoy.github.io/Transport_app_website/" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-solid fa-link text-slate-400"></i> View Project</a>
-                                    <a href="https://play.google.com/store/apps/details?id=io.github.Doombuoy.safarnama" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-brands fa-google-play text-slate-400"></i> Play Store</a>
-                                    <a href="https://apps.apple.com/au/app/sydly-travel-sydney-seamlessly/id6761148694" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-brands fa-apple text-slate-400"></i> App Store</a>
+                                <div class="flex flex-wrap gap-5 mt-auto pt-5 border-t border-brand-border">
+                                    <a href="https://doombuoy.github.io/Transport_app_website/" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-solid fa-link text-brand-muted"></i> View Project</a>
+                                    <a href="https://play.google.com/store/apps/details?id=io.github.Doombuoy.safarnama" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-brands fa-google-play text-brand-muted"></i> Play Store</a>
+                                    <a href="https://apps.apple.com/au/app/sydly-travel-sydney-seamlessly/id6761148694" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-brands fa-apple text-brand-muted"></i> App Store</a>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Project 2: NYC Taxi -->
                         <div class="luxury-card rounded-2xl overflow-hidden flex flex-col reveal-up group">
-                            <div class="h-60 overflow-hidden bg-slate-100 relative border-b border-brand-border">
-                                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/10 to-transparent z-10"></div>
-                                <img src="images/taxi.jpg" alt="NYC Taxi Analysis" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 mix-blend-multiply opacity-90">
+                            <div class="h-60 overflow-hidden bg-slate-800 relative border-b border-brand-border">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent z-10"></div>
+                                <img src="images/taxi.jpg" alt="NYC Taxi Analysis" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                             </div>
-                            <div class="p-8 flex-1 flex flex-col relative bg-white">
+                            <div class="p-8 flex-1 flex flex-col relative bg-transparent">
                                 <div class="flex justify-between items-start mb-2">
                                     <h3 class="font-display font-bold text-2xl text-brand-text group-hover:text-brand-accent transition-colors">NYC Taxi Analytics</h3>
-                                    <span class="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-slate-50 border border-brand-border px-2 py-1 rounded">Pipeline</span>
+                                    <span class="font-mono text-[10px] font-bold uppercase tracking-wider text-brand-text bg-slate-800 border border-brand-border px-2 py-1 rounded">Pipeline</span>
                                 </div>
                                 <h4 class="font-mono text-brand-accent text-xs mb-5 uppercase tracking-wide">Architecture: Big Data & ML</h4>
                                 <p class="text-brand-muted text-sm leading-relaxed mb-6 flex-1 font-normal">
                                     Engineered a scalable Databricks pipeline to process and analyze 1 Billion taxi records, successfully cleaning over 80M rows of raw data. Developed fare prediction models achieving 87% accuracy.
                                 </p>
                                 <div class="flex flex-wrap gap-2 mb-8">
-                                    <span class="font-mono text-xs text-slate-600 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded">PySpark</span>
-                                    <span class="font-mono text-xs text-slate-600 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded">Databricks</span>
-                                    <span class="font-mono text-xs text-slate-600 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded">Python/SQL</span>
+                                    <span class="font-mono text-xs text-brand-text bg-slate-800/50 border border-brand-border px-2.5 py-1 rounded">PySpark</span>
+                                    <span class="font-mono text-xs text-brand-text bg-slate-800/50 border border-brand-border px-2.5 py-1 rounded">Databricks</span>
+                                    <span class="font-mono text-xs text-brand-text bg-slate-800/50 border border-brand-border px-2.5 py-1 rounded">Python/SQL</span>
                                 </div>
-                                <div class="flex gap-5 mt-auto pt-5 border-t border-slate-100">
-                                    <a href="https://github.com/DoomBuoy/New_York_Taxi_Databricks" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-brands fa-github text-slate-400"></i> Repository</a>
+                                <div class="flex gap-5 mt-auto pt-5 border-t border-brand-border">
+                                    <a href="https://github.com/DoomBuoy/New_York_Taxi_Databricks" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-brands fa-github text-brand-muted"></i> Repository</a>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Project 3: Bitcoin -->
                         <div class="luxury-card rounded-2xl overflow-hidden flex flex-col reveal-up group">
-                            <div class="h-60 overflow-hidden bg-slate-100 relative border-b border-brand-border">
-                                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/10 to-transparent z-10"></div>
-                                <img src="images/bitcoin.jpg" alt="Bitcoin Prediction" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 mix-blend-multiply opacity-90">
+                            <div class="h-60 overflow-hidden bg-slate-800 relative border-b border-brand-border">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent z-10"></div>
+                                <img src="images/bitcoin.jpg" alt="Bitcoin Prediction" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                             </div>
-                            <div class="p-8 flex-1 flex flex-col bg-white">
+                            <div class="p-8 flex-1 flex flex-col bg-transparent">
                                 <div class="flex justify-between items-start mb-2">
                                     <h3 class="font-display font-bold text-2xl text-brand-text group-hover:text-brand-accent transition-colors">Crypto Predictor</h3>
-                                    <span class="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-slate-50 border border-brand-border px-2 py-1 rounded">Model</span>
+                                    <span class="font-mono text-[10px] font-bold uppercase tracking-wider text-brand-text bg-slate-800 border border-brand-border px-2 py-1 rounded">Model</span>
                                 </div>
                                 <h4 class="font-mono text-brand-accent text-xs mb-5 uppercase tracking-wide">Architecture: Time-Series Forecasting</h4>
                                 <p class="text-brand-muted text-sm leading-relaxed mb-6 flex-1 font-normal">
                                     Deployed a live cryptocurrency forecasting web app. Trained ensemble ML models on a decade of historical data, achieving a 79.6% R² score for next-day price predictions.
                                 </p>
                                 <div class="flex flex-wrap gap-2 mb-8">
-                                    <span class="font-mono text-xs text-slate-600 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded">XGBoost</span>
-                                    <span class="font-mono text-xs text-slate-600 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded">FastAPI</span>
-                                    <span class="font-mono text-xs text-slate-600 bg-slate-50 border border-slate-200 px-2.5 py-1 rounded">Streamlit</span>
+                                    <span class="font-mono text-xs text-brand-text bg-slate-800/50 border border-brand-border px-2.5 py-1 rounded">XGBoost</span>
+                                    <span class="font-mono text-xs text-brand-text bg-slate-800/50 border border-brand-border px-2.5 py-1 rounded">FastAPI</span>
+                                    <span class="font-mono text-xs text-brand-text bg-slate-800/50 border border-brand-border px-2.5 py-1 rounded">Streamlit</span>
                                 </div>
-                                <div class="flex gap-5 mt-auto pt-5 border-t border-slate-100">
-                                    <a href="https://digitalappuctbitcoinpriceprediction-8f9newvrhuqkth7wb25e7l.streamlit.app/" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-solid fa-chart-line text-slate-400"></i> View Dashboard</a>
-                                    <a href="https://github.com/DoomBuoy/Digital_Product_Bitcoin_Price_Prediction" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-brands fa-github text-slate-400"></i> Repository</a>
+                                <div class="flex gap-5 mt-auto pt-5 border-t border-brand-border">
+                                    <a href="https://digitalappuctbitcoinpriceprediction-8f9newvrhuqkth7wb25e7l.streamlit.app/" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-solid fa-chart-line text-brand-muted"></i> View Dashboard</a>
+                                    <a href="https://github.com/DoomBuoy/Digital_Product_Bitcoin_Price_Prediction" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-brands fa-github text-brand-muted"></i> Repository</a>
                                 </div>
                             </div>
                         </div>
@@ -592,34 +585,34 @@
                         <!-- Side by side smaller projects -->
                         <div class="flex flex-col gap-10">
                             <!-- Weather -->
-                            <div class="luxury-card rounded-2xl p-8 flex flex-col reveal-up h-full bg-white group">
+                            <div class="luxury-card rounded-2xl p-8 flex flex-col reveal-up h-full bg-transparent group">
                                 <div class="flex justify-between items-start mb-2">
                                     <h3 class="font-display font-bold text-xl text-brand-text group-hover:text-brand-accent transition-colors">Weather Insight App</h3>
-                                    <i class="fa-solid fa-cloud-rain text-slate-300 text-xl group-hover:text-brand-accent transition-colors"></i>
+                                    <i class="fa-solid fa-cloud-rain text-brand-muted text-xl group-hover:text-brand-accent transition-colors"></i>
                                 </div>
                                 <h4 class="font-mono text-brand-accent text-[10px] uppercase tracking-wider mb-4">Architecture: Ensemble Learning</h4>
                                 <p class="text-brand-muted text-sm leading-relaxed mb-6 flex-1 font-normal">
                                     Developed a predictive system providing reliable forecasts for rain occurrences using ensemble ML models and the live Open-Meteo API.
                                 </p>
-                                <div class="flex gap-5 mt-auto pt-5 border-t border-slate-100">
-                                    <a href="https://digitalappuctweatherprediction-tfdvs8zextpi3xvktbpogy.streamlit.app/" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-solid fa-chart-line text-slate-400"></i> View Dashboard</a>
-                                    <a href="https://github.com/DoomBuoy/Digital_Product_Weather_Prediction" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-brands fa-github text-slate-400"></i> Repository</a>
+                                <div class="flex gap-5 mt-auto pt-5 border-t border-brand-border">
+                                    <a href="https://digitalappuctweatherprediction-tfdvs8zextpi3xvktbpogy.streamlit.app/" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-solid fa-chart-line text-brand-muted"></i> View Dashboard</a>
+                                    <a href="https://github.com/DoomBuoy/Digital_Product_Weather_Prediction" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-brands fa-github text-brand-muted"></i> Repository</a>
                                 </div>
                             </div>
 
                             <!-- Package -->
-                            <div class="luxury-card rounded-2xl p-8 flex flex-col reveal-up h-full bg-white group">
+                            <div class="luxury-card rounded-2xl p-8 flex flex-col reveal-up h-full bg-transparent group">
                                 <div class="flex justify-between items-start mb-2">
                                     <h3 class="font-display font-bold text-xl text-brand-text group-hover:text-brand-accent transition-colors">DoomBuoy Lib</h3>
-                                    <i class="fa-brands fa-python text-slate-300 text-xl group-hover:text-brand-accent transition-colors"></i>
+                                    <i class="fa-brands fa-python text-brand-muted text-xl group-hover:text-brand-accent transition-colors"></i>
                                 </div>
                                 <h4 class="font-mono text-brand-accent text-[10px] uppercase tracking-wider mb-4">Architecture: PyPI Open Source</h4>
                                 <p class="text-brand-muted text-sm leading-relaxed mb-6 flex-1 font-normal">
                                     Created and published a Python package designed to significantly accelerate everyday data preprocessing and ML workflows.
                                 </p>
-                                <div class="flex gap-5 mt-auto pt-5 border-t border-slate-100">
-                                    <a href="https://test.pypi.org/project/doombuoy/" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-solid fa-box text-slate-400"></i> PyPI Package</a>
-                                    <a href="https://github.com/DoomBuoy/doombuoy" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-brands fa-github text-slate-400"></i> Repository</a>
+                                <div class="flex gap-5 mt-auto pt-5 border-t border-brand-border">
+                                    <a href="https://test.pypi.org/project/doombuoy/" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-solid fa-box text-brand-muted"></i> PyPI Package</a>
+                                    <a href="https://github.com/DoomBuoy/doombuoy" target="_blank" class="font-display text-sm font-semibold text-brand-text hover:text-brand-accent transition-colors flex items-center gap-1.5"><i class="fa-brands fa-github text-brand-muted"></i> Repository</a>
                                 </div>
                             </div>
                         </div>
@@ -630,95 +623,95 @@
 
             <!-- Certificates Section -->
             <section id="certificates" class="py-24 px-6 relative">
-                <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-600 to-transparent"></div>
+                <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-border to-transparent"></div>
                 <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 relative z-10">
                     
                     <!-- Certificates -->
                     <div>
                         <div class="flex items-center gap-4 mb-12 reveal-up">
                             <i class="fa-solid fa-certificate text-brand-accent text-xl"></i>
-                            <h2 class="font-display text-3xl font-bold text-white">Credentials</h2>
+                            <h2 class="font-display text-3xl font-bold text-brand-text">Credentials</h2>
                         </div>
                         
                         <div id="cert-groups-view" class="grid grid-cols-1 sm:grid-cols-2 gap-4 reveal-up">
-                            <div class="luxury-card bg-white p-6 rounded-xl text-center cursor-pointer group" onclick="showCertGroup('group-specialization')">
-                                <div class="text-2xl mb-3 text-slate-300 group-hover:text-brand-accent transition-colors"><i class="fa-solid fa-shield-halved"></i></div>
+                            <div class="luxury-card bg-transparent p-6 rounded-xl text-center cursor-pointer group" onclick="showCertGroup('group-specialization')">
+                                <div class="text-2xl mb-3 text-brand-muted group-hover:text-brand-accent transition-colors"><i class="fa-solid fa-shield-halved"></i></div>
                                 <h3 class="font-display font-bold text-sm mb-1 text-brand-text">Specializations</h3>
-                                <p class="font-mono text-slate-500 text-[10px] uppercase tracking-wider">IBM, DataCamp, UTS</p>
+                                <p class="font-mono text-brand-muted text-[10px] uppercase tracking-wider">IBM, DataCamp, UTS</p>
                             </div>
-                            <div class="luxury-card bg-white p-6 rounded-xl text-center cursor-pointer group" onclick="showCertGroup('group-nptel')">
-                                <div class="text-2xl mb-3 text-slate-300 group-hover:text-brand-accent transition-colors"><i class="fa-solid fa-microchip"></i></div>
+                            <div class="luxury-card bg-transparent p-6 rounded-xl text-center cursor-pointer group" onclick="showCertGroup('group-nptel')">
+                                <div class="text-2xl mb-3 text-brand-muted group-hover:text-brand-accent transition-colors"><i class="fa-solid fa-microchip"></i></div>
                                 <h3 class="font-display font-bold text-sm mb-1 text-brand-text">NPTEL</h3>
-                                <p class="font-mono text-slate-500 text-[10px] uppercase tracking-wider">ML & Analytics</p>
+                                <p class="font-mono text-brand-muted text-[10px] uppercase tracking-wider">ML & Analytics</p>
                             </div>
-                            <div class="luxury-card bg-white p-6 rounded-xl text-center cursor-pointer group sm:col-span-2" onclick="showCertGroup('group-online')">
-                                <div class="text-2xl mb-3 text-slate-300 group-hover:text-brand-accent transition-colors"><i class="fa-solid fa-laptop-code"></i></div>
+                            <div class="luxury-card bg-transparent p-6 rounded-xl text-center cursor-pointer group sm:col-span-2" onclick="showCertGroup('group-online')">
+                                <div class="text-2xl mb-3 text-brand-muted group-hover:text-brand-accent transition-colors"><i class="fa-solid fa-laptop-code"></i></div>
                                 <h3 class="font-display font-bold text-sm mb-1 text-brand-text">Online Courses</h3>
-                                <p class="font-mono text-slate-500 text-[10px] uppercase tracking-wider">U-Michigan & IBM</p>
+                                <p class="font-mono text-brand-muted text-[10px] uppercase tracking-wider">U-Michigan & IBM</p>
                             </div>
                         </div>
 
                         <!-- Certificate Details -->
                         <div id="cert-details-container" class="mt-6">
                             <!-- Group 1 -->
-                            <div id="group-specialization" class="cert-group-detail luxury-card bg-white p-6 rounded-xl">
+                            <div id="group-specialization" class="cert-group-detail luxury-card bg-transparent p-6 rounded-xl">
                                 <div class="flex justify-between items-center mb-6 border-b border-brand-border pb-4">
                                     <h3 class="font-display text-lg font-bold text-brand-text">Specializations</h3>
-                                    <button onclick="showCertGroups()" class="text-slate-400 text-sm hover:text-brand-accent transition-colors">
+                                    <button onclick="showCertGroups()" class="text-brand-muted text-sm hover:text-brand-accent transition-colors">
                                         <i class="fa-solid fa-times"></i>
                                     </button>
                                 </div>
                                 <div class="space-y-5">
                                     <div class="flex items-center gap-4">
-                                        <div class="w-10 h-10 rounded bg-white border border-brand-border p-1 shrink-0"><img src="images/Build_certi.jpg" alt="UTS" class="w-full h-full object-cover img-blend"></div>
+                                        <div class="w-10 h-10 rounded bg-slate-200 border border-brand-border p-1 shrink-0"><img src="images/Build_certi.jpg" alt="UTS" class="w-full h-full object-cover img-blend"></div>
                                         <div><h4 class="font-display font-bold text-brand-text text-sm">UTS BUILD Graduate</h4><p class="font-mono text-[10px] text-brand-muted mt-1 uppercase">Nov 2025</p></div>
                                     </div>
                                     <div class="flex items-center gap-4">
-                                        <div class="w-10 h-10 rounded bg-white border border-brand-border p-1 shrink-0"><img src="images/datacamp.png" alt="DataCamp" class="w-full h-full object-cover img-blend"></div>
+                                        <div class="w-10 h-10 rounded bg-slate-200 border border-brand-border p-1 shrink-0"><img src="images/datacamp.png" alt="DataCamp" class="w-full h-full object-cover img-blend"></div>
                                         <div><h4 class="font-display font-bold text-brand-text text-sm">Data Scientist Pro</h4><p class="font-mono text-[10px] text-brand-muted mt-1 uppercase">Jun 2025</p></div>
                                     </div>
                                     <div class="flex items-center gap-4">
-                                        <div class="w-10 h-10 rounded bg-white border border-brand-border p-1 shrink-0"><img src="images/ibm.jpg" alt="IBM" class="w-full h-full object-cover img-blend"></div>
+                                        <div class="w-10 h-10 rounded bg-slate-200 border border-brand-border p-1 shrink-0"><img src="images/ibm.jpg" alt="IBM" class="w-full h-full object-cover img-blend"></div>
                                         <div><h4 class="font-display font-bold text-brand-text text-sm">IBM Data Science</h4><p class="font-mono text-[10px] text-brand-muted mt-1 uppercase">May 2023</p></div>
                                     </div>
                                 </div>
                             </div>
                             
                             <!-- Group 2 -->
-                            <div id="group-nptel" class="cert-group-detail luxury-card bg-white p-6 rounded-xl">
+                            <div id="group-nptel" class="cert-group-detail luxury-card bg-transparent p-6 rounded-xl">
                                 <div class="flex justify-between items-center mb-6 border-b border-brand-border pb-4">
                                     <h3 class="font-display text-lg font-bold text-brand-text">NPTEL Courses</h3>
-                                    <button onclick="showCertGroups()" class="text-slate-400 text-sm hover:text-brand-accent transition-colors">
+                                    <button onclick="showCertGroups()" class="text-brand-muted text-sm hover:text-brand-accent transition-colors">
                                         <i class="fa-solid fa-times"></i>
                                     </button>
                                 </div>
                                 <div class="space-y-5">
                                     <div class="flex items-center gap-4">
-                                        <div class="w-10 h-10 rounded bg-white border border-brand-border p-1 shrink-0"><img src="images/nptl.jpg" alt="NPTEL" class="w-full h-full object-cover img-blend"></div>
+                                        <div class="w-10 h-10 rounded bg-slate-200 border border-brand-border p-1 shrink-0"><img src="images/nptl.jpg" alt="NPTEL" class="w-full h-full object-cover img-blend"></div>
                                         <div><h4 class="font-display font-bold text-brand-text text-sm">Data Analytics (Python)</h4><p class="font-mono text-[10px] text-brand-muted mt-1 uppercase">Jul 2023</p></div>
                                     </div>
                                     <div class="flex items-center gap-4">
-                                        <div class="w-10 h-10 rounded bg-white border border-brand-border p-1 shrink-0"><img src="images/nptl.jpg" alt="NPTEL" class="w-full h-full object-cover img-blend"></div>
+                                        <div class="w-10 h-10 rounded bg-slate-200 border border-brand-border p-1 shrink-0"><img src="images/nptl.jpg" alt="NPTEL" class="w-full h-full object-cover img-blend"></div>
                                         <div><h4 class="font-display font-bold text-brand-text text-sm">Intro to ML</h4><p class="font-mono text-[10px] text-brand-muted mt-1 uppercase">Jul 2023</p></div>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Group 3 -->
-                            <div id="group-online" class="cert-group-detail luxury-card bg-white p-6 rounded-xl">
+                            <div id="group-online" class="cert-group-detail luxury-card bg-transparent p-6 rounded-xl">
                                 <div class="flex justify-between items-center mb-6 border-b border-brand-border pb-4">
                                     <h3 class="font-display text-lg font-bold text-brand-text">Online Courses</h3>
-                                    <button onclick="showCertGroups()" class="text-slate-400 text-sm hover:text-brand-accent transition-colors">
+                                    <button onclick="showCertGroups()" class="text-brand-muted text-sm hover:text-brand-accent transition-colors">
                                         <i class="fa-solid fa-times"></i>
                                     </button>
                                 </div>
                                 <div class="space-y-5">
                                     <div class="flex items-center gap-4">
-                                        <div class="w-10 h-10 rounded bg-white border border-brand-border p-1 shrink-0"><img src="images/michigan.png" alt="Michigan" class="w-full h-full object-contain img-blend"></div>
+                                        <div class="w-10 h-10 rounded bg-slate-200 border border-brand-border p-1 shrink-0"><img src="images/michigan.png" alt="Michigan" class="w-full h-full object-contain img-blend"></div>
                                         <div><h4 class="font-display font-bold text-brand-text text-sm">Applied Plotting</h4><p class="font-mono text-[10px] text-brand-muted mt-1 uppercase">Jul 2023</p></div>
                                     </div>
                                     <div class="flex items-center gap-4">
-                                        <div class="w-10 h-10 rounded bg-white border border-brand-border p-1 shrink-0"><img src="images/ibm.jpg" alt="IBM" class="w-full h-full object-cover img-blend"></div>
+                                        <div class="w-10 h-10 rounded bg-slate-200 border border-brand-border p-1 shrink-0"><img src="images/ibm.jpg" alt="IBM" class="w-full h-full object-cover img-blend"></div>
                                         <div><h4 class="font-display font-bold text-brand-text text-sm">SQL for Data Science</h4><p class="font-mono text-[10px] text-brand-muted mt-1 uppercase">May 2023</p></div>
                                     </div>
                                 </div>
@@ -730,25 +723,25 @@
                     <div>
                         <div class="flex items-center gap-4 mb-12 reveal-up">
                             <i class="fa-solid fa-users-rays text-brand-accent text-xl"></i>
-                            <h2 class="font-display text-3xl font-bold text-white">Initiatives</h2>
+                            <h2 class="font-display text-3xl font-bold text-brand-text">Initiatives</h2>
                         </div>
                         <div class="space-y-4">
-                            <div class="luxury-card bg-white p-6 rounded-xl flex items-center gap-5 reveal-up">
-                                <div class="w-12 h-12 rounded bg-white border border-brand-border p-1.5 shrink-0 shadow-sm"><img src="images/peernetwork.jpg" alt="UTS" class="w-full h-full object-cover img-blend"></div>
+                            <div class="luxury-card bg-transparent p-6 rounded-xl flex items-center gap-5 reveal-up">
+                                <div class="w-12 h-12 rounded bg-slate-200 border border-brand-border p-1.5 shrink-0 shadow-sm"><img src="images/peernetwork.jpg" alt="UTS" class="w-full h-full object-cover img-blend"></div>
                                 <div>
                                     <h3 class="font-display font-bold text-base text-brand-text">UTS Peer Networker</h3>
                                     <p class="text-brand-muted text-sm font-normal mt-1">Guided 1,000+ new students during orientation.</p>
                                 </div>
                             </div>
-                            <div class="luxury-card bg-white p-6 rounded-xl flex items-center gap-5 reveal-up">
-                                <div class="w-12 h-12 rounded bg-white border border-brand-border p-1.5 shrink-0 shadow-sm"><img src="images/build.jpg" alt="UTS" class="w-full h-full object-cover img-blend"></div>
+                            <div class="luxury-card bg-transparent p-6 rounded-xl flex items-center gap-5 reveal-up">
+                                <div class="w-12 h-12 rounded bg-slate-200 border border-brand-border p-1.5 shrink-0 shadow-sm"><img src="images/build.jpg" alt="UTS" class="w-full h-full object-cover img-blend"></div>
                                 <div>
                                     <h3 class="font-display font-bold text-base text-brand-text">Media Ambassador, UTS BUILD</h3>
                                     <p class="text-brand-muted text-sm font-normal mt-1">Translated complex program missions into engaging stories.</p>
                                 </div>
                             </div>
-                            <div class="luxury-card bg-white p-6 rounded-xl flex items-center gap-5 reveal-up">
-                                <div class="w-12 h-12 rounded bg-white border border-brand-border p-1.5 shrink-0 shadow-sm"><img src="images/soul.jpg" alt="SOUL Program" class="w-full h-full object-cover img-blend"></div>
+                            <div class="luxury-card bg-transparent p-6 rounded-xl flex items-center gap-5 reveal-up">
+                                <div class="w-12 h-12 rounded bg-slate-200 border border-brand-border p-1.5 shrink-0 shadow-sm"><img src="images/soul.jpg" alt="SOUL Program" class="w-full h-full object-cover img-blend"></div>
                                 <div>
                                     <h3 class="font-display font-bold text-base text-brand-text">SOUL Program Volunteer</h3>
                                     <p class="text-brand-muted text-sm font-normal mt-1">University of Technology Sydney · Feb 2025 – Present · Supported community engagement, equity, and student wellbeing events across campus.</p>
@@ -761,46 +754,46 @@
                     <div class="mt-16">
                         <div class="flex items-center gap-4 mb-12 reveal-up">
                             <i class="fa-solid fa-people-group text-brand-accent text-xl"></i>
-                            <h2 class="font-display text-3xl font-bold text-white">Clubs &amp; Societies</h2>
-                            <div class="h-px bg-slate-600 flex-1 ml-4 opacity-50"></div>
+                            <h2 class="font-display text-3xl font-bold text-brand-text">Clubs &amp; Societies</h2>
+                            <div class="h-px bg-brand-border flex-1 ml-4"></div>
                         </div>
-                        <div class="luxury-card bg-white p-8 rounded-xl reveal-up">
+                        <div class="luxury-card bg-transparent p-8 rounded-xl reveal-up">
                             <p class="text-brand-muted text-sm font-normal mb-6">Member of the following societies at the <span class="text-brand-text font-semibold">University of Technology Sydney</span></p>
                             <div class="flex flex-wrap gap-3">
-                                <span class="flex items-center gap-2 bg-slate-50 border border-brand-border text-brand-text text-sm font-semibold px-4 py-2.5 rounded-lg">
+                                <span class="flex items-center gap-2 bg-slate-800/50 border border-brand-border text-brand-text text-sm font-semibold px-4 py-2.5 rounded-lg">
                                     <i class="fa-solid fa-briefcase text-brand-accent text-xs"></i> MBA Nexus
                                 </span>
-                                <span class="flex items-center gap-2 bg-slate-50 border border-brand-border text-brand-text text-sm font-semibold px-4 py-2.5 rounded-lg">
+                                <span class="flex items-center gap-2 bg-slate-800/50 border border-brand-border text-brand-text text-sm font-semibold px-4 py-2.5 rounded-lg">
                                     <i class="fa-solid fa-water text-brand-secondary text-xs"></i> Surfing
                                 </span>
-                                <span class="flex items-center gap-2 bg-slate-50 border border-brand-border text-brand-text text-sm font-semibold px-4 py-2.5 rounded-lg">
+                                <span class="flex items-center gap-2 bg-slate-800/50 border border-brand-border text-brand-text text-sm font-semibold px-4 py-2.5 rounded-lg">
                                     <i class="fa-solid fa-star-and-crescent text-brand-accent text-xs"></i> Punjabi Society
                                 </span>
-                                <span class="flex items-center gap-2 bg-slate-50 border border-brand-border text-brand-text text-sm font-semibold px-4 py-2.5 rounded-lg">
+                                <span class="flex items-center gap-2 bg-slate-800/50 border border-brand-border text-brand-text text-sm font-semibold px-4 py-2.5 rounded-lg">
                                     <i class="fa-solid fa-mug-hot text-brand-secondary text-xs"></i> Chai Collective
                                 </span>
-                                <span class="flex items-center gap-2 bg-slate-50 border border-brand-border text-brand-text text-sm font-semibold px-4 py-2.5 rounded-lg">
+                                <span class="flex items-center gap-2 bg-slate-800/50 border border-brand-border text-brand-text text-sm font-semibold px-4 py-2.5 rounded-lg">
                                     <i class="fa-solid fa-mountain text-brand-accent text-xs"></i> Hiking Club
                                 </span>
-                                <span class="flex items-center gap-2 bg-slate-50 border border-brand-border text-brand-text text-sm font-semibold px-4 py-2.5 rounded-lg">
+                                <span class="flex items-center gap-2 bg-slate-800/50 border border-brand-border text-brand-text text-sm font-semibold px-4 py-2.5 rounded-lg">
                                     <i class="fa-solid fa-scale-balanced text-brand-secondary text-xs"></i> Law Students' Society (LSS)
                                 </span>
-                                <span class="flex items-center gap-2 bg-slate-50 border border-brand-border text-brand-text text-sm font-semibold px-4 py-2.5 rounded-lg">
+                                <span class="flex items-center gap-2 bg-slate-800/50 border border-brand-border text-brand-text text-sm font-semibold px-4 py-2.5 rounded-lg">
                                     <i class="fa-solid fa-seedling text-brand-accent text-xs"></i> Enactus UTS
                                 </span>
-                                <span class="flex items-center gap-2 bg-slate-50 border border-brand-border text-brand-text text-sm font-semibold px-4 py-2.5 rounded-lg">
+                                <span class="flex items-center gap-2 bg-slate-800/50 border border-brand-border text-brand-text text-sm font-semibold px-4 py-2.5 rounded-lg">
                                     <i class="fa-solid fa-award text-brand-secondary text-xs"></i> Beta Alpha Psi
                                 </span>
-                                <span class="flex items-center gap-2 bg-slate-50 border border-brand-border text-brand-text text-sm font-semibold px-4 py-2.5 rounded-lg">
+                                <span class="flex items-center gap-2 bg-slate-800/50 border border-brand-border text-brand-text text-sm font-semibold px-4 py-2.5 rounded-lg">
                                     <i class="fa-solid fa-chart-line text-brand-accent text-xs"></i> Business Society
                                 </span>
-                                <span class="flex items-center gap-2 bg-slate-50 border border-brand-border text-brand-text text-sm font-semibold px-4 py-2.5 rounded-lg">
+                                <span class="flex items-center gap-2 bg-slate-800/50 border border-brand-border text-brand-text text-sm font-semibold px-4 py-2.5 rounded-lg">
                                     <i class="fa-solid fa-earth-asia text-brand-secondary text-xs"></i> YOUTH
                                 </span>
-                                <span class="flex items-center gap-2 bg-slate-50 border border-brand-border text-brand-text text-sm font-semibold px-4 py-2.5 rounded-lg">
+                                <span class="flex items-center gap-2 bg-slate-800/50 border border-brand-border text-brand-text text-sm font-semibold px-4 py-2.5 rounded-lg">
                                     <i class="fa-solid fa-diagram-project text-brand-accent text-xs"></i> Project Society
                                 </span>
-                                <span class="flex items-center gap-2 bg-slate-50 border border-brand-border text-brand-text text-sm font-semibold px-4 py-2.5 rounded-lg">
+                                <span class="flex items-center gap-2 bg-slate-800/50 border border-brand-border text-brand-text text-sm font-semibold px-4 py-2.5 rounded-lg">
                                     <i class="fa-solid fa-om text-brand-secondary text-xs"></i> Indian Society
                                 </span>
                             </div>
@@ -811,27 +804,27 @@
             </section>
 
             <!-- Footer -->
-            <footer class="pt-24 pb-12 px-6 border-t border-slate-700 text-center relative overflow-hidden">
+            <footer class="pt-24 pb-12 px-6 border-t border-brand-border text-center relative overflow-hidden">
                 <div class="ambient-glow-indigo w-[600px] h-[600px] bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 opacity-30"></div>
                 <div class="max-w-3xl mx-auto relative z-10">
-                    <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-6">Establish Connection</h2>
-                    <p class="text-sm mb-12 text-slate-300 font-mono tracking-wide uppercase">Available for Data Science & Engineering Roles.</p>
+                    <h2 class="font-display text-4xl md:text-5xl font-bold text-brand-text mb-6">Establish Connection</h2>
+                    <p class="text-sm mb-12 text-brand-muted font-mono tracking-wide uppercase">Available for Data Science & Engineering Roles.</p>
                     
                     <div class="flex flex-wrap justify-center gap-6 text-xl mb-16">
-                        <a href="tel:+610425249904" class="w-14 h-14 rounded-full border border-slate-700 bg-slate-800/50 text-white flex items-center justify-center hover:border-brand-accent hover:bg-brand-accent transition-all shadow-sm" title="Phone">
+                        <a href="tel:+610425249904" class="w-14 h-14 rounded-full border border-brand-border bg-slate-800/50 text-brand-text flex items-center justify-center hover:border-brand-accent hover:bg-brand-accent transition-all shadow-sm" title="Phone">
                             <i class="fa-solid fa-phone text-lg"></i>
                         </a>
-                        <a href="mailto:Agamsingh.saini@student.uts.edu.au" class="w-14 h-14 rounded-full border border-slate-700 bg-slate-800/50 text-white flex items-center justify-center hover:border-brand-accent hover:bg-brand-accent transition-all shadow-sm" title="Email">
+                        <a href="mailto:Agamsingh.saini@student.uts.edu.au" class="w-14 h-14 rounded-full border border-brand-border bg-slate-800/50 text-brand-text flex items-center justify-center hover:border-brand-accent hover:bg-brand-accent transition-all shadow-sm" title="Email">
                             <i class="fa-solid fa-envelope text-lg"></i>
                         </a>
-                        <a href="https://www.linkedin.com/in/agam-singh-saini-199185220/" target="_blank" class="w-14 h-14 rounded-full border border-slate-700 bg-slate-800/50 text-white flex items-center justify-center hover:border-brand-accent hover:bg-brand-accent transition-all shadow-sm" title="LinkedIn">
+                        <a href="https://www.linkedin.com/in/agam-singh-saini-199185220/" target="_blank" class="w-14 h-14 rounded-full border border-brand-border bg-slate-800/50 text-brand-text flex items-center justify-center hover:border-brand-accent hover:bg-brand-accent transition-all shadow-sm" title="LinkedIn">
                             <i class="fa-brands fa-linkedin text-lg"></i>
                         </a>
-                        <a href="https://github.com/Doombuoy" target="_blank" class="w-14 h-14 rounded-full border border-slate-700 bg-slate-800/50 text-white flex items-center justify-center hover:border-brand-accent hover:bg-brand-accent transition-all shadow-sm" title="GitHub">
+                        <a href="https://github.com/Doombuoy" target="_blank" class="w-14 h-14 rounded-full border border-brand-border bg-slate-800/50 text-brand-text flex items-center justify-center hover:border-brand-accent hover:bg-brand-accent transition-all shadow-sm" title="GitHub">
                             <i class="fa-brands fa-github text-lg"></i>
                         </a>
                     </div>
-                    <div class="flex items-center justify-center gap-4 text-xs font-mono text-slate-400">
+                    <div class="flex items-center justify-center gap-4 text-xs font-mono text-brand-muted">
                         <span>EPOCH_COMPLETE</span>
                         <span>//</span>
                         <span>© 2026 AGAM SINGH SAINI</span>
@@ -843,27 +836,63 @@
     </main>
 
     <script>
-        // Desktop Sidebar Toggle Logic
+        // UNIFIED Sidebar Toggle Logic (Handles both Desktop & Mobile)
         document.addEventListener("DOMContentLoaded", () => {
-            const sidebar = document.getElementById('desktop-sidebar');
+            const sidebar = document.getElementById('main-sidebar');
             const mainContent = document.getElementById('smooth-wrapper');
-            const openBtn = document.getElementById('open-sidebar');
+            const desktopOpenBtn = document.getElementById('desktop-open-btn');
+            const mobileOpenBtn = document.getElementById('mobile-open-btn');
             const closeBtn = document.getElementById('close-sidebar');
+            const mobileOverlay = document.getElementById('mobile-overlay');
 
-            if(closeBtn && openBtn && sidebar && mainContent) {
+            if(closeBtn && sidebar && mainContent) {
+                // Shared Close Action
                 closeBtn.addEventListener('click', () => {
                     sidebar.classList.add('-translate-x-full');
-                    mainContent.classList.remove('lg:ml-72');
-                    openBtn.classList.remove('opacity-0', 'pointer-events-none');
-                    openBtn.classList.add('opacity-100');
+                    
+                    // Desktop specific
+                    if (window.innerWidth >= 1024 && desktopOpenBtn) {
+                        mainContent.classList.remove('lg:ml-72');
+                        desktopOpenBtn.classList.remove('opacity-0', 'pointer-events-none');
+                        desktopOpenBtn.classList.add('opacity-100');
+                    }
+                    
+                    // Mobile specific
+                    if (window.innerWidth < 1024 && mobileOverlay) {
+                        mobileOverlay.classList.remove('opacity-100');
+                        mobileOverlay.classList.add('opacity-0', 'pointer-events-none');
+                    }
                 });
 
-                openBtn.addEventListener('click', () => {
-                    sidebar.classList.remove('-translate-x-full');
-                    mainContent.classList.add('lg:ml-72');
-                    openBtn.classList.remove('opacity-100');
-                    openBtn.classList.add('opacity-0', 'pointer-events-none');
-                });
+                // Desktop Open
+                if(desktopOpenBtn) {
+                    desktopOpenBtn.addEventListener('click', () => {
+                        sidebar.classList.remove('-translate-x-full');
+                        mainContent.classList.add('lg:ml-72');
+                        desktopOpenBtn.classList.remove('opacity-100');
+                        desktopOpenBtn.classList.add('opacity-0', 'pointer-events-none');
+                    });
+                }
+
+                // Mobile Open
+                if(mobileOpenBtn && mobileOverlay) {
+                    mobileOpenBtn.addEventListener('click', () => {
+                        sidebar.classList.remove('-translate-x-full');
+                        mobileOverlay.classList.remove('opacity-0', 'pointer-events-none');
+                        mobileOverlay.classList.add('opacity-100');
+                    });
+                    
+                    // Close on overlay click
+                    mobileOverlay.addEventListener('click', () => closeBtn.click());
+                    
+                    // Auto-close mobile sidebar when clicking a link
+                    const navLinks = sidebar.querySelectorAll('.sidebar-link');
+                    navLinks.forEach(link => {
+                        link.addEventListener('click', () => {
+                            if (window.innerWidth < 1024) closeBtn.click();
+                        });
+                    });
+                }
             }
         });
         
@@ -891,7 +920,7 @@
             gsap.ticker.add((time)=>{ lenis.raf(time * 1000) });
             gsap.ticker.lagSmoothing(0);
 
-            // Subtle Fade Up — IntersectionObserver (avoids Lenis/ScrollTrigger scroll offset mismatch on mobile)
+            // Subtle Fade Up — IntersectionObserver
             const revealObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {

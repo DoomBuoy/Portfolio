@@ -74,7 +74,7 @@ const termHtml = `<span class="l" style="--d:0ms"><span class="c">$</span> pip i
   {slug === 'sydly' && (
     <div class="sydly">
       <div class="app">
-        <Image src={img('images/safarnama.png')} alt="Sydly app icon" width={128} />
+        <Image src={img('images/sydly-logo.png')} alt="Sydly app icon" width={128} />
         <div><p class="t">Sydly</p><p class="s mono">Google Play · App Store</p></div>
       </div>
       <ol class="flow mono">
@@ -164,7 +164,7 @@ const termHtml = `<span class="l" style="--d:0ms"><span class="c">$</span> pip i
 
   /* sydly */
   .app { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
-  .app :global(img) { width: 56px; height: 56px; border-radius: 14px; object-fit: cover; }
+  .app :global(img) { width: 56px; height: 56px; border-radius: 50%; object-fit: contain; }
   .app .t { margin: 0; font-size: 1.125rem; font-weight: 600; }
   .app .s { margin: 0; font-size: .75rem; color: var(--on-ink-3); }
   .flow { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; font-size: .8125rem; position: relative; }

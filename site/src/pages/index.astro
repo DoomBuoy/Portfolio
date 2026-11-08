@@ -10,7 +10,7 @@ import { url, links } from '../lib';
 const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
 const pad = (n: number) => String(n).padStart(2, '0');
 
-const ticker = ['~1B rows processed', 'R² 0.873', '10,000+ live vehicles', 'AUROC 0.9825', 'R² 79.6%', '2 app stores', '50+ weather features', 'RMSE $7.63'];
+const ticker = ['33M+ crime records', '9,965-node graph', 'macro F1 0.472', '~1B rows processed', 'R² 0.873', '10,000+ live vehicles', 'AUROC 0.9825', 'R² 79.6%', '2 app stores', '50+ weather features', 'RMSE $7.63'];
 
 const skills = [
   ['Languages', ['Python', 'SQL', 'C++', 'C', 'Dart']],
@@ -20,18 +20,20 @@ const skills = [
 ] as const;
 
 const journey = [
+  { when: '2026', logo: 'images/UTS.jpg', title: 'Capstone: CrimeSense', org: 'MDSI capstone · team of 6 · University of Technology Sydney', text: 'Spatio-temporal graph neural network over 33M+ NIBRS records forecasting 8-hour crime risk for 9,965 agencies; macro F1 0.472, beating Gradient Boosting on every class.' },
   { when: '2026', logo: 'images/safarnama.png', title: 'Launched Sydly', org: 'Personal project · Google Play & App Store', text: 'Published a live transit app for Sydney that tracks 10,000+ buses, trains and ferries, plus parking and fuel tools for drivers.' },
   { when: '2025', logo: 'images/iwcs.jpeg', title: 'Support Worker (part-time)', org: 'Informed Care Services · Sydney · Apr 2025 – now', text: 'Manage daily care plans for 5+ clients with 100% documentation accuracy under NDIS standards, alongside full-time study.' },
-  { when: '2025', logo: 'images/UTS.jpg', title: 'M.S. Data Science & Innovation', org: 'University of Technology Sydney · GPA 3.5 / 4 · Feb 2025 – now', text: 'Moved to Sydney to focus fully on data science, machine learning and building data products.' },
+  { when: '2025', logo: 'images/UTS.jpg', title: 'M.S. Data Science & Innovation', org: 'University of Technology Sydney · GPA 3.5 / 4 · Feb 2025 – Dec 2026', text: 'Moved to Sydney to focus fully on data science, machine learning and building data products. Graduating December 2026.' },
   { when: '2023', logo: 'images/spectrum.png', title: 'Mechatronics Engineering Intern', org: 'Spectrum Technology · India · Jun – Aug 2023', text: 'Built systems to monitor 50+ industrial sensors in under a second, with alerts running at 99.9% uptime.' },
   { when: '2023', logo: 'images/drdo.jpg', title: 'Robotics R&D Intern', org: 'CVRDE, DRDO · Chennai, India · Jan – Jun 2023', text: 'Built computer-vision systems that helped an autonomous vehicle detect people and avoid obstacles, improving navigation safety by 40%.' },
   { when: '2020', logo: 'images/TIET.jpg', title: 'B.E. Mechatronics Engineering', org: 'Thapar Institute of Engineering & Technology · CGPA 8.77 / 10 · 2020 – 2024', text: 'Where it started: robots, sensors and code. Technical Lead of the Mechatronics & Robotics Society.' },
 ];
 
 const community = [
-  ['UTS Peer Networker', 'Welcomed and guided 1,000+ new students during orientation.', 'Nov 2025 – now'],
+  ['Secretary, Chai Collective UTS', 'Minutes, records, committee coordination and comms. Organised 2026 events including Chai Pe Charcha (101 tickets), Movie Night (40) and a Paint N Sip collab (13).', '2026'],
+  ['UTS Peer Networker', 'Welcomed and guided 1,000+ new students during orientation.', 'Nov 2025 – 2026 · graduated'],
   ['Media Ambassador, UTS BUILD', 'Turned program missions into engaging stories for students.', 'Nov 2025'],
-  ['SOUL Program Volunteer', 'Supported community, equity and wellbeing events on campus.', 'Feb 2025 – now'],
+  ['SOUL Program Volunteer', 'Supported community, equity and wellbeing events on campus.', 'Feb 2025 – 2026 · graduated'],
   ['Technical Lead, Robotics Society', 'Ran AI and computer-vision workshops for 200+ students.', 'Thapar'],
 ];
 
@@ -46,7 +48,7 @@ const certs = [
 ---
 <Layout
   title="Agam Singh Saini — Data Scientist · Noise in. Signal out."
-  description="Data Scientist in Sydney. Spark pipelines over ~1B rows, gradient-boosted models, forecasting products and Sydly, a live transit app on both app stores."
+  description="Data Scientist in Sydney (UTS MDSI, Dec 2026). Graph neural networks over 33M+ crime records, Spark pipelines over ~1B rows, LLM agents, and Sydly, a live transit app on both app stores."
   home
 >
   <Hero />
@@ -73,7 +75,7 @@ const certs = [
         <p class="statement">I studied Mechatronics Engineering in India, working on robots, sensors and computer vision. That showed me most hard problems are data problems underneath, so in 2025 I moved to Sydney to focus on data science full-time.</p>
         <p>Today I build machine-learning models <em>and</em> the apps around them, so the results end up in front of real people.</p>
         <ul class="facts mono">
-          <li><span>Study</span>M.S. Data Science &amp; Innovation · UTS · GPA 3.5</li>
+          <li><span>Study</span>M.S. Data Science &amp; Innovation · UTS · GPA 3.5 · graduating Dec 2026</li>
           <li><span>Degree</span>B.E. Mechatronics · Thapar · CGPA 8.77</li>
           <li><span>Based</span>Sydney, Australia</li>
         </ul>
@@ -156,7 +158,7 @@ const certs = [
   </section>
 
   <!-- COMMUNITY & CERTS -->
-  <section class="light extra">
+  <section class="light extra" id="community">
     <div class="wrap extra-grid">
       <div>
         <span class="pill rv">05 <b>/</b> Community</span>
@@ -166,7 +168,11 @@ const certs = [
             <li class="rv"><div><h3>{t}</h3><p>{d}</p></div><span class="mono">{w}</span></li>
           ))}
         </ul>
-        <p class="note">Also an active member of 12 UTS clubs and societies, including Enactus, Beta Alpha Psi and the Hiking Club.</p>
+        <p class="note">Around 100 hours of volunteering at UTS. Also an active member of 12 UTS clubs and societies, including Enactus, Beta Alpha Psi and the Hiking Club.</p>
+        <div class="club-photos rv">
+          <figure><Image src={img('images/chai-oday.jpg')} alt="Agam at the Chai Collective stall at UTS O-Day, talking with students" widths={[400, 800]} sizes="(max-width: 1000px) 45vw, 300px" /><figcaption class="mono">Chai Collective · O-Day stall</figcaption></figure>
+          <figure><Image src={img('images/chai-event.jpg')} alt="Group photo of around fifty students at a Chai Collective event" widths={[400, 800]} sizes="(max-width: 1000px) 45vw, 300px" /><figcaption class="mono">Chai Collective · community event</figcaption></figure>
+        </div>
       </div>
       <div>
         <span class="pill rv">06 <b>/</b> Certifications</span>
@@ -185,7 +191,7 @@ const certs = [
     <div class="wrap">
       <span class="pill rv">07 <b>/</b> Contact</span>
       <h2 class="display huge rv">Let’s talk<br />data.</h2>
-      <p class="contact-lede rv">Open to Data Scientist and ML Engineer roles. If you have a data problem worth solving, I’d love to hear about it.</p>
+      <p class="contact-lede rv">Finishing my Master’s in December 2026 and open to Data Scientist and ML Engineer roles. If you have a data problem worth solving, I’d love to hear about it.</p>
       <a class="mail rv" href={links.email}>{links.emailText}</a>
       <div class="contact-links rv">
         <a class="btn solid" href={links.email}>Email me</a>
@@ -280,6 +286,10 @@ const certs = [
   .rows p.mono { font-size: .75rem; }
   .rows > li > .mono { font-size: .75rem; color: var(--on-ivory-2); white-space: nowrap; padding-top: 4px; }
   .note { margin: 18px 0 0; font-size: .9375rem; color: var(--on-ivory-2); }
+  .club-photos { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px; }
+  .club-photos figure { margin: 0; }
+  .club-photos :global(img) { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 12px; }
+  .club-photos figcaption { margin-top: 8px; font-size: .75rem; color: var(--on-ivory-2); }
 
   /* contact */
   .contact { padding: clamp(96px, 12vw, 180px) 0 32px; }

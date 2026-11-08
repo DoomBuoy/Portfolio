@@ -4,7 +4,7 @@ category: Big data
 plain: "I cleaned 10 years of New York taxi data and built a model that predicts trip fares."
 tagline: Cleaned and modelled ~1 billion NYC taxi trips (2014–2024) on Databricks, then predicted fares within $8 for 91% of trips.
 date: Nov 2024
-order: 2
+order: 3
 metrics:
   - { value: "~1B", label: "trip records processed" }
   - { value: "0.873", label: "R² on fare prediction (1.0 is perfect)" }
@@ -12,7 +12,7 @@ metrics:
   - { value: "91%", label: "fares within $8" }
 stack: [PySpark, Databricks, Spark SQL, Python, MLlib]
 links:
-  - { label: "Repository", href: "https://github.com/DoomBuoy/New_York_Taxi_Databricks" }
+  - { label: "Repository", href: "https://github.com/DoomBuoy/New_York_Taxi_Databrics" }
 ---
 
 ## The problem

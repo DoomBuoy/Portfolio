@@ -1,9 +1,13 @@
-name: Deploy portfolio (Astro)
+name: Deploy portfolio (Astro + LaTeX resume)
 
+# Runs on every push to master that touches the site, the resume, or this workflow.
+# 1. Compiles resume/resume.tex to PDF
+# 2. Puts it on the site as /Agam_Singh_Saini_Resume.pdf
+# 3. Builds the Astro site and publishes it to GitHub Pages
 on:
   push:
     branches: [master]
-    paths: ['site/**', '.github/workflows/deploy-site.yml']
+    paths: ['site/**', 'resume/**', '.github/workflows/deploy-site.yml']
   workflow_dispatch:
 
 permissions:
@@ -18,18 +22,36 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: site
     steps:
       - uses: actions/checkout@v4
+
+      - name: Compile resume (LaTeX to PDF)
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: resume.tex
+          working_directory: resume
+
+      - name: Add resume PDF to the site
+        run: cp resume/resume.pdf site/public/Agam_Singh_Saini_Resume.pdf
+
+      - name: Keep a copy of the PDF on this run
+        uses: actions/upload-artifact@v4
+        with:
+          name: Agam_Singh_Saini_Resume
+          path: resume/resume.pdf
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
           cache-dependency-path: site/package-lock.json
-      - run: npm ci
-      - run: npm run build
+
+      - name: Build site
+        working-directory: site
+        run: |
+          npm ci
+          npm run build
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site/dist

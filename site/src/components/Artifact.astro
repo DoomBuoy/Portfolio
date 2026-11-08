@@ -20,6 +20,11 @@ const nba = [
   { e: 'Exp 3', m: 'Tuned XGBoost', auc: 0.9512, recall: 0.8421 },
   { e: 'Exp 4', m: 'Soft-voting ensemble', auc: 0.9825, recall: 0.9474, best: true },
 ];
+const debate = [
+  { m: 'Accuracy', base: 35.29, ours: 47.06 },
+  { m: 'Macro-F1', base: 23.08, ours: 35.54 },
+];
+const dMax = 50; // shared scale 0–50%, bars start at zero
 const lo = 0.94, hi = 1.0;
 const pos = (v: number) => ((v - lo) / (hi - lo)) * 100;
 
@@ -31,6 +36,41 @@ const termHtml = `<span class="l" style="--d:0ms"><span class="c">$</span> pip i
 <span class="l" style="--d:1150ms"><span class="c"># one call → a performance summary across models</span></span>`;
 ---
 <figure class="art" data-anim>
+  {slug === 'crimesense' && (
+    <div class="crime">
+      <ol class="stack-flow mono">
+        <li><b>Data</b><span>33M+ NIBRS incident records</span></li>
+        <li><b>Graph</b><span>9,965 agencies as nodes, linked to their neighbours</span></li>
+        <li class="hl"><b>Model</b><span>STGNN: learns from neighbours and history</span></li>
+        <li><b>Thresholds</b><span>relative to each agency's own baseline</span></li>
+        <li><b>Output</b><span>Low · Moderate · High for the next 8 hours</span></li>
+      </ol>
+      <div class="verdict">
+        <p class="v-good"><span class="mono">0.472</span> macro F1, beats Gradient Boosting on every class</p>
+        <p class="v-warn mono">⚠ High-risk precision 0.21: support for human decisions, not a replacement</p>
+      </div>
+    </div>
+  )}
+
+  {slug === 'debatecheck' && (
+    <div class="chart gb">
+      <p class="cap mono">Claims with usable evidence (n = 17 of 101) · scale 0–50%</p>
+      <p class="legend mono"><span><i class="sw base"></i>NLI baseline</span><span><i class="sw ours"></i>DebateCheck</span></p>
+      <ul class="gbars" aria-label="Accuracy and macro-F1, NLI baseline versus DebateCheck">
+        {debate.map((r, i) => (
+          <li>
+            <span class="lbl">{r.m}</span>
+            <span class="pair">
+              <span class="row"><span class="track"><span class="bar b" style={`--w:${(r.base / dMax) * 100}%; --d:${i * 160}ms`}></span></span><span class="val mono">{r.base.toFixed(1)}%</span></span>
+              <span class="row"><span class="track"><span class="bar o" style={`--w:${(r.ours / dMax) * 100}%; --d:${i * 160 + 80}ms`}></span></span><span class="val mono">{r.ours.toFixed(1)}%</span></span>
+            </span>
+          </li>
+        ))}
+      </ul>
+      <p class="foot mono">181 / 181 agent citations valid · ~21 s per evidence-backed claim</p>
+    </div>
+  )}
+
   {slug === 'sydly' && (
     <div class="sydly">
       <div class="app">
@@ -152,6 +192,26 @@ const termHtml = `<span class="l" style="--d:0ms"><span class="c">$</span> pip i
   :global(.js) .bar { transform: scaleX(0); transform-origin: left; }
   :global(.js) .in .bar { transform: none; transition: transform .8s var(--ease-out) var(--d); }
 
+
+  /* crimesense */
+  .verdict { margin-top: 14px; display: grid; gap: 8px; }
+  .verdict p { margin: 0; padding: 12px 14px; border-radius: 10px; font-size: .8125rem; line-height: 1.45; }
+  .v-good { border: 1px solid var(--line-dark); color: var(--on-ink-2); }
+  .v-good .mono { color: var(--ivory); font-size: 1rem; margin-right: 6px; }
+  .v-warn { background: rgba(250,247,242,.06); color: var(--ivory); }
+
+  /* debatecheck grouped bars (2 series → legend; muted vs emphasis) */
+  .legend { display: flex; gap: 18px; margin: -6px 0 16px; font-size: .75rem; color: var(--on-ink-2); }
+  .legend span { display: inline-flex; align-items: center; gap: 8px; }
+  .sw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+  .sw.base { background: #7a7774; } .sw.ours { background: var(--ivory); }
+  .gbars { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+  .gbars li { display: grid; grid-template-columns: 100px minmax(0, 1fr); gap: 12px; align-items: center; font-size: .875rem; }
+  .gbars .lbl { color: var(--on-ink-2); }
+  .pair { display: grid; gap: 2px; }
+  .gbars .row { display: grid; grid-template-columns: minmax(0, 1fr) 56px; gap: 10px; align-items: center; }
+  .gbars .val { text-align: right; font-size: .8125rem; }
+  .gbars .bar.b { background: #7a7774; } .gbars .bar.o { background: var(--ivory); }
   /* bitcoin */
   .stack-flow { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: .8125rem; counter-reset: s; }
   .stack-flow li { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 12px; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line-dark); }

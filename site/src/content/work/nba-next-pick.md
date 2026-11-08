@@ -4,7 +4,7 @@ category: Machine learning
 plain: "A model that predicts which college players will be drafted into the NBA."
 tagline: Predicting which college basketball players get drafted into the NBA, with a soft-voting ensemble scoring 0.98+ ROC-AUC.
 date: "2025"
-order: 5
+order: 6
 metrics:
   - { value: "0.98+", label: "ROC-AUC score (1.0 is perfect)" }
   - { value: "0.94+", label: "recall on drafted players" }

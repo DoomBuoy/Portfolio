@@ -4,7 +4,7 @@ category: Forecasting
 plain: "A web app that predicts whether it will rain a week from now."
 tagline: Ensemble models that predict whether it will rain in 7 days and how much will fall over the next 3, served through a live API and web app.
 date: Nov 2025
-order: 4
+order: 7
 metrics:
   - { value: "50+", label: "weather signals used per prediction" }
   - { value: "5", label: "models in the ensemble" }

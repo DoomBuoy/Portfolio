@@ -4,7 +4,7 @@ category: Forecasting
 plain: "A web app that predicts tomorrow's highest Bitcoin price."
 tagline: A deployed forecasting product, from model to FastAPI to Streamlit, predicting Bitcoin's next-day high from a decade of market data.
 date: Nov 2025
-order: 3
+order: 5
 metrics:
   - { value: "79.6%", label: "of next-day price movement explained (R²)" }
   - { value: "10 yrs", label: "of training data" }

@@ -1,0 +1,256 @@
+%-------------------------
+% Resume in LaTeX
+% Author : Aras Gungore
+% License : MIT
+% Modified for: Agam Singh Saini
+%
+% HOW THIS FILE IS USED
+% Edit this file and push to master. GitHub Actions (.github/workflows/deploy-site.yml)
+% compiles it with pdflatex and publishes the PDF on the portfolio as
+% https://doombuoy.github.io/Portfolio/Agam_Singh_Saini_Resume.pdf
+% Keep it pdflatex-compatible (no fontspec) and avoid raw Unicode symbols like ² or ≥.
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+% --- PREAMBLE ---
+\usepackage[letterpaper, top=0.45in, bottom=0.45in, left=0.5in, right=0.5in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{lmodern}
+\usepackage{enumitem}
+\setlist[itemize]{label=-}
+
+\usepackage{latexsym}
+\usepackage{titlesec}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{tabularx}
+\usepackage{hyphenat}
+\usepackage{fontawesome}
+
+% Fallbacks if fontawesome is not available
+\providecommand{\faMobile}{Mobile:}
+\providecommand{\faAt}{Email:}
+\providecommand{\faLinkedinSquare}{LinkedIn:}
+\providecommand{\faGithub}{GitHub:}
+\providecommand{\faGlobe}{Website:}
+\providecommand{\faMapMarker}{Location:}
+
+\hypersetup{pdftitle={Agam Singh Saini - Resume}, pdfauthor={Agam Singh Saini}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-5pt}\scshape\raggedright\large\bfseries
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+\newcommand{\link}[2]{\emph{\href{#1}{\color{blue}#2}}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%
+\begin{document}
+
+%---------- HEADING ----------
+\begin{center}
+    \textbf{\Huge \scshape Agam Singh Saini}\vspace{0.5pt}
+\end{center}
+
+%----------- CONTACT INFO -----------
+\begin{center}
+    \small
+    \faMapMarker \hspace{1pt} Sydney, NSW 2000 \hspace{5pt} | \hspace{5pt}
+    \href{tel:+610425249904}{+61 0425249904} \hspace{5pt} | \hspace{5pt}
+    \href{mailto:Agamsingh.saini@student.uts.edu.au}{Agamsingh.saini@student.uts.edu.au} \\ \vspace{2pt}
+    \href{https://www.linkedin.com/in/agam-singh-saini-199185220/}{LinkedIn} \hspace{5pt} | \hspace{5pt}
+    \href{https://github.com/DoomBuoy}{GitHub} \hspace{5pt} | \hspace{5pt}
+    \href{https://doombuoy.github.io/Portfolio/}{Portfolio} \\ \vspace{4pt}
+    \textit{\textbf{Visa Status:} Subclass 500 (48 hrs/fortnight) $|$ Full Working Rights (Subclass 485) at time of joining}
+\end{center}
+
+%----------- PROFESSIONAL SUMMARY -----------
+\section{Professional Summary}
+    \small{
+    Data Scientist completing a Master of Data Science and Innovation at UTS (graduating December 2026), with a foundation in Mechatronics Engineering. I build machine-learning systems end to end: a spatio-temporal graph neural network over \textbf{33M+} crime records for my capstone, Spark pipelines over \textbf{$\sim$1 billion} rows, multi-agent LLM tools, and Sydly, a live transit app published on both app stores. I care about honest evaluation, including saying clearly where a model should not be trusted.
+    }
+    \vspace{-5pt}
+
+%----------- EDUCATION -----------
+\section{Education}
+  \vspace{0.5pt}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Master of Data Science and Innovation (GPA 3.5/4)}{Sydney, NSW, Australia}
+      {University of Technology Sydney}{Feb 2025 -- Dec 2026}
+    \resumeSubheading
+      {B.E. in Mechatronics Engineering (CGPA 8.77/10)}{Patiala, Punjab, India}
+      {Thapar Institute of Engineering and Technology}{Mar 2020 -- Jun 2024}
+  \resumeSubHeadingListEnd
+
+%----------- WORK EXPERIENCE -----------
+\section{Work Experience}
+  \vspace{0.5pt}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Support Worker (Part-Time)}{Apr 2025 -- Present}
+      {Informed Care Services}{Sydney, NSW, Australia}
+        \resumeItemListStart
+            \resumeItem{Manage daily care plans for \textbf{5+ clients} with \textbf{100\% documentation accuracy} under NDIS standards while studying full-time.}
+            \resumeItem{Communicate between families and healthcare providers, resolving scheduling conflicts so clients receive uninterrupted care.}
+        \resumeItemListEnd
+
+    \resumeSubheading
+      {Mechatronics Engineering Intern}{Jun 2023 -- Aug 2023}
+      {Spectrum Technology}{Ambala, Haryana, India}
+        \resumeItemListStart
+            \resumeItem{Developed LabVIEW IoT data-acquisition systems to monitor \textbf{50+ industrial sensors} in under a second.}
+            \resumeItem{Built continuous alert mechanisms (\textbf{99.9\% uptime}) and wrote documentation so future teams could onboard easily.}
+        \resumeItemListEnd
+
+    \resumeSubheading
+      {Robotics Engineering R\&D Intern}{Jan 2023 -- Jun 2023}
+      {CVRDE, DRDO}{Chennai, Tamil Nadu, India}
+        \resumeItemListStart
+        \resumeItem{Built autonomous computer-vision pipelines in ROS2 for real-time person detection and obstacle avoidance, improving navigation safety by \textbf{40\%}.}
+        \resumeItem{Tested autonomous behaviours across \textbf{50+ hours} of Gazebo simulation with senior scientists, turning findings into prototype improvements.}
+        \resumeItemListEnd
+  \resumeSubHeadingListEnd
+
+%----------- PROJECTS -----------
+\section{Projects}
+    \vspace{0.5pt}
+    \resumeSubHeadingListStart
+
+\resumeProjectHeading
+    {\textbf{CrimeSense: Crime Risk Forecasting with Graph Neural Networks} $|$ \link{https://crimes-sense.streamlit.app/}{Live App} $|$ \link{https://crime-dashboarded.streamlit.app/}{Dashboard}}{2026}
+    \resumeItemListStart
+        \resumeItem{MDSI capstone (team of 6). Forecast \textbf{Low / Moderate / High} risk for each police agency over the next \textbf{8-hour window} from \textbf{33M+ NIBRS records}.}
+        \resumeItem{Connected \textbf{9,965 agencies} into a spatial graph and trained a \textbf{Spatio-Temporal Graph Neural Network} that learns from neighbours as well as history; set risk thresholds relative to each agency's own baseline so rural and urban agencies are judged fairly.}
+        \resumeItem{Reached \textbf{macro F1 0.472} on $\sim$4.9M held-out observations, beating Gradient Boosting on every class; documented limits (High-risk precision 0.21, reporting bias) and positioned it as decision support, not a replacement.}
+    \resumeItemListEnd
+
+\resumeProjectHeading
+    {\textbf{Sydly (Travel Sydney Seamlessly)} $|$ \link{https://apps.apple.com/au/app/sydly-travel-sydney-seamlessly/id6761148694}{App Store} $|$ \link{https://play.google.com/store/apps/details?id=io.github.Doombuoy.safarnama}{Google Play} $|$ \link{https://doombuoy.github.io/Transport_app_website/}{Website}}{Feb 2026}
+    \resumeItemListStart
+        \resumeItem{Launched a transit app on the \textbf{App Store and Google Play} for NSW commuters, with live tracking and smart trip planning.}
+        \resumeItem{Engineered a backend that consumes live TfNSW GTFS-R feeds, rendering \textbf{10,000+ active vehicles} with \textbf{5-second GPS updates}, plus live car-park capacity, cheap-fuel finder and loading-zone maps.}
+    \resumeItemListEnd
+
+\resumeProjectHeading
+    {\textbf{DebateCheck: Multi-Agent Health-Claim Checker} $|$ \link{https://github.com/DoomBuoy/Debate_check}{GitHub} $|$ \link{https://debatecheck.onrender.com/}{Live Demo}}{2026}
+    \resumeItemListStart
+        \resumeItem{UTS Applied NLP project (team of 5). Built a \textbf{LangGraph} system where PRO and CON LLM agents debate a claim over retrieved \textbf{PubMed} abstracts and a judge model decides, served via \textbf{FastAPI} and \textbf{Streamlit}.}
+        \resumeItem{On evidence-backed claims, improved accuracy to \textbf{47.1\%} (vs 35.3\% NLI baseline) and macro-F1 to \textbf{35.5\%} (vs 23.1\%); all \textbf{181/181} citations valid.}
+    \resumeItemListEnd
+
+\resumeProjectHeading
+    {\textbf{NYC Taxi Big Data Analytics} $|$ \link{https://github.com/DoomBuoy/New_York_Taxi_Databrics}{GitHub}}{Nov 2024}
+    \resumeItemListStart
+        \resumeItem{Engineered a \textbf{Databricks / PySpark} pipeline over \textbf{$\sim$1 billion} taxi records (2014--2024), identifying 70--80 million invalid records.}
+        \resumeItem{Fare model reached \textbf{R$^2$ 0.873}, RMSE \$7.63 vs \$23.05 baseline, with \textbf{91\%} of fares predicted within \$8.}
+    \resumeItemListEnd
+
+\resumeProjectHeading
+    {\textbf{Bitcoin Price Prediction System} $|$ \link{https://github.com/DoomBuoy/Digital_Product_Bitcoin_Price_Prediction}{GitHub} $|$ \link{https://digitalappuctbitcoinpriceprediction-8f9newvrhuqkth7wb25e7l.streamlit.app/}{Live Demo}}{Nov 2025}
+    \resumeItemListStart
+        \resumeItem{Deployed a forecasting app (\textbf{FastAPI}, \textbf{Streamlit}, \textbf{Docker}) on Kraken and CoinGecko data; XGBoost, LightGBM and CatBoost models reached \textbf{R$^2$ 79.6\%} for next-day prediction.}
+    \resumeItemListEnd
+
+\resumeProjectHeading
+    {\textbf{doombuoy Python Package} $|$ \link{https://github.com/DoomBuoyz/doombuoy}{GitHub} $|$ \link{https://test.pypi.org/project/doombuoy/}{TestPyPI}}{Nov 2025}
+    \resumeItemListStart
+        \resumeItem{Open-source package for one-call model comparison and data-quality checks, cutting repetitive code by \textbf{$\sim$50\%} in my own experiments.}
+    \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+%----------- SKILLS -----------
+\section{Technical Skills}
+  \vspace{0.5pt}
+  \resumeSubHeadingListStart
+    \small{\item{
+        \textbf{Languages}{: Python, SQL, C++, C, Dart (Flutter)} \\
+        \textbf{ML \& AI}{: Scikit-Learn, XGBoost, LightGBM, CatBoost, TensorFlow, Graph Neural Networks, LangGraph, LLM APIs (Gemini, Groq)} \\
+        \textbf{Data \& Deployment}{: Pandas, NumPy, PySpark, Databricks, FastAPI, Streamlit, Docker, Git, Azure, Power BI (DAX), ROS2}
+    }}
+  \resumeSubHeadingListEnd
+
+%----------- CERTIFICATIONS -----------
+\section{Certifications}
+  \vspace{0.5pt}
+  \resumeSubHeadingListStart
+    \small{\item{
+        \textbf{UTS BUILD}{: Global Leadership Program} $|$
+        \textbf{DataCamp}{: Data Scientist Professional} $|$
+        \textbf{IBM (Coursera)}{: Data Science} \\ \vspace{1pt}
+        \textbf{NPTEL (IIT/IISc)}{: Data Analytics with Python, Intro to Machine Learning} $|$
+        \link{https://github.com/DoomBuoy/Certificates}{View all certificates}
+    }}
+  \resumeSubHeadingListEnd
+
+%----------- LEADERSHIP -----------
+\section{Leadership \& Activities}
+    \vspace{2pt}
+    \resumeSubHeadingListStart
+    \small{\item{
+        \textbf{Secretary, Chai Collective UTS}: \hfill \textit{2026 -- Present} \\
+        Meeting minutes, records, committee coordination and communications; organised events including Chai Pe Charcha (\textbf{101 tickets}), Movie Night (40) and a Paint N Sip collaboration (13). \\ \vspace{3pt}
+
+        \textbf{UTS Peer Networker}: \hfill \textit{Nov 2025 -- 2026 (Graduated)} \\
+        Welcomed and guided \textbf{1,000+} new students during orientation and helped staff run large campus events. \\ \vspace{3pt}
+
+        \textbf{SOUL Program Volunteer, UTS}: \hfill \textit{Feb 2025 -- 2026 (Graduated)} \\
+        Supported campus social justice, equity and wellbeing events. Around \textbf{100 hours} of volunteering at UTS in total. \\ \vspace{3pt}
+
+        \textbf{Media Ambassador, UTS BUILD}: \hfill \textit{Nov 2025} \\
+        Turned program missions into engaging stories and helped build a cross-cultural tech community on campus. \\ \vspace{3pt}
+
+        \textbf{Technical Lead, Mechatronics \& Robotics Society (Thapar)}: AI and computer-vision workshops for \textbf{200+} students. \\ \vspace{1pt}
+        \textbf{Core Member, Thapar Adventure Club}: logistics and safety for \textbf{20+} expeditions with 50+ participants.
+    }}
+    \resumeSubHeadingListEnd
+
+\end{document}

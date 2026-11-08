@@ -4,7 +4,7 @@ category: Mobile app
 plain: "An app that shows Sydney commuters where their bus, train or ferry is, live on a map."
 tagline: A live transit app for Sydney that tracks 10,000+ vehicles with 5-second GPS updates, published on Google Play and the App Store.
 date: Feb 2026
-order: 1
+order: 2
 metrics:
   - { value: "10,000+", label: "live vehicles on the map" }
   - { value: "5 s", label: "GPS refresh rate" }

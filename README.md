@@ -1,14 +1,37 @@
 # Agam Singh Saini — Data Science Portfolio
 
-Live: **https://doombuoy.github.io/Portfolio/**
+Live: **https://doombuoy.github.io/Portfolio/** · Resume: **https://doombuoy.github.io/Portfolio/Agam_Singh_Saini_Resume.pdf**
 
 A cinematic, data-driven portfolio ("Noise in. Signal out."). Every chart on the site is drawn from real project results — no stock imagery.
 
-- **Stack:** [Astro](https://astro.build) (static) · [Motion](https://motion.dev) for scroll reveals · plain CSS
-- **Colours (60 · 30 · 10):** ink `#121110` · ivory `#FAF7F2` · burgundy `#6B1E2E`
-- **Fonts:** Archivo (display), Space Grotesk (body), JetBrains Mono (data)
+## What's in this repo
 
-## Run it locally
+```
+.github/workflows/deploy-site.yml   builds the resume PDF + the site, publishes to GitHub Pages
+resume/resume.tex                   the resume (LaTeX) — the single source for the PDF
+site/                               the website (Astro)
+  src/content/work/*.md             one file per project: summary, metrics, links, case study
+  src/pages/index.astro             home page sections (about, journey, community, contact…)
+  src/pages/work/[slug].astro       case-study page template
+  src/components/Hero.astro         scroll-driven live model-fit hero
+  src/components/Artifact.astro     per-project charts and diagrams
+  src/styles/global.css             colours, fonts, shared styles
+  src/assets/images/                images (resized + converted to WebP at build)
+  public/                           favicon, link-preview image
+```
+
+## Update the resume
+
+1. Edit `resume/resume.tex`.
+2. Commit and push to `master`.
+
+GitHub Actions compiles it with `pdflatex`, puts the PDF on the site as `Agam_Singh_Saini_Resume.pdf` (the **Resume** buttons link to it) and redeploys, in about 2 minutes. The compiled PDF is also attached to each workflow run under **Actions → the run → Artifacts**.
+
+Keep the file `pdflatex`-compatible: no `fontspec`, and write symbols as LaTeX (`R$^2$`, `$\sim$`) rather than pasting Unicode like `²`.
+
+## Update the website
+
+Add or edit a project in `site/src/content/work/`, or change text in `site/src/pages/index.astro`, then push. To preview locally:
 
 ```bash
 cd site
@@ -16,22 +39,10 @@ npm install      # first time only
 npm run dev      # http://localhost:4321/Portfolio/
 ```
 
-`npm run build` writes the production site to `site/dist`, and `npm run preview` serves that build.
+The resume PDF isn't stored in git. For the Resume button to work locally, compile `resume/resume.tex` and copy the PDF to `site/public/Agam_Singh_Saini_Resume.pdf`.
 
-## Where things live
+## Design
 
-| What | Where |
-|---|---|
-| Projects (one Markdown file each, with metrics and links) | `site/src/content/work/*.md` |
-| Home page sections | `site/src/pages/index.astro` |
-| Case-study pages | `site/src/pages/work/[slug].astro` |
-| Scroll-driven model-fit hero | `site/src/components/Hero.astro` |
-| Per-project charts and diagrams | `site/src/components/Artifact.astro` |
-| Colours, fonts, shared styles | `site/src/styles/global.css` |
-| Images (resized and converted to WebP at build) | `site/src/assets/images/` |
-| Resume PDF | `site/public/Agam_Singh_Saini_Resume.pdf` |
-
-## Deploy
-
-Pushing to `master` runs `.github/workflows/deploy-site.yml`, which builds `site/` and publishes it to GitHub Pages
-(repository **Settings → Pages → Source: GitHub Actions**).
+- **Colours (60 · 30 · 10):** ink `#121110` · ivory `#FAF7F2` · burgundy `#6B1E2E`
+- **Fonts:** Archivo (display), Space Grotesk (body), JetBrains Mono (data)
+- **Stack:** Astro (static) · Motion (scroll reveals) · plain CSS

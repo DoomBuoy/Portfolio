@@ -4,7 +4,7 @@ category: Open source
 plain: "A Python tool that lets data scientists compare many models with a single call."
 tagline: My open-source Python package. One call compares a whole range of models on your data and gives you a baseline in seconds.
 date: Nov 2025
-order: 6
+order: 8
 metrics:
   - { value: "~50%", label: "less repeated code" }
   - { value: "4", label: "task types supported" }
@@ -12,7 +12,7 @@ metrics:
 stack: [Python, Scikit-Learn, Pandas, Packaging]
 links:
   - { label: "Package (TestPyPI)", href: "https://test.pypi.org/project/doombuoy/" }
-  - { label: "Repository", href: "https://github.com/DoomBuoy/doombuoy" }
+  - { label: "Repository", href: "https://github.com/DoomBuoyz/doombuoy" }
 ---
 
 ## The problem

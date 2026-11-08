@@ -1,0 +1,140 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Artifact from '../../components/Artifact.astro';
+import { getCollection, render } from 'astro:content';
+import { url } from '../../lib';
+
+export async function getStaticPaths() {
+  const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+  return work.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: { entry, i, total: work.length, prev: work[(i - 1 + work.length) % work.length], next: work[(i + 1) % work.length] },
+  }));
+}
+
+const { entry, i, total, prev, next } = Astro.props;
+const d = entry.data;
+const { Content } = await render(entry);
+const pad = (n: number) => String(n).padStart(2, '0');
+const [name, subtitle] = d.title.split(' — ');
+---
+<Layout title={`${d.title} · Agam Singh Saini`} description={d.plain}>
+  <section class="dark head">
+    <div class="wrap">
+      <a class="back u mono" href={url('/#work')}>← All work</a>
+      <p class="count mono"><span>{pad(i + 1)}</span> / {pad(total)} · {d.category} · {d.date}</p>
+      <h1 class="display title">{name}</h1>
+      {subtitle && <p class="subtitle mono">{subtitle}</p>}
+      <p class="plain">{d.plain}</p>
+      <div class="links">
+        {d.links.map((l, k) => (
+          <a class:list={['btn', { solid: k === 0 }]} href={l.href} target="_blank" rel="noopener">{l.label} ↗</a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="dark glance" aria-label="Results at a glance">
+    <div class="wrap glance-grid">
+      <div>
+        <span class="pill">At a glance</span>
+        <dl class="kpis">
+          {d.metrics.map((m) => (
+            <div><dt class="mono">{m.value}</dt><dd>{m.label}</dd></div>
+          ))}
+        </dl>
+        <p class="label mono">Built with</p>
+        <p class="stack mono">{d.stack.join(' · ')}</p>
+      </div>
+      <Artifact slug={entry.id} />
+    </div>
+  </section>
+
+  <section class="light story">
+    <div class="wrap story-grid">
+      <div class="side">
+        <span class="pill">Case study</span>
+        <p class="summary">{d.tagline}</p>
+      </div>
+      <article class="body"><Content /></article>
+    </div>
+  </section>
+
+  <nav class="dark pager" aria-label="More projects">
+    <div class="wrap pager-grid">
+      <a href={url(`work/${prev.id}/`)} class="pg">
+        <span class="mono">← Previous</span>
+        <span class="display t">{prev.data.title.split(' — ')[0]}</span>
+      </a>
+      <a href={url(`work/${next.id}/`)} class="pg right">
+        <span class="mono">Next →</span>
+        <span class="display t">{next.data.title.split(' — ')[0]}</span>
+      </a>
+    </div>
+  </nav>
+
+  <script>
+    import { inView } from 'motion';
+    inView('[data-anim]', (el) => { el.classList.add('in'); }, { amount: 0.3 });
+  </script>
+</Layout>
+
+<style>
+  .head { padding: 140px 0 clamp(48px, 6vw, 88px); }
+  .back { display: inline-block; font-size: .8125rem; color: var(--on-ink-2); margin-bottom: 40px; }
+  .count { margin: 0 0 16px; font-size: .8125rem; color: var(--on-ink-3); }
+  .count span { color: var(--ivory); }
+  .title { font-size: clamp(3.5rem, 11vw, 10rem); }
+  .subtitle { margin: 14px 0 0; font-size: .9375rem; color: var(--on-ink-2); }
+  .plain { margin: 28px 0 32px; max-width: 40ch; font-size: clamp(1.25rem, 2vw, 1.625rem); line-height: 1.4; }
+  .links { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  .glance { padding: 0 0 clamp(72px, 9vw, 128px); }
+  .glance-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(32px, 5vw, 72px); align-items: start; padding-top: clamp(40px, 5vw, 64px); border-top: 1px solid var(--line-dark); }
+  .kpis { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; margin: 20px 0 28px; border: 1px solid var(--line-dark); border-radius: 12px; overflow: hidden; background: var(--line-dark); }
+  .kpis div { background: var(--ink); padding: 18px; }
+  .kpis div:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .kpis dt { font-size: clamp(1.5rem, 2.6vw, 2.25rem); line-height: 1.1; }
+  .kpis dd { margin: 6px 0 0; font-size: .8125rem; color: var(--on-ink-3); }
+  .label { margin: 0 0 6px; font-size: .75rem; color: var(--on-ink-3); }
+  .stack { margin: 0; font-size: .875rem; line-height: 1.7; color: var(--on-ink-2); }
+
+  .story { padding: clamp(80px, 10vw, 144px) 0; }
+  .story-grid { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr); gap: clamp(32px, 6vw, 96px); }
+  .side { position: sticky; top: 104px; align-self: start; }
+  .summary { margin: 22px 0 0; font-size: 1.125rem; line-height: 1.55; color: var(--on-ivory-2); max-width: 40ch; }
+  .body { max-width: 68ch; }
+  .body :global(h2) { margin: 48px 0 12px; font-family: var(--display); font-stretch: 75%; font-weight: 800; text-transform: uppercase; font-size: clamp(1.75rem, 3vw, 2.5rem); line-height: 1; }
+  .body :global(h2:first-child) { margin-top: 0; }
+  .body :global(p), .body :global(li) { font-size: 1.0625rem; line-height: 1.7; }
+  .body :global(p) { margin: 0 0 16px; color: var(--on-ivory-1); }
+  .body :global(ul), .body :global(ol) { margin: 0 0 16px; padding-left: 1.2em; color: var(--on-ivory-1); }
+  .body :global(li) { margin-bottom: 8px; }
+  .body :global(li::marker) { color: var(--burgundy); }
+  .body :global(strong) { color: var(--ink); font-weight: 600; }
+  .body :global(em) { font-style: normal; color: var(--burgundy); font-weight: 500; }
+  .body :global(code) { font-family: var(--mono); font-size: .875em; background: var(--sand); padding: 2px 6px; border-radius: 4px; }
+  .body :global(pre) { background: var(--ink) !important; color: var(--ivory) !important; border-radius: 12px; padding: 18px 20px; overflow-x: auto; margin: 0 0 18px; }
+  .body :global(pre code) { background: none; padding: 0; color: inherit; }
+  .body :global(pre span) { color: inherit !important; }
+
+  .pager { padding: 0; }
+  .pager-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .pg { display: flex; flex-direction: column; gap: 10px; padding: clamp(40px, 6vw, 80px) 0; transition: opacity .2s; }
+  .pg + .pg { border-left: 1px solid var(--line-dark); padding-left: clamp(20px, 4vw, 56px); }
+  .pg .mono { font-size: .8125rem; color: var(--on-ink-3); }
+  .pg .t { font-size: clamp(2rem, 5vw, 4.5rem); }
+  .pg:hover .t { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: .12em; }
+  .pg.right { text-align: right; }
+
+  @media (max-width: 900px) {
+    .glance-grid, .story-grid { grid-template-columns: minmax(0, 1fr); }
+    .side { position: static; }
+  }
+  @media (max-width: 600px) {
+    .kpis { grid-template-columns: minmax(0, 1fr); }
+    .pager-grid { grid-template-columns: minmax(0, 1fr); }
+    .pg + .pg { border-left: 0; border-top: 1px solid var(--line-dark); padding-left: 0; }
+    .pg.right { text-align: left; }
+  }
+</style>

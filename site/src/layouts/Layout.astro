@@ -1,0 +1,58 @@
+---
+import '../styles/global.css';
+import { url, links } from '../lib';
+
+interface Props { title: string; description: string; home?: boolean }
+const { title, description, home = false } = Astro.props;
+const h = (id: string) => (home ? `#${id}` : url(`/#${id}`));
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#121110" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={url('og-photo.jpg')} />
+    <link rel="icon" href={url('favicon.svg')} type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="nav" data-nav>
+      <a class="brand" href={url('/')}><span class="dot" aria-hidden="true"></span>Agam Singh Saini</a>
+      <nav aria-label="Main">
+        <a class="u hide-sm" href={h('work')}>Work</a>
+        <a class="u hide-sm" href={h('about')}>About</a>
+        <a class="u hide-sm" href={h('journey')}>Journey</a>
+        <a class="u" href={h('contact')}>Contact</a>
+        <a class="cv" href={url(links.resume)} target="_blank" rel="noopener">Resume ↗</a>
+      </nav>
+    </header>
+    <main id="main"><slot /></main>
+
+    <style>
+      .nav {
+        position: fixed; top: 16px; left: 16px; right: 16px; z-index: var(--z-nav);
+        display: flex; align-items: center; justify-content: space-between; gap: 16px;
+        height: 60px; padding: 0 8px 0 20px; border-radius: 14px;
+        background: rgba(18, 17, 16, .78); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+        border: 1px solid var(--line-dark); color: var(--ivory);
+        font-family: var(--mono); font-size: .8125rem;
+      }
+      .brand { display: flex; align-items: center; gap: 10px; font-weight: 500; letter-spacing: .02em; text-transform: uppercase; }
+      .dot { width: 8px; height: 8px; border-radius: 50%; background: #3ddc84; box-shadow: 0 0 0 4px rgba(61, 220, 132, .16); }
+      nav { display: flex; align-items: center; gap: 14px; }
+      nav a.u { display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px; }
+      .cv { display: inline-flex; align-items: center; height: 44px; padding: 0 16px; border-radius: 10px; background: var(--burgundy); color: var(--ivory); transition: background-color .2s; }
+      .cv:hover { background: var(--burgundy-hi); }
+      @media (max-width: 760px) { nav a.hide-sm { display: none; } .brand { font-size: .75rem; } }
+    </style>
+  </body>
+</html>

@@ -1,0 +1,307 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import Artifact from '../components/Artifact.astro';
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import { img } from '../img';
+import { url, links } from '../lib';
+
+const work = (await getCollection('work')).sort((a, b) => a.data.order - b.data.order);
+const pad = (n: number) => String(n).padStart(2, '0');
+
+const ticker = ['~1B rows processed', 'R² 0.873', '10,000+ live vehicles', 'AUROC 0.9825', 'R² 79.6%', '2 app stores', '50+ weather features', 'RMSE $7.63'];
+
+const skills = [
+  ['Languages', ['Python', 'SQL', 'C++', 'C', 'Dart']],
+  ['Machine learning', ['Scikit-Learn', 'XGBoost', 'LightGBM', 'CatBoost', 'TensorFlow']],
+  ['Data & big data', ['Pandas', 'NumPy', 'PySpark', 'Databricks', 'Power BI']],
+  ['Building & shipping', ['FastAPI', 'Streamlit', 'Docker', 'Flutter', 'Azure', 'Git']],
+] as const;
+
+const journey = [
+  { when: '2026', logo: 'images/safarnama.png', title: 'Launched Sydly', org: 'Personal project · Google Play & App Store', text: 'Published a live transit app for Sydney that tracks 10,000+ buses, trains and ferries, plus parking and fuel tools for drivers.' },
+  { when: '2025', logo: 'images/iwcs.jpeg', title: 'Support Worker (part-time)', org: 'Informed Care Services · Sydney · Apr 2025 – now', text: 'Manage daily care plans for 5+ clients with 100% documentation accuracy under NDIS standards, alongside full-time study.' },
+  { when: '2025', logo: 'images/UTS.jpg', title: 'M.S. Data Science & Innovation', org: 'University of Technology Sydney · GPA 3.5 / 4 · Feb 2025 – now', text: 'Moved to Sydney to focus fully on data science, machine learning and building data products.' },
+  { when: '2023', logo: 'images/spectrum.png', title: 'Mechatronics Engineering Intern', org: 'Spectrum Technology · India · Jun – Aug 2023', text: 'Built systems to monitor 50+ industrial sensors in under a second, with alerts running at 99.9% uptime.' },
+  { when: '2023', logo: 'images/drdo.jpg', title: 'Robotics R&D Intern', org: 'CVRDE, DRDO · Chennai, India · Jan – Jun 2023', text: 'Built computer-vision systems that helped an autonomous vehicle detect people and avoid obstacles, improving navigation safety by 40%.' },
+  { when: '2020', logo: 'images/TIET.jpg', title: 'B.E. Mechatronics Engineering', org: 'Thapar Institute of Engineering & Technology · CGPA 8.77 / 10 · 2020 – 2024', text: 'Where it started: robots, sensors and code. Technical Lead of the Mechatronics & Robotics Society.' },
+];
+
+const community = [
+  ['UTS Peer Networker', 'Welcomed and guided 1,000+ new students during orientation.', 'Nov 2025 – now'],
+  ['Media Ambassador, UTS BUILD', 'Turned program missions into engaging stories for students.', 'Nov 2025'],
+  ['SOUL Program Volunteer', 'Supported community, equity and wellbeing events on campus.', 'Feb 2025 – now'],
+  ['Technical Lead, Robotics Society', 'Ran AI and computer-vision workshops for 200+ students.', 'Thapar'],
+];
+
+const certs = [
+  ['Global Leadership Program', 'UTS BUILD', 'Nov 2025'],
+  ['Data Scientist Professional', 'DataCamp', 'Jun 2025'],
+  ['Data Science (Coursera)', 'IBM', 'May 2023'],
+  ['Data Analytics with Python', 'NPTEL', 'Jul 2023'],
+  ['Introduction to Machine Learning', 'NPTEL', 'Jul 2023'],
+  ['Applied Plotting', 'U-Michigan', 'Jul 2023'],
+];
+---
+<Layout
+  title="Agam Singh Saini — Data Scientist · Noise in. Signal out."
+  description="Data Scientist in Sydney. Spark pipelines over ~1B rows, gradient-boosted models, forecasting products and Sydly, a live transit app on both app stores."
+  home
+>
+  <Hero />
+
+  <!-- Metric band: the 10% accent -->
+  <section class="band" aria-label="Key results">
+    <div class="track mono">
+      {[0, 1].map((k) => (
+        <div class="run" aria-hidden={k === 1 ? 'true' : undefined}>
+          {ticker.map((t) => <span>{t}<i aria-hidden="true">✦</i></span>)}
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="light about" id="about">
+    <div class="wrap about-grid">
+      <div>
+        <span class="pill rv">01 <b>/</b> About</span>
+        <h2 class="display big rv">Robots first.<br />Data now.</h2>
+      </div>
+      <div class="about-copy rv">
+        <p class="statement">I studied Mechatronics Engineering in India, working on robots, sensors and computer vision. That showed me most hard problems are data problems underneath, so in 2025 I moved to Sydney to focus on data science full-time.</p>
+        <p>Today I build machine-learning models <em>and</em> the apps around them, so the results end up in front of real people.</p>
+        <ul class="facts mono">
+          <li><span>Study</span>M.S. Data Science &amp; Innovation · UTS · GPA 3.5</li>
+          <li><span>Degree</span>B.E. Mechatronics · Thapar · CGPA 8.77</li>
+          <li><span>Based</span>Sydney, Australia</li>
+        </ul>
+      </div>
+      <figure class="portrait rv">
+        <Image src={img('images/portrait.jpg')} alt="Portrait of Agam Singh Saini" widths={[320, 640, 960]} sizes="(max-width: 900px) 70vw, 340px" quality={88} />
+        <figcaption class="mono">Agam Singh Saini · Sydney</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- WORK — numbered slides -->
+  <section class="dark work" id="work">
+    <div class="wrap work-head">
+      <span class="pill rv">02 <b>/</b> Selected work</span>
+      <h2 class="display big rv">Models that<br />left the notebook.</h2>
+    </div>
+    {work.map((w, i) => {
+      const d = w.data;
+      return (
+        <article class="slide" id={`p-${w.id}`}>
+          <div class="wrap slide-grid">
+            <div class="slide-text rv">
+              <p class="count mono"><span>{pad(i + 1)}</span> / {pad(work.length)} · {d.category} · {d.date}</p>
+              <h3 class="display title">{d.title.split(' — ')[0]}</h3>
+              <p class="plain">{d.plain}</p>
+              <dl class="kpis">
+                {d.metrics.slice(0, 3).map((m) => (
+                  <div><dt class="mono">{m.value}</dt><dd>{m.label}</dd></div>
+                ))}
+              </dl>
+              <p class="stack mono">{d.stack.join(' · ')}</p>
+              <div class="links">
+                <a class="btn solid" href={url(`work/${w.id}/`)}>Case study →</a>
+                {d.links.map((l) => <a class="btn" href={l.href} target="_blank" rel="noopener">{l.label} ↗</a>)}
+              </div>
+            </div>
+            <div class="slide-art"><Artifact slug={w.id} /></div>
+          </div>
+        </article>
+      );
+    })}
+  </section>
+
+  <!-- STACK -->
+  <section class="light skills" id="stack">
+    <div class="wrap">
+      <span class="pill rv">03 <b>/</b> Toolbox</span>
+      <h2 class="sr-only">Toolbox</h2>
+      <ul class="skill-list">
+        {skills.map(([g, s]) => (
+          <li class="rv">
+            <span class="mono g">{g}</span>
+            <span class="display s">{s.join(' · ')}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- JOURNEY -->
+  <section class="light journey" id="journey">
+    <div class="wrap">
+      <span class="pill rv">04 <b>/</b> Journey</span>
+      <h2 class="display big rv">Engineer → data scientist.</h2>
+      <ol class="jlist">
+        {journey.map((j) => (
+          <li class="rv">
+            <span class="display year">{j.when}</span>
+            <span class="logo"><Image src={img(j.logo)} alt="" width={96} /></span>
+            <div>
+              <h3>{j.title}</h3>
+              <p class="org mono">{j.org}</p>
+              <p class="txt">{j.text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- COMMUNITY & CERTS -->
+  <section class="light extra">
+    <div class="wrap extra-grid">
+      <div>
+        <span class="pill rv">05 <b>/</b> Community</span>
+        <h2 class="sr-only">Community</h2>
+        <ul class="rows">
+          {community.map(([t, d, w]) => (
+            <li class="rv"><div><h3>{t}</h3><p>{d}</p></div><span class="mono">{w}</span></li>
+          ))}
+        </ul>
+        <p class="note">Also an active member of 12 UTS clubs and societies, including Enactus, Beta Alpha Psi and the Hiking Club.</p>
+      </div>
+      <div>
+        <span class="pill rv">06 <b>/</b> Certifications</span>
+        <h2 class="sr-only">Certifications</h2>
+        <ul class="rows">
+          {certs.map(([n, o, w]) => (
+            <li class="rv"><div><h3>{n}</h3><p class="mono">{o}</p></div><span class="mono">{w}</span></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="dark contact" id="contact">
+    <div class="wrap">
+      <span class="pill rv">07 <b>/</b> Contact</span>
+      <h2 class="display huge rv">Let’s talk<br />data.</h2>
+      <p class="contact-lede rv">Open to Data Scientist and ML Engineer roles. If you have a data problem worth solving, I’d love to hear about it.</p>
+      <a class="mail rv" href={links.email}>{links.emailText}</a>
+      <div class="contact-links rv">
+        <a class="btn solid" href={links.email}>Email me</a>
+        <a class="btn" href={links.linkedin} target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a class="btn" href={links.github} target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="btn" href={url(links.resume)} target="_blank" rel="noopener">Resume ↗</a>
+      </div>
+      <footer class="foot mono">
+        <span>© 2026 Agam Singh Saini</span>
+        <span>Built with Astro + Motion · charts drawn from real project results</span>
+      </footer>
+    </div>
+  </section>
+
+  <script>
+    import { inView } from 'motion';
+    // Reveal on scroll (1–2 key animations per view, ease-out, transform/opacity only)
+    inView('.rv', (el) => { el.classList.add('in'); }, { margin: '0px 0px -12% 0px' });
+    inView('[data-anim]', (el) => { el.classList.add('in'); }, { amount: 0.35 });
+  </script>
+</Layout>
+
+<style>
+  /* metric band */
+  .band { background: var(--burgundy); color: var(--ivory); overflow: hidden; border-block: 1px solid rgba(250,247,242,.1); }
+  .track { display: flex; width: max-content; animation: marquee 38s linear infinite; }
+  .run { display: flex; flex: none; }
+  .run span { display: inline-flex; align-items: center; gap: 28px; padding: 22px 0 22px 28px; font-size: clamp(1rem, 1.6vw, 1.375rem); white-space: nowrap; }
+  .run i { font-style: normal; opacity: .55; }
+  .band:hover .track { animation-play-state: paused; }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .track { animation: none; flex-wrap: wrap; width: auto; } .run + .run { display: none; } .run { flex-wrap: wrap; } }
+
+  .big { font-size: clamp(3.25rem, 9vw, 8.5rem); margin-top: 24px; }
+  .huge { font-size: clamp(4rem, 15vw, 15rem); margin-top: 24px; }
+
+  /* about */
+  .about { padding: clamp(96px, 12vw, 180px) 0; }
+  .about-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) 300px; gap: clamp(28px, 4vw, 64px); align-items: end; }
+  .about-copy p { margin: 0 0 16px; max-width: 54ch; color: var(--on-ivory-2); }
+  .about-copy .statement { font-size: 1.25rem; line-height: 1.5; color: var(--ink); }
+  .about-copy em { font-style: normal; color: var(--burgundy); font-weight: 600; }
+  .facts { list-style: none; margin: 24px 0 0; padding: 0; border-top: 1px solid var(--line-light); font-size: .8125rem; }
+  .facts li { display: grid; grid-template-columns: 80px 1fr; padding: 10px 0; border-bottom: 1px solid var(--line-light); }
+  .facts span { color: var(--on-ivory-2); }
+  .portrait { margin: 0; width: 100%; }
+  .portrait :global(img) { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 16px; }
+  .portrait figcaption { margin-top: 10px; font-size: .75rem; color: var(--on-ivory-2); }
+
+  /* work slides */
+  .work { padding: clamp(96px, 12vw, 180px) 0 40px; }
+  .work-head { margin-bottom: clamp(48px, 7vw, 96px); }
+  .slide { border-top: 1px solid var(--line-dark); padding: clamp(56px, 8vw, 120px) 0; }
+  .slide-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(32px, 5vw, 80px); align-items: center; }
+  .count { margin: 0 0 18px; font-size: .8125rem; color: var(--on-ink-3); }
+  .count span { color: var(--ivory); }
+  .title { font-size: clamp(3rem, 7vw, 6.5rem); }
+  .plain { margin: 22px 0 28px; max-width: 46ch; font-size: 1.1875rem; line-height: 1.5; color: var(--on-ink-2); }
+  .kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; margin: 0 0 22px; border: 1px solid var(--line-dark); border-radius: 12px; overflow: hidden; background: var(--line-dark); }
+  .kpis div { background: var(--ink); padding: 14px 16px; }
+  .kpis dt { font-size: clamp(1.25rem, 2vw, 1.75rem); color: var(--ivory); line-height: 1.1; }
+  .kpis dd { margin: 6px 0 0; font-size: .75rem; line-height: 1.35; color: var(--on-ink-3); }
+  .stack { margin: 0 0 26px; font-size: .75rem; color: var(--on-ink-3); line-height: 1.7; }
+  .links { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  /* skills */
+  .skills { padding: clamp(96px, 12vw, 180px) 0 clamp(48px, 6vw, 96px); }
+  .skill-list { list-style: none; margin: 32px 0 0; padding: 0; border-top: 1px solid var(--line-light); }
+  .skill-list li { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 24px; align-items: baseline; padding: 22px 0; border-bottom: 1px solid var(--line-light); transition: color .2s; }
+  .skill-list .g { font-size: .8125rem; color: var(--on-ivory-2); }
+  .skill-list .s { font-size: clamp(1.75rem, 4vw, 3.5rem); line-height: 1; }
+  .skill-list li:hover .s { color: var(--burgundy); }
+
+  /* journey */
+  .journey { padding: clamp(48px, 6vw, 96px) 0; }
+  .jlist { list-style: none; margin: clamp(40px, 5vw, 72px) 0 0; padding: 0; border-top: 1px solid var(--line-light); }
+  .jlist li { display: grid; grid-template-columns: 180px 48px minmax(0, 1fr); gap: 24px; align-items: start; padding: 28px 0; border-bottom: 1px solid var(--line-light); }
+  .year { font-size: clamp(2.5rem, 5vw, 4.5rem); color: var(--burgundy); }
+  .logo { width: 48px; height: 48px; border-radius: 12px; overflow: hidden; background: #fff; border: 1px solid var(--line-light); }
+  .logo :global(img) { width: 100%; height: 100%; object-fit: contain; }
+  .jlist h3 { margin: 0; font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; }
+  .jlist .org { margin: 4px 0 10px; font-size: .75rem; color: var(--on-ivory-2); }
+  .jlist .txt { margin: 0; max-width: 64ch; color: var(--on-ivory-2); }
+
+  /* community + certs */
+  .extra { padding: clamp(48px, 6vw, 96px) 0 clamp(96px, 12vw, 160px); }
+  .extra-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 80px); }
+  .rows { list-style: none; margin: 28px 0 0; padding: 0; border-top: 1px solid var(--line-light); }
+  .rows li { display: flex; justify-content: space-between; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line-light); }
+  .rows h3 { margin: 0 0 4px; font-size: 1.0625rem; font-weight: 600; }
+  .rows p { margin: 0; font-size: .9375rem; color: var(--on-ivory-2); }
+  .rows p.mono { font-size: .75rem; }
+  .rows > li > .mono { font-size: .75rem; color: var(--on-ivory-2); white-space: nowrap; padding-top: 4px; }
+  .note { margin: 18px 0 0; font-size: .9375rem; color: var(--on-ivory-2); }
+
+  /* contact */
+  .contact { padding: clamp(96px, 12vw, 180px) 0 32px; }
+  .contact-lede { margin: 32px 0 20px; max-width: 48ch; font-size: 1.25rem; color: var(--on-ink-2); }
+  .mail { display: inline-block; font-family: var(--display); font-stretch: 75%; font-weight: 700; font-size: clamp(1.5rem, 4.4vw, 3.75rem); line-height: 1.1; border-bottom: 2px solid var(--ivory); word-break: break-all; transition: opacity .2s; }
+  .mail:hover { opacity: .75; }
+  .contact-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 36px; }
+  .foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: clamp(96px, 12vw, 160px); padding-top: 20px; border-top: 1px solid var(--line-dark); font-size: .75rem; color: var(--on-ink-3); }
+
+  @media (max-width: 1000px) {
+    .about-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .portrait { grid-column: 2; grid-row: 1; max-width: 300px; justify-self: end; }
+    .slide-grid { grid-template-columns: minmax(0, 1fr); }
+    .extra-grid { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 700px) {
+    .about-grid { grid-template-columns: minmax(0, 1fr); }
+    .portrait { grid-column: auto; grid-row: auto; justify-self: start; max-width: 240px; }
+    .kpis { grid-template-columns: minmax(0, 1fr); }
+    .skill-list li { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+    .jlist li { grid-template-columns: 48px minmax(0, 1fr); gap: 6px 16px; }
+    .jlist .year { grid-column: 1 / -1; font-size: 2.25rem; }
+    .rows li { flex-direction: column; gap: 4px; }
+  }
+</style>

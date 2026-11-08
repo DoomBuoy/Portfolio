@@ -1,0 +1,228 @@
+---
+// A visual built from each project's real numbers (from the project notes) — no stock imagery.
+import { Image } from 'astro:assets';
+import { img } from '../img';
+
+interface Props { slug: string }
+const { slug } = Astro.props;
+
+const rmse = [
+  { m: 'Linear Regression', v: 47.82 },
+  { m: 'Dummy baseline', v: 23.05 },
+  { m: 'XGBoost', v: 7.64 },
+  { m: 'CatBoost', v: 7.63, best: true },
+];
+const maxR = Math.max(...rmse.map((r) => r.v));
+
+const nba = [
+  { e: 'Exp 1', m: 'Logistic Regression', auc: 0.9769 },
+  { e: 'Exp 2', m: 'LDA features', auc: 0.9766 },
+  { e: 'Exp 3', m: 'Tuned XGBoost', auc: 0.9512, recall: 0.8421 },
+  { e: 'Exp 4', m: 'Soft-voting ensemble', auc: 0.9825, recall: 0.9474, best: true },
+];
+const lo = 0.94, hi = 1.0;
+const pos = (v: number) => ((v - lo) / (hi - lo)) * 100;
+
+const termHtml = `<span class="l" style="--d:0ms"><span class="c">$</span> pip install --extra-index https://test.pypi.org/simple/ doombuoy</span>
+<span class="l" style="--d:250ms"><span class="k">from</span> doombuoy <span class="k">import</span> binary_classification_model_comparison_summary, plot_model_performance</span>
+<span class="l" style="--d:500ms"> </span>
+<span class="l" style="--d:650ms">summary = binary_classification_model_comparison_summary(df, target_col=<span class="s">"target"</span>)</span>
+<span class="l" style="--d:900ms">plot_model_performance(summary, metric=<span class="s">"AUC"</span>)</span>
+<span class="l" style="--d:1150ms"><span class="c"># one call → a performance summary across models</span></span>`;
+---
+<figure class="art" data-anim>
+  {slug === 'sydly' && (
+    <div class="sydly">
+      <div class="app">
+        <Image src={img('images/safarnama.png')} alt="Sydly app icon" width={128} />
+        <div><p class="t">Sydly</p><p class="s mono">Google Play · App Store</p></div>
+      </div>
+      <ol class="flow mono">
+        <li><span>TfNSW GTFS-R feed</span><em>real-time</em></li>
+        <li><span>Protobuf decode</span><em>binary → records</em></li>
+        <li class="hl"><span>10,000+ live vehicles</span><em>bus · train · ferry</em></li>
+        <li><span>Map refresh</span><em>every 5 s</em></li>
+      </ol>
+      <p class="extras mono">+ live car-park capacity · cheap-fuel finder · loading zones</p>
+    </div>
+  )}
+
+  {slug === 'nyc-taxi' && (
+    <div class="chart">
+      <p class="cap mono">Test RMSE in $ · lower is better</p>
+      <ul class="bars" aria-label="Test RMSE by model, lower is better">
+        {rmse.map((r, i) => (
+          <li class:list={[{ best: r.best }]} style={`--w:${(r.v / maxR) * 100}%; --d:${i * 120}ms`}>
+            <span class="lbl">{r.m}</span>
+            <span class="track"><span class="bar"></span></span>
+            <span class="val mono">{r.v.toFixed(2)}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="foot mono">Fares within $8 → XGBoost 91.28% · CatBoost 90.56% · R² 0.87</p>
+    </div>
+  )}
+
+  {slug === 'bitcoin' && (
+    <ol class="stack-flow mono">
+      <li><b>Data</b><span>Kraken OHLC · CoinGecko market cap · 2015–2025</span></li>
+      <li><b>Features</b><span>circulating supply · velocity · EMAs</span></li>
+      <li class="hl"><b>Models</b><span>XGBoost · LightGBM · CatBoost · W&amp;B tracking · LIME</span></li>
+      <li><b>Serve</b><span>FastAPI · health checks · fallback · Docker</span></li>
+      <li><b>App</b><span>Streamlit dashboard · live prices · 7d–1y charts</span></li>
+    </ol>
+  )}
+
+  {slug === 'weather' && (
+    <div class="twin">
+      <div class="task">
+        <p class="k mono">Task A · classification</p>
+        <p class="q">Will it rain in exactly 7 days?</p>
+        <p class="chips mono"><span>CatBoost</span><span>XGBoost</span><span>LightGBM</span><span>GradBoost</span><span>GaussianNB</span></p>
+        <p class="note mono">ensemble · tuned for recall</p>
+      </div>
+      <div class="task">
+        <p class="k mono">Task B · regression</p>
+        <p class="q">How many mm over the next 3 days?</p>
+        <p class="note mono">ensemble regressor</p>
+      </div>
+      <p class="foot mono">50+ features · Open-Meteo · time-based CV · FastAPI on Render · Streamlit</p>
+    </div>
+  )}
+
+  {slug === 'nba-next-pick' && (
+    <div class="dots">
+      <p class="cap mono">Test AUROC per experiment · axis starts at 0.94</p>
+      <ul aria-label="Test AUROC by experiment">
+        {nba.map((r, i) => (
+          <li class:list={[{ best: r.best }]} style={`--x:${pos(r.auc)}%; --d:${i * 140}ms`}>
+            <span class="lbl"><b>{r.e}</b> {r.m}</span>
+            <span class="rail"><span class="pt"></span></span>
+            <span class="val mono">{r.auc.toFixed(4)}{r.recall && <em> · recall {r.recall.toFixed(2)}</em>}</span>
+          </li>
+        ))}
+      </ul>
+      <div class="axis mono" aria-hidden="true"><span></span><span class="ticks"><i>0.94</i><i>0.97</i><i>1.00</i></span><span></span></div>
+      <p class="foot mono">Ensemble reduced overfitting: best test AUROC and recall</p>
+    </div>
+  )}
+
+  {slug === 'doombuoy' && (
+    <div class="term">
+      <div class="bar3" aria-hidden="true"><i></i><i></i><i></i><span class="mono">python</span></div>
+      <pre class="mono"><code set:html={termHtml}></code></pre>
+    </div>
+  )}
+</figure>
+
+<style>
+  .art { margin: 0; padding: clamp(18px, 2.4vw, 32px); border-radius: 20px; background: var(--ink-2); border: 1px solid var(--line-dark); min-height: 340px; display: flex; flex-direction: column; justify-content: center; }
+  .cap, .foot { margin: 0; font-size: .75rem; color: var(--on-ink-3); }
+  .cap { margin-bottom: 18px; }
+  .foot { margin-top: 18px; }
+  .hl, .best { --hl: 1; }
+
+  /* sydly */
+  .app { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
+  .app :global(img) { width: 56px; height: 56px; border-radius: 14px; object-fit: cover; }
+  .app .t { margin: 0; font-size: 1.125rem; font-weight: 600; }
+  .app .s { margin: 0; font-size: .75rem; color: var(--on-ink-3); }
+  .flow { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; font-size: .8125rem; position: relative; }
+  .flow li { position: relative; display: flex; justify-content: space-between; gap: 12px; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line-dark); background: rgba(250,247,242,.03); }
+  .flow li:not(:last-child)::after { content: ''; position: absolute; left: 22px; top: 100%; width: 1px; height: 10px; background: var(--line-dark); }
+  .flow em { font-style: normal; color: var(--on-ink-3); }
+  .flow .hl { background: var(--burgundy); border-color: var(--burgundy); }
+  .flow .hl em { color: var(--on-ink-2); }
+  .extras { margin: 16px 0 0; font-size: .75rem; color: var(--on-ink-3); }
+  :global(.js) .flow li { opacity: 0; transform: translateX(-12px); }
+  :global(.js) .in .flow li { opacity: 1; transform: none; transition: opacity .6s var(--ease-out), transform .6s var(--ease-out); }
+  :global(.js) .in .flow li:nth-child(2) { transition-delay: .12s; } :global(.js) .in .flow li:nth-child(3) { transition-delay: .24s; } :global(.js) .in .flow li:nth-child(4) { transition-delay: .36s; }
+
+  /* bar chart */
+  .bars { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .bars li { display: grid; grid-template-columns: 140px minmax(0, 1fr) 64px; gap: 12px; align-items: center; font-size: .875rem; }
+  .bars .lbl { color: var(--on-ink-2); }
+  .bars .best .lbl { color: var(--ivory); font-weight: 600; }
+  .track { height: 14px; border-radius: 0 4px 4px 0; background: rgba(250,247,242,.05); overflow: hidden; }
+  .bar { display: block; height: 100%; width: var(--w); border-radius: 0 4px 4px 0; background: #7a7774; transition: background-color .2s; }
+  .best .bar { background: var(--ivory); }
+  .bars li:hover .bar { background: #b9b5b0; } .bars li.best:hover .bar { background: var(--ivory); }
+  .bars .val { text-align: right; font-size: .8125rem; }
+  .bars .best .val, .dots .best .val { background: var(--burgundy); border-radius: 6px; padding: 2px 6px; }
+  :global(.js) .bar { transform: scaleX(0); transform-origin: left; }
+  :global(.js) .in .bar { transform: none; transition: transform .8s var(--ease-out) var(--d); }
+
+  /* bitcoin */
+  .stack-flow { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: .8125rem; counter-reset: s; }
+  .stack-flow li { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 12px; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--line-dark); }
+  .stack-flow b { font-weight: 500; color: var(--ivory); }
+  .stack-flow span { color: var(--on-ink-2); }
+  .stack-flow .hl { background: var(--burgundy); border-color: var(--burgundy); }
+  .stack-flow .hl span { color: var(--ivory); }
+  :global(.js) .stack-flow li { opacity: 0; transform: translateY(10px); }
+  :global(.js) .in .stack-flow li { opacity: 1; transform: none; transition: opacity .6s var(--ease-out), transform .6s var(--ease-out); }
+  :global(.js) .in .stack-flow li:nth-child(2) { transition-delay: .1s; } :global(.js) .in .stack-flow li:nth-child(3) { transition-delay: .2s; } :global(.js) .in .stack-flow li:nth-child(4) { transition-delay: .3s; } :global(.js) .in .stack-flow li:nth-child(5) { transition-delay: .4s; }
+
+  /* weather */
+  .twin { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .task { padding: 18px; border-radius: 12px; border: 1px solid var(--line-dark); }
+  .task:first-child { background: var(--burgundy); border-color: var(--burgundy); }
+  .task .k { margin: 0 0 10px; font-size: .75rem; color: var(--on-ink-2); }
+  .task .q { margin: 0 0 14px; font-family: var(--display); font-stretch: 75%; font-weight: 700; font-size: 1.5rem; line-height: 1.05; text-transform: uppercase; }
+  .chips { margin: 0 0 10px; display: flex; flex-wrap: wrap; gap: 6px; font-size: .6875rem; }
+  .chips span { padding: 4px 8px; border-radius: 6px; background: rgba(250,247,242,.12); }
+  .task .note { margin: 0; font-size: .75rem; color: var(--on-ink-2); }
+  .twin .foot { grid-column: 1 / -1; }
+
+  /* nba dot plot — reshapes by its own width (container query), not the window */
+  .dots, .chart { container-type: inline-size; }
+  .dots ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+  .dots li { display: grid; grid-template-columns: 170px minmax(0, 1fr) 190px; gap: 12px; align-items: center; font-size: .8125rem; }
+  .dots .lbl { color: var(--on-ink-2); }
+  .dots .lbl b { color: var(--ivory); font-weight: 500; margin-right: 4px; }
+  .rail { position: relative; height: 2px; background: rgba(250,247,242,.12); }
+  .pt { position: absolute; top: 50%; left: var(--x); width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: #7a7774; box-shadow: 0 0 0 2px var(--ink-2); }
+  .best .pt { width: 16px; height: 16px; margin: -8px 0 0 -8px; background: var(--ivory); box-shadow: 0 0 0 2px var(--ink-2); }
+  .dots .val { font-size: .75rem; text-align: right; white-space: nowrap; }
+  .dots .val em { font-style: normal; color: var(--on-ink-3); }
+  .axis { display: grid; grid-template-columns: 170px minmax(0, 1fr) 190px; gap: 12px; margin-top: 8px; font-size: .6875rem; color: var(--on-ink-3); }
+  .ticks { display: flex; justify-content: space-between; border-top: 1px solid rgba(250,247,242,.12); padding-top: 6px; }
+  .ticks i { font-style: normal; }
+  :global(.js) .pt { opacity: 0; transform: translateX(-28px); }
+  :global(.js) .in .pt { opacity: 1; transform: none; transition: transform .7s var(--ease-out) var(--d), opacity .3s var(--d); }
+
+  @container (max-width: 560px) {
+    .dots li { grid-template-columns: minmax(0, 1fr) auto; row-gap: 8px; }
+    .dots li .rail { grid-column: 1 / -1; grid-row: 2; }
+    .axis { grid-template-columns: minmax(0, 1fr); }
+    .axis > span:not(.ticks) { display: none; }
+    .bars li { grid-template-columns: minmax(0, 1fr) 64px; row-gap: 6px; }
+    .bars .track { grid-column: 1 / -1; grid-row: 2; }
+  }
+
+  /* terminal */
+  .term { border-radius: 12px; overflow: hidden; border: 1px solid var(--line-dark); background: #0c0b0a; }
+  .bar3 { display: flex; align-items: center; gap: 6px; padding: 10px 14px; border-bottom: 1px solid var(--line-dark); }
+  .bar3 i { width: 10px; height: 10px; border-radius: 50%; background: rgba(250,247,242,.18); }
+  .bar3 span { margin-left: 8px; font-size: .6875rem; color: var(--on-ink-3); }
+  .term pre { margin: 0; padding: 18px; font-size: .8125rem; line-height: 1.7; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .term :global(.l) { display: block; }
+  .term :global(.k) { color: #e9a3b1; } .term :global(.s) { color: #d9c7a7; } .term :global(.c) { color: var(--on-ink-3); }
+  :global(.js) .term :global(.l) { opacity: 0; transform: translateY(4px); }
+  :global(.js) .in .term :global(.l) { opacity: 1; transform: none; transition: opacity .35s var(--ease-out) var(--d), transform .35s var(--ease-out) var(--d); }
+
+  @media (max-width: 640px) {
+    .bars li { grid-template-columns: minmax(0, 1fr) 56px; }
+    .bars .track { grid-column: 1 / -1; grid-row: 2; }
+    .dots li { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+    .axis { grid-template-columns: minmax(0, 1fr); } .axis > span:not(.ticks) { display: none; }
+    .dots .val { text-align: left; }
+    .twin { grid-template-columns: 1fr; }
+    .stack-flow li { grid-template-columns: 1fr; gap: 2px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :global(.js) .flow li, :global(.js) .stack-flow li, :global(.js) .term :global(.l) { opacity: 1; transform: none; }
+    :global(.js) .bar { transform: none; }
+    :global(.js) .pt { opacity: 1; transform: none; }
+  }
+</style>

@@ -1,0 +1,177 @@
+---
+import { url, links } from '../lib';
+---
+<section class="hero dark" data-hero aria-label="Introduction">
+  <div class="stick">
+    <canvas class="plot" data-plot aria-hidden="true"></canvas>
+
+    <div class="top wrap">
+      <span class="pill">Data Scientist <b>/</b> Sydney, AU</span>
+      <dl class="hud mono" aria-label="Live model fit on synthetic data">
+        <div><dt>model</dt><dd>poly(5) · least squares</dd></div>
+        <div><dt>epoch</dt><dd data-epoch>000 / 200</dd></div>
+        <div><dt>mse</dt><dd data-mse>—</dd></div>
+        <div><dt>r²</dt><dd data-r2>—</dd></div>
+        <p class="note">live fit · synthetic data</p>
+      </dl>
+    </div>
+
+    <div class="bottom wrap">
+      <h1 class="display name">
+        <span class="line">Agam Singh</span>
+        <span class="line">Saini<span class="sub">noise in. signal out.</span></span>
+      </h1>
+      <div class="meta">
+        <p class="lede">I build machine-learning systems that ship: Spark pipelines over ~1B rows, gradient-boosted models, and a live transit app on both app stores.</p>
+        <div class="ctas">
+          <a class="btn solid" href="#work">See the work ↓</a>
+          <a class="btn" href={url(links.resume)} target="_blank" rel="noopener">Resume ↗</a>
+        </div>
+        <p class="hint mono" aria-hidden="true">scroll to fit the model ↓</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero { position: relative; height: 210vh; }
+  .stick { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; padding: 96px 0 clamp(24px, 4vh, 48px); }
+  .plot { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+  .top { position: relative; display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; }
+  .hud {
+    margin: 0; min-width: 236px; padding: 14px 16px; border-radius: 12px; font-size: .75rem; line-height: 1.5;
+    background: rgba(28, 26, 24, .8); border: 1px solid var(--line-dark); backdrop-filter: blur(8px);
+  }
+  .hud div { display: flex; justify-content: space-between; gap: 16px; }
+  .hud dt { color: var(--on-ink-3); }
+  .hud dd { margin: 0; color: var(--ivory); font-variant-numeric: tabular-nums; }
+  .hud .note { margin: 8px 0 0; padding-top: 8px; border-top: 1px solid var(--line-dark); color: var(--on-ink-3); }
+
+  .bottom { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 400px); align-items: end; gap: 32px; }
+  .name { font-size: clamp(4.5rem, 15.5vw, 15.5rem); }
+  .line { display: block; }
+  .sub {
+    display: inline-block; margin-left: .25em; vertical-align: top; transform: translateY(.35em);
+    font-family: var(--mono); font-stretch: 100%; font-size: clamp(.75rem, 1.1vw, 1rem); font-weight: 400;
+    letter-spacing: 0; text-transform: none; color: var(--on-ink-2);
+  }
+  .lede { margin: 0 0 22px; font-size: 1.0625rem; line-height: 1.55; color: var(--on-ink-2); }
+  .ctas { display: flex; flex-wrap: wrap; gap: 10px; }
+  .hint { margin: 18px 0 0; font-size: .75rem; color: var(--on-ink-3); }
+
+  @media (max-width: 900px) {
+    .hero { height: 170vh; }
+    .bottom { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+    .hud { min-width: 0; }
+    .hud .note { display: none; }
+  }
+  @media (max-width: 560px) {
+    .top { flex-direction: column; }
+    .hud { align-self: stretch; }
+    .sub { display: block; margin: 12px 0 0; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero { height: auto; }
+    .stick { position: relative; height: auto; min-height: 100svh; }
+    .hint { display: none; }
+  }
+</style>
+
+<script>
+
+  const section = document.querySelector<HTMLElement>('[data-hero]')!;
+  const canvas = section.querySelector<HTMLCanvasElement>('[data-plot]')!;
+  const ctx = canvas.getContext('2d')!;
+  const $epoch = section.querySelector('[data-epoch]')!;
+  const $mse = section.querySelector('[data-mse]')!;
+  const $r2 = section.querySelector('[data-r2]')!;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---- synthetic data: y = f(x) + gaussian noise (seeded, so it is the same every visit)
+  let seed = 42;
+  const rand = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const gauss = () => Math.sqrt(-2 * Math.log(rand() + 1e-9)) * Math.cos(2 * Math.PI * rand());
+  const f = (x: number) => 0.52 + 0.2 * Math.sin(2 * Math.PI * (1.15 * x) + 0.4) + 0.12 * (x - 0.5);
+  const N = 160;
+  const xs = Array.from({ length: N }, () => rand()).sort((a, b) => a - b);
+  const ys = xs.map((x) => f(x) + gauss() * 0.075);
+  const mean = ys.reduce((a, b) => a + b, 0) / N;
+  const ssTot = ys.reduce((a, y) => a + (y - mean) ** 2, 0);
+
+  // ---- real least-squares fit of a degree-5 polynomial (normal equations, Gaussian elimination)
+  const D = 5;
+  const A = Array.from({ length: D + 1 }, () => Array(D + 2).fill(0));
+  for (let i = 0; i < N; i++) {
+    const p = Array.from({ length: D + 1 }, (_, k) => xs[i] ** k);
+    for (let r = 0; r <= D; r++) { for (let c = 0; c <= D; c++) A[r][c] += p[r] * p[c]; A[r][D + 1] += p[r] * ys[i]; }
+  }
+  for (let c = 0; c <= D; c++) {
+    let piv = c; for (let r = c + 1; r <= D; r++) if (Math.abs(A[r][c]) > Math.abs(A[piv][c])) piv = r;
+    [A[c], A[piv]] = [A[piv], A[c]];
+    for (let r = 0; r <= D; r++) if (r !== c) { const k = A[r][c] / A[c][c]; for (let j = c; j <= D + 1; j++) A[r][j] -= k * A[c][j]; }
+  }
+  const coef = A.map((row, i) => row[D + 1] / row[i]);
+  const fit = (x: number) => coef.reduce((s, c, k) => s + c * x ** k, 0);
+
+  // model at training progress t ∈ [0,1]: starts as the mean (R² = 0), ends at the least-squares fit
+  const model = (x: number, t: number) => mean + t * (fit(x) - mean);
+
+  let W = 0, H = 0, dpr = 1, t = 0;
+  const pad = () => (W < 700 ? { l: W * 0.05, r: W * 0.05, top: H * 0.3, b: H * 0.3 } : { l: W * 0.06, r: W * 0.06, top: H * 0.2, b: H * 0.24 });
+  const px = (x: number) => { const p = pad(); return p.l + x * (W - p.l - p.r); };
+  const py = (y: number) => { const p = pad(); return p.top + (1 - (y - 0.1) / 0.85) * (H - p.top - p.b); };
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    const e = 1 - (1 - t) ** 3; // ease-out: fast early learning, slow convergence
+    // axis grid
+    ctx.strokeStyle = 'rgba(250,247,242,0.05)'; ctx.lineWidth = 1;
+    for (let i = 0; i <= 10; i++) { const x = px(i / 10); ctx.beginPath(); ctx.moveTo(x, py(0.95)); ctx.lineTo(x, py(0.1)); ctx.stroke(); }
+    // residuals + points
+    let ssRes = 0;
+    for (let i = 0; i < N; i++) {
+      const m = model(xs[i], e), r = ys[i] - m; ssRes += r * r;
+      const x = px(xs[i]), y = py(ys[i]), ym = py(m);
+      ctx.strokeStyle = `rgba(250,247,242,${0.16 * (1 - e) + 0.03})`;
+      ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x, ym); ctx.stroke();
+      const near = Math.abs(r) < 0.06;
+      ctx.fillStyle = near ? `rgba(250,247,242,${0.45 + 0.5 * e})` : 'rgba(250,247,242,0.28)';
+      ctx.beginPath(); ctx.arc(x, y, near ? 2.6 : 2.1, 0, Math.PI * 2); ctx.fill();
+    }
+    // model curve
+    ctx.strokeStyle = 'rgba(250,247,242,0.95)'; ctx.lineWidth = 2.5; ctx.lineJoin = 'round';
+    ctx.beginPath();
+    for (let i = 0; i <= 200; i++) { const x = i / 200, X = px(x), Y = py(model(x, e)); i ? ctx.lineTo(X, Y) : ctx.moveTo(X, Y); }
+    ctx.stroke();
+    // live metrics — computed from the drawn model
+    $epoch.textContent = `${String(Math.round(t * 200)).padStart(3, '0')} / 200`;
+    $mse.textContent = (ssRes / N).toFixed(4);
+    $r2.textContent = (1 - ssRes / ssTot).toFixed(3);
+  }
+
+  function resize() {
+    const r = canvas.getBoundingClientRect();
+    dpr = Math.min(devicePixelRatio || 1, 2); W = r.width; H = r.height;
+    canvas.width = W * dpr; canvas.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    draw();
+  }
+  new ResizeObserver(resize).observe(canvas);
+
+  if (reduce) { t = 1; draw(); }
+  else {
+    // progress through the sticky hero: 0 at the top, 1 when the section is about to scroll away
+    let queued = false;
+    const update = () => {
+      queued = false;
+      const r = section.getBoundingClientRect();
+      const span = Math.max(1, r.height - innerHeight);
+      const p = Math.min(1, Math.max(0, -r.top / span));
+      t = Math.min(1, p / 0.8);
+      draw();
+    };
+    addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(update); } }, { passive: true });
+    addEventListener('resize', update);
+    update();
+  }
+</script>
